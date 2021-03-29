@@ -21,4 +21,5 @@ from Home.views import home
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$', home.index, name='home'),
+    re_path(r'^upload/$', home.Upload.as_view),
 ]

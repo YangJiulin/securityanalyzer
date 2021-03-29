@@ -1,7 +1,5 @@
-/static/*
 /output/*
 /data/apk/*.apk
 /.vscode
 __pycache__
 .DS_Store
-/media/*

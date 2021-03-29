@@ -14,7 +14,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.template.defaulttags import register
 
-# # from mobsf.MobSF.forms import FormUtil, UploadFileForm
+from Home.forms import UploadFileForm,FormUtil
+from Home.views.helpers import FileType
+from Home.views.scanning import Scanning
 # # from mobsf.MobSF.utils import (
 # #     api_key,
 # #     is_dir_exists,
@@ -22,7 +24,6 @@ from django.template.defaulttags import register
 # #     print_n_send_error_response,
 # # )
 # # from mobsf.MobSF.views.helpers import FileType
-# # from mobsf.MobSF.views.scanning import Scanning
 # # from mobsf.StaticAnalyzer.models import (
 # #     RecentScansDB,
 # #     StaticAnalyzerAndroid,
@@ -53,93 +54,65 @@ def index(request):
     return render(request, template, context)
 
 
-# class Upload(object):
-#     """Handle File Upload based on App type."""
+class Upload(object):
+    """Handle File Upload based on App type."""
 
-#     def __init__(self, request):
-#         self.request = request
-#         self.form = UploadFileForm(request.POST, request.FILES)
-#         self.file_type = None
-#         self.file = None
+    def __init__(self, request):
+        self.request = request
+        self.form = UploadFileForm(request.POST, request.FILES)
+        self.file_type = None
+        self.file = None
 
-#     @staticmethod
-#     def as_view(request):
-#         upload = Upload(request)
-#         return upload.upload_html()
+    @staticmethod
+    def as_view(request):
+        upload = Upload(request)
+        return upload.upload_html()
 
-#     def resp_json(self, data):
-#         resp = HttpResponse(json.dumps(data),
-#                             content_type='application/json; charset=utf-8')
-#         resp['Access-Control-Allow-Origin'] = '*'
-#         return resp
+    def resp_json(self, data):
+        resp = HttpResponse(json.dumps(data),
+                            content_type='application/json; charset=utf-8')
+        resp['Access-Control-Allow-Origin'] = '*'
+        return resp
 
-#     def upload_html(self):
-#         request = self.request
-#         response_data = {
-#             'description': '',
-#             'status': 'error',
-#         }
-#         if request.method != 'POST':
-#             msg = 'Method not Supported!'
-#             logger.error(msg)
-#             response_data['description'] = msg
-#             return self.resp_json(response_data)
+    def upload_html(self):
+        request = self.request
+        response_data = {
+            'description': '',
+            'status': 'error',
+        }
+        if request.method != 'POST':
+            msg = 'Method not Supported!'
+            logger.error(msg)
+            response_data['description'] = msg
+            return self.resp_json(response_data)
 
-#         if not self.form.is_valid():
-#             msg = 'Invalid Form Data!'
-#             logger.error(msg)
-#             response_data['description'] = msg
-#             return self.resp_json(response_data)
+        if not self.form.is_valid():
+            msg = 'Invalid Form Data!'
+            logger.error(msg)
+            response_data['description'] = msg
+            return self.resp_json(response_data)
 
-#         self.file = request.FILES['file']
-#         self.file_type = FileType(self.file)
-#         if not self.file_type.is_allow_file():
-#             msg = 'File format not Supported!'
-#             logger.error(msg)
-#             response_data['description'] = msg
-#             return self.resp_json(response_data)
+        self.file = request.FILES['file']
+        self.file_type = FileType(self.file)
+        if not self.file_type.is_allow_file():
+            msg = 'File format not Supported!'
+            logger.error(msg)
+            response_data['description'] = msg
+            return self.resp_json(response_data)
 
-#         if self.file_type.is_ipa():
-#             if platform.system() not in LINUX_PLATFORM:
-#                 msg = 'Static Analysis of iOS IPA requires Mac or Linux'
-#                 logger.error(msg)
-#                 response_data['description'] = msg
-#                 return self.resp_json(response_data)
+        response_data = self.upload()
+        return self.resp_json(response_data)
 
-#         response_data = self.upload()
-#         return self.resp_json(response_data)
-
-#     def upload_api(self):
-#         """API File Upload."""
-#         api_response = {}
-#         request = self.request
-#         if not self.form.is_valid():
-#             api_response['error'] = FormUtil.errors_message(self.form)
-#             return api_response, HTTP_BAD_REQUEST
-#         self.file = request.FILES['file']
-#         self.file_type = FileType(self.file)
-#         if not self.file_type.is_allow_file():
-#             api_response['error'] = 'File format not Supported!'
-#             return api_response, HTTP_BAD_REQUEST
-#         api_response = self.upload()
-#         return api_response, 200
-
-#     def upload(self):
-#         request = self.request
-#         scanning = Scanning(request)
-#         content_type = self.file.content_type
-#         file_name = self.file.name
-#         logger.info('MIME Type: %s FILE: %s', content_type, file_name)
-#         if self.file_type.is_apk():
-#             return scanning.scan_apk()
-#         elif self.file_type.is_xapk():
-#             return scanning.scan_xapk()
-#         elif self.file_type.is_zip():
-#             return scanning.scan_zip()
-#         elif self.file_type.is_ipa():
-#             return scanning.scan_ipa()
-#         elif self.file_type.is_appx():
-#             return scanning.scan_appx()
+    def upload(self):
+        request = self.request
+        scanning = Scanning(request)
+        content_type = self.file.content_type
+        file_name = self.file.name
+        logger.info('MIME Type: %s FILE: %s', content_type, file_name)
+        if self.file_type.is_apk():
+            return scanning.scan_apk()
+        elif self.file_type.is_zip():
+            return scanning.scan_zip()
 
 
 # def api_docs(request):
@@ -163,34 +136,31 @@ def index(request):
 #     return render(request, template, context)
 
 
-# def error(request):
-#     """Error Route."""
-#     context = {
-#         'title': 'Error',
-#         'version': settings.MOBSF_VER,
-#     }
-#     template = 'general/error.html'
-#     return render(request, template, context)
+def error(request):
+    """Error Route."""
+    context = {
+        'title': 'Error',
+    }
+    template = 'general/error.html'
+    return render(request, template, context)
 
 
-# def zip_format(request):
-#     """Zip Format Message Route."""
-#     context = {
-#         'title': 'Zipped Source Instruction',
-#         'version': settings.MOBSF_VER,
-#     }
-#     template = 'general/zip.html'
-#     return render(request, template, context)
+def zip_format(request):
+    """Zip Format Message Route."""
+    context = {
+        'title': 'Zipped Source Instruction',
+    }
+    template = 'general/zip.html'
+    return render(request, template, context)
 
 
-# def not_found(request):
-#     """Not Found Route."""
-#     context = {
-#         'title': 'Not Found',
-#         'version': settings.MOBSF_VER,
-#     }
-#     template = 'general/not_found.html'
-#     return render(request, template, context)
+def not_found(request):
+    """Not Found Route."""
+    context = {
+        'title': 'Not Found',
+    }
+    template = 'general/not_found.html'
+    return render(request, template, context)
 
 
 # def recent_scans(request):
