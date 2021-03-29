@@ -28,6 +28,21 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+# =============ALLOWED MIMETYPES=================
+
+APK_MIME = [
+    'application/octet-stream',
+    'application/vnd.android.package-archive',
+    'application/x-zip-compressed',
+    'binary/octet-stream',
+]
+
+ZIP_MIME = [
+    'application/zip',
+    'application/octet-stream',
+    'application/x-zip-compressed',
+    'binary/octet-stream',
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,10 +52,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
+    'DynamicAnalyzer.apps.DynamicanalyzerConfig',
+    'StaticAnalyzer.apps.StaticanalyzerConfig',
+    'Report.apps.ReportConfig',
+    'Home.apps.HomeConfig'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -54,7 +75,9 @@ ROOT_URLCONF = 'securityanalyzer.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -103,9 +126,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -117,4 +140,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+MEDIA_ROOT = BASE_DIR/'media'
+MEDIA_URL = '/media/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 STATIC_URL = '/static/'
+# STATIC_ROOT = BASE_DIR/'static'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
