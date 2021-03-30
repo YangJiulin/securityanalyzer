@@ -6,28 +6,28 @@ import os
 from django.conf import settings
 from django.utils import timezone
 
-# from mobsf.StaticAnalyzer.models import RecentScansDB
+from StaticAnalyzer.models import StaticAnalyzerAndroid
 
 logger = logging.getLogger(__name__)
 
 
-# def add_to_recent_scan(data):
-#     """Add Entry to Database under Recent Scan."""
-#     try:
-#         db_obj = RecentScansDB.objects.filter(MD5=data['hash'])
-#         if not db_obj.exists():
-#             new_db_obj = RecentScansDB(
-#                 ANALYZER=data['analyzer'],
-#                 SCAN_TYPE=data['scan_type'],
-#                 FILE_NAME=data['file_name'],
-#                 APP_NAME='',
-#                 PACKAGE_NAME='',
-#                 VERSION_NAME='',
-#                 MD5=data['hash'],
-#                 TIMESTAMP=timezone.now())
-#             new_db_obj.save()
-#     except Exception:
-#         logger.exception('Adding Scan URL to Database')
+def add_to_recent_scan(data):
+    """将数据添加至最近扫描表."""
+    try:
+        db_obj = StaticAnalyzerAndroid.objects.filter(MD5=data['hash'])
+        if not db_obj.exists():
+            new_db_obj = StaticAnalyzerAndroid(
+                ANALYZER=data['analyzer'],
+                SCAN_TYPE=data['scan_type'],
+                FILE_NAME=data['file_name'],
+                APP_NAME='',
+                PACKAGE_NAME='',
+                VERSION_NAME='',
+                MD5=data['hash'],
+                TIMESTAMP=timezone.now())
+            new_db_obj.save()
+    except Exception:
+        logger.exception('Adding Scan URL to Database')
 
 
 def handle_uploaded_file(filecnt, typ):
@@ -61,8 +61,8 @@ class Scanning(object):
             'scan_type': 'apk',
             'file_name': self.file_name,
         }
-        # add_to_recent_scan(data)
-        logger.info('Performing Static Analysis of Android APK')
+        add_to_recent_scan(data)
+        logger.info('执行Android APK的静态分析')
         return data
 
     def scan_zip(self):
@@ -75,6 +75,6 @@ class Scanning(object):
             'scan_type': 'zip',
             'file_name': self.file_name,
         }
-        # add_to_recent_scan(data)
-        logger.info('Performing Static Analysis of Android/iOS Source Code')
+        add_to_recent_scan(data)
+        logger.info('执行Android 源代码的静态分析')
         return data

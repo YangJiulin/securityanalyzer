@@ -1,5 +1,5 @@
-# # -*- coding: utf_8 -*-
-# """MobSF File Upload and Home Routes."""
+#  -*- coding: utf_8 -*-
+# """Upload and Home Routes."""
 import json
 import logging
 import os
@@ -38,16 +38,15 @@ logger = logging.getLogger(__name__)
 
 @register.filter
 def key(d, key_name):
-    """To get dict element by key name in template."""
+    """在模板中通过key获取字典元素"""
     return d.get(key_name)
 
 
 def index(request):
-    """Index Route."""
+    """主页"""
     mimes = (settings.APK_MIME
              + settings.ZIP_MIME)
     context = {
-        'version': 1.0,
         'mimes': mimes,
     }
     template = 'general/home.html'
@@ -55,7 +54,7 @@ def index(request):
 
 
 class Upload(object):
-    """Handle File Upload based on App type."""
+    """根据上传文件的不同类型处理文件"""
 
     def __init__(self, request):
         self.request = request
