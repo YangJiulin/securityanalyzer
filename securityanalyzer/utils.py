@@ -139,13 +139,13 @@ def find_java_binary():
         jbin = 'java.exe'
     else:
         jbin = 'java'
-    if is_dir_exists(settings.JAVA_DIRECTORY):
-        if settings.JAVA_DIRECTORY.endswith('/'):
-            return settings.JAVA_DIRECTORY + jbin
-        elif settings.JAVA_DIRECTORY.endswith('\\'):
-            return settings.JAVA_DIRECTORY + jbin
-        else:
-            return settings.JAVA_DIRECTORY + '/' + jbin
+    # if is_dir_exists(settings.JAVA_DIRECTORY):
+    #     if settings.JAVA_DIRECTORY.endswith('/'):
+    #         return settings.JAVA_DIRECTORY + jbin
+    #     elif settings.JAVA_DIRECTORY.endswith('\\'):
+    #         return settings.JAVA_DIRECTORY + jbin
+    #     else:
+    #         return settings.JAVA_DIRECTORY + '/' + jbin
     if os.getenv('JAVA_HOME'):
         java = os.path.join(
             os.getenv('JAVA_HOME'),

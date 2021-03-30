@@ -1,10 +1,10 @@
 from datetime import datetime
 
 from django.db import models
-from Report.models import AndroidStaticReport
 # Create your models here.
 
-class StaticAnalyzerAndroid(models.Model):
+class RecentScansDB(models.Model):
+    ANALYZER = models.CharField(max_length=50, default='')
     SCAN_TYPE = models.CharField(max_length=10, default='')
     FILE_NAME = models.CharField(max_length=260, default='')
     APP_NAME = models.CharField(max_length=260, default='')
@@ -12,14 +12,59 @@ class StaticAnalyzerAndroid(models.Model):
     VERSION_NAME = models.CharField(max_length=50, default='')
     MD5 = models.CharField(max_length=32, default='')
     TIMESTAMP = models.DateTimeField(default=datetime.now)
-    DYNAMIC_REPORT = models.TextField(default={})
-    FLOW_REPORT = models.TextField(default=[])
-    STATIC_REPORT = models.OneToOneField(AndroidStaticReport,on_delete=models.PROTECT)
 
-class JavaSourceAnalyzer(models.Model):
-    ANALYZER = models.CharField(max_length=50, default='')
-    SCAN_TYPE = models.CharField(max_length=10, default='')
+
+class StaticAnalyzerAndroid(models.Model):
     FILE_NAME = models.CharField(max_length=260, default='')
+    APP_NAME = models.CharField(max_length=255, default='')
+    APP_TYPE = models.CharField(max_length=20, default='')
+    SIZE = models.CharField(max_length=50, default='')
     MD5 = models.CharField(max_length=32, default='')
-    ANALYSIS_RESULT = models.TextField(default=[])
-    TIMESTAMP = models.DateTimeField(default=datetime.now)
+    SHA1 = models.CharField(max_length=40, default='')
+    SHA256 = models.CharField(max_length=64, default='')
+    PACKAGE_NAME = models.TextField(default='')
+    MAIN_ACTIVITY = models.TextField(default='')
+    EXPORTED_ACTIVITIES = models.TextField(default='')
+    BROWSABLE_ACTIVITIES = models.TextField(default={})
+    ACTIVITIES = models.TextField(default=[])
+    RECEIVERS = models.TextField(default=[])
+    PROVIDERS = models.TextField(default=[])
+    SERVICES = models.TextField(default=[])
+    LIBRARIES = models.TextField(default=[])
+    TARGET_SDK = models.CharField(max_length=50, default='')
+    MAX_SDK = models.CharField(max_length=50, default='')
+    MIN_SDK = models.CharField(max_length=50, default='')
+    VERSION_NAME = models.CharField(max_length=100, default='')
+    VERSION_CODE = models.CharField(max_length=50, default='')
+    ICON_HIDDEN = models.BooleanField(default=False)
+    ICON_FOUND = models.BooleanField(default=False)
+    PERMISSIONS = models.TextField(default={})
+    CERTIFICATE_ANALYSIS = models.TextField(default={})
+    MANIFEST_ANALYSIS = models.TextField(default=[])
+    BINARY_ANALYSIS = models.TextField(default=[])
+    FILE_ANALYSIS = models.TextField(default=[])
+    ANDROID_API = models.TextField(default={})
+    CODE_ANALYSIS = models.TextField(default={})
+    NIAP_ANALYSIS = models.TextField(default={})
+    URLS = models.TextField(default=[])
+    DOMAINS = models.TextField(default={})
+    EMAILS = models.TextField(default=[])
+    STRINGS = models.TextField(default=[])
+    FIREBASE_URLS = models.TextField(default=[])
+    FILES = models.TextField(default=[])
+    EXPORTED_COUNT = models.TextField(default={})
+    APKID = models.TextField(default={})
+    TRACKERS = models.TextField(default={})
+    PLAYSTORE_DETAILS = models.TextField(default={})
+    NETWORK_SECURITY = models.TextField(default=[])
+    SECRETS = models.TextField(default=[])
+    FLOW_REPORT = models.TextField(default=[])
+    DYNAMIC_REPORT = models.TextField(default={})
+
+    class JavaResource(models.Model):
+        ANALYZER = models.CharField(max_length=50, default='')
+        SCAN_TYPE = models.CharField(max_length=10, default='')
+        FILE_NAME = models.CharField(max_length=260, default='')
+        MD5 = models.CharField(max_length=32, default='')
+        TIMESTAMP = models.DateTimeField(default=datetime.now)
+        ANALYSIS_RESULT = models.TextField(default=[])

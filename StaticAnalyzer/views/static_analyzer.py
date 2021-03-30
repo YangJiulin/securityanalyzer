@@ -51,11 +51,11 @@ def static_analyzer(request):
                 _apk = apk.APK(app_info['app_path'])
                 # Check if in DB
                 # pylint: disable=E1101
-                db_entry = StaticAnalyzerAndroid.objects.filter(
-                    MD5=app_info['md5']).update(PACKAGE_NAME = _apk.get_package(),
-                    VERSION_NAME = _apk.get_androidversion_name(),
-                    APP_NAME = _apk.get_app_name()
-                    )
+                # db_entry = StaticAnalyzerAndroid.objects.filter(
+                #     MD5=app_info['md5']).update(PACKAGE_NAME = _apk.get_package(),
+                #     VERSION_NAME = _apk.get_androidversion_name(),
+                #     APP_NAME = _apk.get_app_name()
+                #     )
     template = 'static_analysis/android_binary_analysis.html'
-    # return render(request, template, context)
+    # return render(request, template, context={})
     return HttpResponse(json.dumps('success'))

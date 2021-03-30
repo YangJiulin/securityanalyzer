@@ -6,7 +6,9 @@ import os
 from django.conf import settings
 from django.utils import timezone
 
-from StaticAnalyzer.models import StaticAnalyzerAndroid
+from StaticAnalyzer.models import StaticAnalyzerAndroid,RecentScansDB
+from .converter import apk_2_java,unzip_apk_apktool
+from androguard.core.bytecodes import apk    
 
 logger = logging.getLogger(__name__)
 
@@ -14,15 +16,15 @@ logger = logging.getLogger(__name__)
 def add_to_recent_scan(data):
     """将数据添加至最近扫描表."""
     try:
-        db_obj = StaticAnalyzerAndroid.objects.filter(MD5=data['hash'])
+        db_obj = RecentScansDB.objects.filter(MD5=data['hash'])
         if not db_obj.exists():
-            new_db_obj = StaticAnalyzerAndroid(
+            new_db_obj = RecentScansDB(
                 ANALYZER=data['analyzer'],
                 SCAN_TYPE=data['scan_type'],
                 FILE_NAME=data['file_name'],
-                APP_NAME='',
-                PACKAGE_NAME='',
-                VERSION_NAME='',
+                APP_NAME=data['app_name'],
+                PACKAGE_NAME=data['packge_name'],
+                VERSION_NAME=data['version_name'],
                 MD5=data['hash'],
                 TIMESTAMP=timezone.now())
             new_db_obj.save()
@@ -54,12 +56,21 @@ class Scanning(object):
     def scan_apk(self):
         """Android APK."""
         md5 = handle_uploaded_file(self.file, '.apk')
+        app_dir = settings.MEDIA_ROOT / 'upload' / md5
+        app_path = app_dir / (md5+'.apk')
+        tools_dir = settings.BASE_DIR / 'StaticAnalyzer' / 'tools'
+        unzip_apk_apktool(app_path=app_path.as_posix(),app_dir=app_dir.as_posix(),tools_dir=tools_dir.as_posix())
+        apk_2_java(app_path=app_path.as_posix(),app_dir=app_dir.as_posix(),tools_dir=tools_dir.as_posix())
+        _apk = apk.APK(app_path.as_posix())
         data = {
             'analyzer': 'static_analyzer',
             'status': 'success',
             'hash': md5,
             'scan_type': 'apk',
             'file_name': self.file_name,
+            'app_name':_apk.get_app_name(),
+            'packge_name':_apk.get_package(),
+            'version_name':_apk.get_androidversion_name()
         }
         add_to_recent_scan(data)
         logger.info('执行Android APK的静态分析')
