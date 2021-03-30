@@ -1,5 +1,6 @@
 /output/*
 /data/apk/*.apk
+/media/upload/*
 /.vscode
 __pycache__
 .DS_Store
