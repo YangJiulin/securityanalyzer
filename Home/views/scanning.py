@@ -58,9 +58,9 @@ class Scanning(object):
         md5 = handle_uploaded_file(self.file, '.apk')
         app_dir = settings.MEDIA_ROOT / 'upload' / md5
         app_path = app_dir / (md5+'.apk')
-        tools_dir = settings.BASE_DIR / 'StaticAnalyzer' / 'tools'
-        unzip_apk_apktool(app_path=app_path.as_posix(),app_dir=app_dir.as_posix(),tools_dir=tools_dir.as_posix())
-        apk_2_java(app_path=app_path.as_posix(),app_dir=app_dir.as_posix(),tools_dir=tools_dir.as_posix())
+        # tools_dir = settings.BASE_DIR / 'StaticAnalyzer' / 'tools'
+        # unzip_apk_apktool(app_path=app_path.as_posix(),app_dir=app_dir.as_posix(),tools_dir=tools_dir.as_posix())
+        # apk_2_java(app_path=app_path.as_posix(),app_dir=app_dir.as_posix(),tools_dir=tools_dir.as_posix())
         _apk = apk.APK(app_path.as_posix())
         data = {
             'analyzer': 'static_analyzer',

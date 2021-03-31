@@ -148,3 +148,74 @@ STATICFILES_DIRS = [
 STATIC_URL = '/static/'
 # STATIC_ROOT = BASE_DIR/'static'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+# Better logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '[%(levelname)s] %(asctime)-15s - %(message)s',
+            'datefmt': '%d/%b/%Y %H:%M:%S',
+        },
+        'color': {
+            '()': 'colorlog.ColoredFormatter',
+            'format':
+                '%(log_color)s[%(levelname)s] %(asctime)-15s --%(pathname)s-->%(message)s',
+            'datefmt': '%d/%b/%Y %H:%M:%S',
+            'log_colors': {
+                'DEBUG': 'cyan',
+                'INFO': 'green',
+                'WARNING': 'yellow',
+                'ERROR': 'red',
+                'CRITICAL': 'red,bg_white',
+            },
+        },
+    },
+    'handlers': {
+        'logfile': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR/'logs'/'debug.log',
+            'formatter': 'standard',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'color',
+        },
+    },
+    'loggers': {
+        # 'django': {
+        #     'handlers': ['console', 'logfile'],
+        #     'level': 'DEBUG',
+        #     'propagate': True,
+        # },
+        # 'django.db.backends': {
+        #     'handlers': ['console', 'logfile'],
+        #     # DEBUG will log all queries, so change it to WARNING.
+        #     'level': 'INFO',
+        #     'propagate': False,   # Don't propagate to other handlers
+        # },
+        'staticanalyzer': {
+            'handlers': ['console', 'logfile'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'StaticAnalyzer': {
+            'handlers': ['console', 'logfile'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'DynamicAnalyzer': {
+            'handlers': ['console', 'logfile'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'Home': {
+            'handlers': ['console', 'logfile'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}

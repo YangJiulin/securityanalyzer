@@ -51,15 +51,10 @@ def get_info_from_db_entry(db_entry: QuerySet) -> dict:
             'niap_analysis': python_dict(db_entry[0].NIAP_ANALYSIS),
             'urls': python_list(db_entry[0].URLS),
             'domains': python_dict(db_entry[0].DOMAINS),
-            'emails': python_list(db_entry[0].EMAILS),
             'strings': python_list(db_entry[0].STRINGS),
             'firebase_urls': python_list(db_entry[0].FIREBASE_URLS),
             'files': python_list(db_entry[0].FILES),
             'exported_count': python_dict(db_entry[0].EXPORTED_COUNT),
-            'apkid': python_dict(db_entry[0].APKID),
-            'trackers': python_dict(db_entry[0].TRACKERS),
-            'playstore_details': python_dict(db_entry[0].PLAYSTORE_DETAILS),
-            'secrets': python_list(db_entry[0].SECRETS),
         }
         return context
     except Exception:
@@ -70,10 +65,7 @@ def get_info_from_analysis(app_info,
                               man_data_dic,
                               man_an_dic,
                               code_an_dic,
-                              cert_dic,
-                              bin_anal,
-                              apk_id,
-                              trackers) -> dict:
+                              bin_anal,) -> dict:
     """从分析结果中获取APK/ZIP信息"""
     try:
         context = {
@@ -83,8 +75,6 @@ def get_info_from_analysis(app_info,
             'app_type': app_info['zipped'],
             'size': app_info['size'],
             'md5': app_info['md5'],
-            'sha1': app_info['sha1'],
-            'sha256': app_info['sha256'],
             'package_name': man_data_dic['packagename'],
             'main_activity': man_data_dic['mainactivity'],
             'exported_activities': man_an_dic['exported_act'],
@@ -101,12 +91,10 @@ def get_info_from_analysis(app_info,
             'version_code': man_data_dic['androver'],
             'icon_hidden': app_info['icon_hidden'],
             'icon_found': app_info['icon_found'],
-            'certificate_analysis': cert_dic,
             'permissions': man_an_dic['permissons'],
             'manifest_analysis': man_an_dic['manifest_anal'],
             'network_security': man_an_dic['network_security'],
             'binary_analysis': bin_anal,
-            'file_analysis': app_info['certz'],
             'android_api': code_an_dic['api'],
             'code_analysis': code_an_dic['findings'],
             'niap_analysis': code_an_dic['niap'],
@@ -117,10 +105,6 @@ def get_info_from_analysis(app_info,
             'firebase_urls': code_an_dic['firebase'],
             'files': app_info['files'],
             'exported_count': man_an_dic['exported_cnt'],
-            'apkid': apk_id,
-            'trackers': trackers,
-            'playstore_details': app_info['playstore'],
-            'secrets': app_info['secrets'],
         }
         return context
     except Exception:
@@ -132,10 +116,7 @@ def save_or_update(update_type,
                    man_data_dic,
                    man_an_dic,
                    code_an_dic,
-                   cert_dic,
-                   bin_anal,
-                   apk_id,
-                   trackers) -> None:
+                   bin_anal) -> None:
     """保存/更新APK/ZIP在数据库中的信息"""
     try:
         values = {
@@ -144,8 +125,6 @@ def save_or_update(update_type,
             'APP_TYPE': app_info['zipped'],
             'SIZE': app_info['size'],
             'MD5': app_info['md5'],
-            'SHA1': app_info['sha1'],
-            'SHA256': app_info['sha256'],
             'PACKAGE_NAME': man_data_dic['packagename'],
             'MAIN_ACTIVITY': man_data_dic['mainactivity'],
             'EXPORTED_ACTIVITIES': man_an_dic['exported_act'],
@@ -162,7 +141,6 @@ def save_or_update(update_type,
             'VERSION_CODE': man_data_dic['androver'],
             'ICON_HIDDEN': app_info['icon_hidden'],
             'ICON_FOUND': app_info['icon_found'],
-            'CERTIFICATE_ANALYSIS': cert_dic,
             'PERMISSIONS': man_an_dic['permissons'],
             'MANIFEST_ANALYSIS': man_an_dic['manifest_anal'],
             'BINARY_ANALYSIS': bin_anal,
@@ -172,13 +150,10 @@ def save_or_update(update_type,
             'NIAP_ANALYSIS': code_an_dic['niap'],
             'URLS': code_an_dic['urls'],
             'DOMAINS': code_an_dic['domains'],
-            'EMAILS': code_an_dic['emails'],
             'STRINGS': app_info['strings'],
             'FIREBASE_URLS': code_an_dic['firebase'],
             'FILES': app_info['files'],
             'EXPORTED_COUNT': man_an_dic['exported_cnt'],
-            'APKID': apk_id,
-            'TRACKERS': trackers,
             'PLAYSTORE_DETAILS': app_info['playstore'],
             'NETWORK_SECURITY': man_an_dic['network_security'],
             'SECRETS': app_info['secrets'],
@@ -190,13 +165,3 @@ def save_or_update(update_type,
                 MD5=app_info['md5']).update(**values)
     except Exception:
         logger.exception('Updating DB')
-    try:
-        values = {
-            'APP_NAME': app_info['real_name'],
-            'PACKAGE_NAME': man_data_dic['packagename'],
-            'VERSION_NAME': man_data_dic['androvername'],
-        }
-        RecentScansDB.objects.filter(
-            MD5=app_info['md5']).update(**values)
-    except Exception:
-        logger.exception('Updating RecentScansDB')

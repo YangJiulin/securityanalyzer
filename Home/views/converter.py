@@ -98,9 +98,8 @@ def apk_2_java(app_path, app_dir, tools_dir):
         logger.exception('Decompiling to JAVA')
 
 def unzip_apk_apktool(app_path, app_dir, tools_dir):
-    """Get readable AndroidManifest.xml."""
+    """使用apktool解压apk"""
     try:
-        manifest = None
         # if (len(settings.APKTOOL_BINARY) > 0
         #         and is_file_exists(settings.APKTOOL_BINARY)):
         #     apktool_path = settings.APKTOOL_BINARY
@@ -123,5 +122,6 @@ def unzip_apk_apktool(app_path, app_dir, tools_dir):
         #     return manifest
         logger.info('Converting AXML to XML')
         subprocess.check_output(args)
+        logger.info('转换完成')
     except Exception:
         logger.exception('Getting Manifest file')
