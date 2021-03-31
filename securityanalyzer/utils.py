@@ -295,7 +295,7 @@ def gen_sha256_hash(msg):
 def is_file_exists(file_path):
     if os.path.isfile(file_path):
         return True
-    # This fix situation where a user just typed "adb" or another executable
+    # 针对PATH中的可执行文件
     # inside settings.py
     if shutil.which(file_path):
         return True

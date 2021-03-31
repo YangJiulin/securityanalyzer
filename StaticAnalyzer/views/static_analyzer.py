@@ -1,10 +1,12 @@
 # -*- coding: utf_8 -*-
 """Android Static Code Analysis."""
 
+from StaticAnalyzer.views.manifest_analysis import get_manifest, get_manifest_data
 import logging
 import os
 import json
 import re
+import collections
 from securityanalyzer.utils import file_size, get_config_loc, is_file_exists, print_n_send_error_response
 import shutil
 from pathlib import Path
@@ -61,7 +63,6 @@ def static_analyzer(request):
             if db_entry.exists() and rescan == '0':
                     context = get_info_from_db_entry(db_entry)
             else:
-                app_info['sha1'], app_info['sha256']  = '1','1'
                 # 开始分析
                 app_info['size'] = str(
                     file_size(app_info['app_path'])) + 'MB'  # FILE SIZE
@@ -76,16 +77,12 @@ def static_analyzer(request):
                                 request,
                                 msg,
                                 False)
-                app_info['certz'] = []
                     # Manifest XML
-                mani_file, mani_xml = [],[]
-                    # get_manifest(
-                    #     app_info['app_path'],
-                    #     app_info['app_dir'],
-                    #     app_info['tools_dir'],
-                    #     '',
-                    #     True,
-                    # )
+                mani_file, mani_xml = get_manifest(
+                        app_info['app_dir'],
+                        '',
+                        True,
+                    )
                 app_info['manifest_file'] = mani_file
                 app_info['parsed_xml'] = mani_xml
 
@@ -93,8 +90,7 @@ def static_analyzer(request):
                 app_info['real_name'] = re_db_entry.APP_NAME
 
                 # Get icon
-                res_path = ''
-                # os.path.join(app_info['app_dir'], 'res')
+                res_path = os.path.join(app_info['app_dir'], 'res')
                 app_info['icon_hidden'] = True
                 # Even if the icon is hidden, try to guess it by the
                 # default paths
@@ -115,33 +111,18 @@ def static_analyzer(request):
                 app_info['mani'] = ('../manifest_view/?md5='
                                        + app_info['md5']
                                        + '&type=apk&bin=1')
-                import collections
-                man_data_dic = collections.defaultdict(list)
-                # manifest_data(app_info['parsed_xml'])
-                app_info['playstore'] = {}
-                # get_app_details(
-                    # man_data_dic['packagename'])
-                man_an_dic =collections.defaultdict(list)
+                
+                manifest_data_dict = get_manifest_data(app_info['app_path'])
+
+                manifest_analysis_dict = collections.defaultdict(list)
                 #  manifest_analysis(
                 #         app_info['parsed_xml'],
-                #         man_data_dic,
+                #         manifest_data_dict,
                 #         '',
                 #         app_info['app_dir'],
                 #     )
                 elf_dict = {'elf_analysis':''}
                 # elf_analysis(app_info['app_dir'])
-                cert_dic = {}
-                # cert_info(
-                #         app_info['app_dir'],
-                #         app_info['app_file'])
-                apkid_results = {}
-                # apkid_analysis(app_info[
-                #         'app_dir'], app_info['app_path'], app_info['app_name'])
-                tracker = {}
-                # Trackers.Trackers(
-                #         app_info['app_dir'], app_info['tools_dir'])
-                tracker_res = {}
-                # tracker.get_trackers()
 
                 # apk_2_java(app_info['app_path'], app_info['app_dir'],
                             #    app_info['tools_dir'])
@@ -192,13 +173,10 @@ def static_analyzer(request):
                         save_or_update(
                                 'update',
                                 app_info,
-                                man_data_dic,
-                                man_an_dic,
+                                manifest_data_dict,
+                                manifest_analysis_dict,
                                 code_an_dic,
-                                cert_dic,
                                 elf_dict['elf_analysis'],
-                                apkid_results,
-                                tracker_res,
                             )
                         # update_scan_timestamp(app_info['md5'])
                     elif rescan == '0':
@@ -206,8 +184,8 @@ def static_analyzer(request):
                         # save_or_update(
                         #         'save',
                         #         app_info,
-                        #         man_data_dic,
-                        #         man_an_dic,
+                        #         manifest_data_dict,
+                        #         manifest_analysis_dict,
                         #         code_an_dic,
                         #         cert_dic,
                         #         elf_dict['elf_analysis'],
@@ -218,13 +196,10 @@ def static_analyzer(request):
                     logger.exception('Saving to Database Failed')
                 context = get_info_from_analysis(
                         app_info,
-                        man_data_dic,
-                        man_an_dic,
+                        manifest_data_dict,
+                        manifest_analysis_dict,
                         code_an_dic,
-                        cert_dic,
                         elf_dict['elf_analysis'],
-                        apkid_results,
-                        tracker_res,
                     )
             context['average_cvss'], context['security_score'] = 0,0
                     # score(context['code_analysis'])

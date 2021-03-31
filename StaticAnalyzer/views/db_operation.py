@@ -68,6 +68,7 @@ def get_info_from_analysis(app_info,
                               bin_anal,) -> dict:
     """从分析结果中获取APK/ZIP信息"""
     try:
+        # 原来是permissons man_an_dic
         context = {
             'title': 'Static Analysis',
             'file_name': app_info['app_name'],
@@ -91,7 +92,7 @@ def get_info_from_analysis(app_info,
             'version_code': man_data_dic['androver'],
             'icon_hidden': app_info['icon_hidden'],
             'icon_found': app_info['icon_found'],
-            'permissions': man_an_dic['permissons'],
+            'permissions': man_data_dic['permissions'],
             'manifest_analysis': man_an_dic['manifest_anal'],
             'network_security': man_an_dic['network_security'],
             'binary_analysis': bin_anal,
