@@ -28,7 +28,7 @@
         <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
-          <a href="#" class="d-block">Static Analyzer</a>
+          <a href="#" class="d-block">静态分析</a>
         </div>
       </div>
 
@@ -281,8 +281,6 @@
                     <strong>Hidden Icon!</strong>
                   {% endif %}
                   <br/>
-                  <span class="badge bg-info">Average CVSS</span> <b>{{ average_cvss }} </b><br/>
-                  <span class="badge bg-{% if security_score < 50 %}danger{% elif security_score == 100 %}success{% else %}warning{% endif %}">Security Score</span> <b>{{ security_score }}/100 </b><br/>
                 </div>
                 <div class="col-6">
                   <p><strong><i class="fas fa-box-open"></i> FILE INFORMATION </strong></p>                         

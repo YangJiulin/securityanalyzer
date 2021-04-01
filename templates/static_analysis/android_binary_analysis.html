@@ -33,11 +33,11 @@
     {% block sidebar %}
     <!-- Main Sidebar Container -->
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar-light-primary">
         <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
-          <a href="#" class="d-block">Static Analyzer</a>
+          <a href="#" class="d-block">静态分析</a>
         </div>
       </div>
 
@@ -337,13 +337,6 @@
                     <strong>Hidden Icon!</strong>
                   {% endif %}
                   <br/>
-                  <span class="badge bg-info">Average CVSS</span> <strong>{{ average_cvss }} </strong><br/>
-                  <span class="badge bg-{% if security_score < 50 %}danger{% elif security_score == 100 %}success{% else %}warning{% endif %}">Security Score</span> <strong>{{ security_score }}/100 </strong><br/>
-                  {% if trackers.detected_trackers > 0 %}
-                    <span class="badge bg-warning">Trackers Detection</span> <strong>{{ trackers.detected_trackers }}/{{ trackers.total_trackers }}</strong><br/>
-                  {% else %}
-                    <span class="badge bg-success">Trackers Detection</span> <strong>{{ trackers.detected_trackers }}/{{ trackers.total_trackers }}</strong><br/>
-                  {% endif %}
                   {% if virus_total and virus_total.items|length > 9 %}
                     {% if virus_total.positives > 0 %}
                       <span class="badge bg-danger">VirusTotal Detection</span> <strong>{{ virus_total.positives }}/{{ virus_total.total }}</strong><br/>

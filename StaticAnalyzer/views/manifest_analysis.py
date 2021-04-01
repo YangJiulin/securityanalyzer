@@ -59,7 +59,7 @@ def get_manifest(app_dir, typ,is_apk):
 
 
 def get_manifest_data(app_path):
-    """Extract manifest data."""
+    """提取 manifest 数据."""
     try:
         logger.info('提取 Manifest 数据')
         _apk = apk.APK(app_path)
