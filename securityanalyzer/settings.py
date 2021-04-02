@@ -150,6 +150,20 @@ STATIC_URL = '/static/'
 # STATIC_ROOT = BASE_DIR/'static'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
+
+ # ==========ANDROID SKIP CLASSES==========================
+    # Common third party classes/paths that will be skipped
+    # during static analysis
+SKIP_CLASS_PATH = {
+        'com/google/', 'androidx', 'okhttp2/', 'okhttp3/',
+        'com/android/', 'com/squareup', 'okhttp/'
+        'android/content/', 'com/twitter/', 'twitter4j/',
+        'android/support/', 'org/apache/', 'oauth/signpost',
+        'android/arch', 'org/chromium/', 'com/facebook',
+        'org/spongycastle', 'org/bouncycastle',
+        'com/amazon/identity/', 'io/fabric/sdk',
+        'com/instabug', 'com/crashlytics/android',
+    }
 # Better logging
 LOGGING = {
     'version': 1,

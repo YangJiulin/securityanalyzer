@@ -1,86 +1,59 @@
 MANIFEST_DESC = {
     'a_clear_text': {
-        'title': ('Clear text traffic is Enabled For App'
+        'title': ('已为应用程序启用明文通信'
                   '<br>[android:usesCleartextTraffic=true]'),
         'level': 'high',
-        'description': ('The app intends to use cleartext network traffic,'
-                        ' such as cleartext HTTP, FTP stacks, DownloadManager,'
-                        ' and MediaPlayer. The default value for'
-                        ' apps that target API level 27 or lower is "true". '
-                        'Apps that target API level 28 or higher default to'
-                        ' "false". The key reason for avoiding cleartext'
-                        ' traffic is the lack of confidentiality, '
-                        'authenticity, and protections against tampering; '
-                        'a network attacker can eavesdrop on transmitted '
-                        'data and also modify it without being detected.'),
-        'name': ('Clear text traffic is Enabled For App '
+        'description': ('该应用程序打算使用明文网络流量,例如明文HTTP、FTP堆栈、DownloadManager和MediaPlayer。'
+                        '默认针对API级别27或更低的应用程序为<True>。以API级别28或更高为目标的应用程序默认为<False>'
+                        '避免使用明文的关键原因就是缺乏机密性真实性和防篡改保护。'
+                        '网络攻击者可以窃听传输的信息数据，并在不被检测的情况下对其进行修改'),
+        'name': ('已为应用程序启用明文通信'
                  '[android:usesCleartextTraffic=true]'),
     },
-    'a_boot_aware': {
-        'title': 'App is direct-boot aware <br>[android:directBootAware=true]',
-        'level': 'info',
-        'description': ('This app can run before the user unlocks the device. '
-                        'If you\'re using a custom subclass of Application, '
-                        'and if any component inside your application is '
-                        'direct - boot aware, then your entire custom '
-                        'application is considered to be direct - boot aware.'
-                        'During Direct Boot, your application can only access'
-                        ' the data that is stored'
-                        ' in device protected storage.'),
-        'name': 'App is direct-boot aware [android:directBootAware=true]',
-    },
-    'a_network_sec': {
-        'title': ('App has a Network Security Configuration'
-                  '<br>[android:networkSecurityConfig=%s]'),
-        'level': 'info',
-        'description': ('The Network Security Configuration feature lets apps'
-                        ' customize their network security settings in a safe,'
-                        ' declarative configuration file without modifying '
-                        'app code. These settings can be configured for '
-                        'specific domains and for a specific app. '),
-        'name': ('App has a Network Security Configuration '
-                 '[android:networkSecurityConfig]'),
-    },
     'a_debuggable': {
-        'title': 'Debug Enabled For App<br>[android:debuggable=true]',
+        'title': '为App启用调试<br>[android:debuggable=true]',
         'level': 'high',
-        'description': ('Debugging was enabled on the app which makes it '
-                        'easier for reverse engineers to hook a debugger to'
-                        ' it. This allows dumping a stack trace and accessing'
-                        ' debugging helper classes.'),
-        'name': 'Debug Enabled For App [android:debuggable=true]',
+        'description': ("""
+        调试是在应用程序上打开的,这使得
+        反向工程师更容易将调试器连接到
+        它。这允许转储堆栈跟踪和访问调试助手类
+        """),
+        'name': '为App启用调试 [android:debuggable=true]',
     },
     'a_allowbackup': {
-        'title': ('Application Data can be Backed up'
+        'title': ('应用数据可以备份'
                   '<br>[android:allowBackup=true]'),
         'level': 'medium',
-        'description': ('This flag allows anyone to backup your application'
-                        ' data via adb. It allows users who have enabled USB'
-                        ' debugging to copy application data off of the'
-                        ' device.'),
-        'name': 'Application Data can be Backed up [android:allowBackup=true]',
+        'description': ("""
+        此标志允许任何人备份您的应用程序数据。
+        它允许已启用USB的用户进行调试以复制应用程序数据设备。
+        """),
+        'name': '应用数据可以备份 [android:allowBackup=true]',
     },
     'a_allowbackup_miss': {
-        'title': ('Application Data can be Backed up<br>[android:allowBackup]'
+        'title': ('应用数据可以备份<br>[android:allowBackup]'
                   ' flag is missing.'),
         'level': 'medium',
-        'description': ('The flag [android:allowBackup] should be set to false'
-                        '. By default it is set to true and allows anyone to '
-                        'backup your application data via adb. It allows users'
-                        ' who have enabled USB debugging to copy application '
-                        'data off of the device.'),
-        'name': ('Application Data can be Backed up [android:allowBackup] flag'
+        'description': ("""
+        flag [android:allowBackup]应该设置为false。默认情况下，它被设置为true并允许任何人这样做
+        通过adb备份您的应用程序数据。它允许用户
+        谁已启用USB调试复制应用程序
+        数据从设备中删除。
+        """),
+        'name': ('应用数据可以备份 [android:allowBackup] flag'
                  ' is missing.'),
     },
     'a_testonly': {
-        'title': 'Application is in Test Mode <br>[android:testOnly=true]',
+        'title': '应用程序处于测试模式 <br>[android:testOnly=true]',
         'level': 'high',
-        'description': ('It may expose functionality or data outside of itself'
-                        ' that would cause a security hole.'),
-        'name': 'Application is in Test Mode [android:testOnly=true]',
+        'description': ("""
+        它可能会暴露自身之外的功能或数据，
+        这会造成一个安全漏洞。
+        """),
+        'name': '应用程序处于测试模式 [android:testOnly=true]',
     },
     'a_taskaffinity': {
-        'title': 'TaskAffinity is set for Activity </br>(%s)',
+        'title': '给Activity设置了TaskAffinity </br>(%s)',
         'level': 'high',
         'description': ('If taskAffinity is set, then other application'
                         ' could read the Intents sent to Activities '
@@ -92,31 +65,20 @@ MANIFEST_DESC = {
         'name': 'TaskAffinity is set for Activity',
     },
     'a_launchmode': {
-        'title': 'Launch Mode of Activity (%s) is not standard.',
+        'title': 'Activity (%s) 的启动模式不符合标准',
         'level': 'high',
-        'description': ('An Activity should not be having the launch mode'
-                        ' attribute set to "singleTask/singleInstance" as '
-                        'it becomes root Activity and it is possible for'
-                        ' other applications to read the contents of the'
-                        ' calling Intent. So it is required to use the'
-                        ' "standard" launch mode attribute when sensitive'
-                        ' information is included in an Intent.'),
-        'name': 'Launch Mode of Activity is not standard.',
-    },
-    'a_prot_sign': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission.'
-                  '</br>%s<br>[android:exported=true]'),
-        'level': 'info',
-        'description': ('A%s %s is found to be exported, but'
-                        ' is protected by permission.'),
-        'name': 'is Protected by a permission.[android:exported=true]',
+        'description': ("""
+        一个活动不应该拥有启动模式属性设置为singleTask/singleInstance
+        它变成了根活动，并且它是可能读取其他应用程序的内容。
+        所以它需要使用“standard”启动模式属性时敏感信息包含在意图中。
+        """),
+        'name': 'Activity 的启动模式不符合标准',
     },
     'a_prot_normal': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission, but'
-                  ' the protection level of the permission should be checked.'
+        'title': ('<strong>%s</strong> (%s) 受权限保护，但权限保护级别应该被检查。'
                   '</br>%s <br>[android:exported=true]'),
         'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps on the'
+        'description': ('%s %s is found to be shared with other apps on the'
                         ' device therefore leaving it accessible to any other'
                         ' application on the device. It is protected by a '
                         'permission. However, the protection level of the'
@@ -126,8 +88,7 @@ MANIFEST_DESC = {
                         ' If it was set to signature, only applications '
                         'signed with the same certificate could obtain '
                         'the permission.'),
-        'name': ('is Protected by a permission, but the protection level of '
-                 'the permission should be checked.[android:exported=true]'),
+        'name': ('受权限保护，但权限保护级别应该被检查。[android:exported=true]'),
     },
     'a_prot_danger': {
         'title': ('<strong>%s</strong> (%s) is Protected by a permission, but'
@@ -143,21 +104,6 @@ MANIFEST_DESC = {
                         ' permission and interact with the component. If it'
                         ' was set to signature, only applications signed with'
                         ' the same certificate could obtain the permission.'),
-        'name': ('is Protected by a permission, but the protection level of'
-                 ' the permission should be checked.[android:exported=true]'),
-    },
-    'a_prot_sign_sys': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission, but'
-                  ' the protection level of the permission should be checked.'
-                  '</br>%s <br>[android:exported=true]'),
-        'level': 'info',
-        'description': ('A%s %s is found to be exported, but is protected by'
-                        ' a permission. However, the protection level of the'
-                        ' permission is set to signatureOrSystem. It is '
-                        'recommended that signature level is used instead. '
-                        'Signature level should suffice for most purposes, '
-                        'and does not depend on where the applications are '
-                        'installed on the device.'),
         'name': ('is Protected by a permission, but the protection level of'
                  ' the permission should be checked.[android:exported=true]'),
     },
@@ -220,33 +166,6 @@ MANIFEST_DESC = {
         'name': ('is Protected by a permission at the application level, but'
                  ' the protection level of the permission should be '
                  'checked.[android:exported=true]'),
-    },
-    'a_prot_sign_appl': {
-        'title': ('<strong>%s</strong> (%s)  Protected by a permission at'
-                  ' the application level.</br>%s<br>[android:exported=true]'),
-        'level': 'info',
-        'description': ('A%s %s is found to be exported, but is protected by'
-                        ' a permission at the application level.'),
-        'name': ('Protected by a permission at the application level.'
-                 '[android:exported=true]'),
-    },
-    'a_prot_sign_sys_appl': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission at '
-                  'the application level, but the protection level of the '
-                  'permission should be checked.'
-                  '</br>%s <br>[android:exported=true]'),
-        'level': 'info',
-        'description': ('A%s %s is found to be exported, but is protected '
-                        'by a permission at the application level. However,'
-                        ' the protection level of the permission is set to'
-                        ' signatureOrSystem. It is recommended that '
-                        'signature level is used instead. Signature level'
-                        ' should suffice for most purposes, and does not '
-                        'depend on where the applications are installed'
-                        ' on the device.'),
-        'name': ('is Protected by a permission at the application level, but'
-                 ' the protection level of the permission should be checked.'
-                 '[android:exported=true]'),
     },
     'a_prot_unknown_appl': {
         'title': ('<strong>%s</strong> (%s) is Protected by a permission'
@@ -358,34 +277,6 @@ MANIFEST_DESC = {
                  'the permission should be checked.[Content Provider, '
                  'targetSdkVersion < 17]'),
     },
-    'c_prot_sign': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission.'
-                  '</br>%s <br>[Content Provider, targetSdkVersion < 17]'),
-        'level': 'info',
-        'description': ('A%s %s is found to be shared with other apps on the'
-                        ' device therefore leaving it accessible to any other'
-                        ' application on the device. It is '
-                        'protected by permission.'),
-        'name': ('is Protected by a permission.[Content Provider, '
-                 'targetSdkVersion < 17]'),
-    },
-    'c_prot_sign_sys': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission,'
-                  ' but the protection level of the permission should be '
-                  'checked.</br>%s <br>[Content Provider, '
-                  'targetSdkVersion < 17]'),
-        'level': 'info',
-        'description': ('A%s %s is found to be exported, but is protected by'
-                        ' a permission. However, the protection level of the'
-                        ' permission is set to signatureOrSystem. It is'
-                        ' recommended that signature level is used instead.'
-                        ' Signature level should suffice for most purposes,'
-                        ' and does not depend on where the applications are'
-                        ' installed on the device.'),
-        'name': ('is Protected by a permission, but the protection level of '
-                 'the permission should be checked.[Content Provider, '
-                 'targetSdkVersion < 17]'),
-    },
     'c_prot_unknown': {
         'title': ('<strong>%s</strong> (%s) is Protected by a permission, but'
                   ' the protection level of the permission should be checked.'
@@ -445,35 +336,6 @@ MANIFEST_DESC = {
         'name': ('is Protected by a permission at the application level, but'
                  ' the protection level of the permission should be checked.'
                  '[Content Provider, targetSdkVersion < 17]'),
-    },
-    'c_prot_sign_appl': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission at'
-                  ' the application level.</br>%s <br>[Content Provider,'
-                  ' targetSdkVersion < 17]'),
-        'level': 'info',
-        'description': ('A%s %s is found to be shared with other apps on'
-                        ' the device therefore leaving it accessible to any'
-                        ' other application on the device. It is protected '
-                        'by permission at the application level.'),
-        'name': ('is Protected by a permission at the application level.'
-                 '[Content Provider, targetSdkVersion < 17]'),
-    },
-    'c_prot_sign_sys_appl': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission at'
-                  ' the application level, but the protection level of the'
-                  ' permission should be checked.'
-                  '</br>%s <br>[Content Provider, targetSdkVersion < 17]'),
-        'level': 'info',
-        'description': ('A%s %s is found to be exported, but is protected by'
-                        ' a permission at the application level. However, the'
-                        ' protection level of the permission is set to '
-                        'signatureOrSystem. It is recommended that signature '
-                        'level is used instead. Signature level should suffice'
-                        ' for most purposes, and does not depend on where the'
-                        ' applications are installed on the device.'),
-        'name': ('is Protected by a permission at the application level, '
-                 'but the protection level of the permission should be '
-                 'checked.[Content Provider, targetSdkVersion < 17]'),
     },
     'c_prot_unknown_appl': {
         'title': ('<strong>%s</strong> (%s) is Protected by a permission at'
@@ -539,35 +401,6 @@ MANIFEST_DESC = {
         'name': ('is Protected by a permission, but the protection level of'
                  ' the permission should be checked if the application runs on'
                  ' a device where the the API level is less than 17.'
-                 '[Content Provider, targetSdkVersion >= 17]'),
-    },
-    'c_prot_sign_new': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission.'
-                  '</br>%s <br>[Content Provider, targetSdkVersion >= 17]'),
-        'level': 'info',
-        'description': ('The Content Provider(%s) would be exported if the'
-                        ' application ran on a device where the the API level'
-                        ' was less than 17. Nevertheless, it is protected '
-                        'by a permission.'),
-        'name': ('is Protected by a permission.'
-                 '[Content Provider, targetSdkVersion >= 17]'),
-    },
-    'c_prot_sign_sys_new': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission, but'
-                  ' the protection level of the permission should be checked.'
-                  '</br>%s <br>[Content Provider, targetSdkVersion >= 17]'),
-        'level': 'info',
-        'description': ('The Content Provider(%s) would be exported if the '
-                        'application ran on a device where the API level was'
-                        ' less than 17. In that situation, it would still '
-                        'be protected by a permission. However, the protection'
-                        ' level of the permission is set to signatureOrSystem.'
-                        ' It is recommended that signature level is used '
-                        'instead. Signature level should suffice for most'
-                        ' purposes, and does not depend on where the'
-                        ' applications are installed on the device.'),
-        'name': ('is Protected by a permission, but the protection level of'
-                 ' the permission should be checked.'
                  '[Content Provider, targetSdkVersion >= 17]'),
     },
     'c_prot_unknown_new': {
@@ -639,37 +472,6 @@ MANIFEST_DESC = {
                  ' the protection level of the permission should be checked '
                  'if the application runs on a device where the the API level '
                  'is less than 17.[Content Provider, targetSdkVersion >= 17]'),
-    },
-    'c_prot_sign_new_appl': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission at'
-                  ' the application level.</br>%s<br>'
-                  '[Content Provider, targetSdkVersion >= 17]'),
-        'level': 'info',
-        'description': ('The Content Provider(%s) would be exported if the'
-                        ' application ran on a device where the the API '
-                        'level was less than 17. Nevertheless, it is '
-                        'protected by a permission.'),
-        'name': ('is Protected by a permission at the application level.'
-                 '[Content Provider, targetSdkVersion >= 17]'),
-    },
-    'c_prot_sign_sys_new_appl': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission at'
-                  ' the application level, but the protection level of the'
-                  ' permission should be checked.'
-                  '</br>%s <br>[Content Provider, targetSdkVersion >= 17]'),
-        'level': 'info',
-        'description': ('The Content Provider(%s) would be exported if the'
-                        ' application ran on a device where the API level was'
-                        ' less than 17. In that situation, it would still be'
-                        ' protected by a permission. However, the protection'
-                        ' level of the permission is set to signatureOrSystem.'
-                        ' It is recommended that signature level is used'
-                        ' instead. Signature level should suffice for most'
-                        ' purposes, and does not depend on where the '
-                        'applications are installed on the device.'),
-        'name': ('is Protected by a permission at the application level, but'
-                 ' the protection level of the permission should be checked.'
-                 '[Content Provider, targetSdkVersion >= 17]'),
     },
     'c_prot_unknown_new_appl': {
         'title': ('<strong>%s</strong> (%s) is Protected by a permission at '

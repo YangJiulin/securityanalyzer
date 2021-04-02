@@ -12,7 +12,7 @@ from androguard.core.bytecodes import apk
 from django.conf import settings
 
 from securityanalyzer.utils import is_file_exists
-from StaticAnalyzer.views import android_manifest_desc
+from StaticAnalyzer.views import android_manifest_desc,network_security
 # network_security,
 
 
@@ -77,9 +77,6 @@ def get_manifest_data(app_path):
         mainactivity = _apk.get_main_activity()
         androidversioncode = _apk.get_androidversion_code()
         androidversionname = _apk.get_androidversion_name()
-        # categories = mfxml.getElementsByTagName('category')
-        # for category in categories:
-        #     cat.append(category.getAttribute('android:name'))
         man_data_dic = {
             'services': services,
             'activities': activities,
@@ -103,7 +100,7 @@ def get_manifest_data(app_path):
 
 
 def get_browsable_activities(node):
-    """Get Browsable Activities."""
+    """能被浏览器调用 Activities."""
     try:
         browse_dic = {}
         schemes = []
@@ -150,14 +147,13 @@ def get_browsable_activities(node):
         browse_dic['browsable'] = bool(browse_dic['schemes'])
         return browse_dic
     except Exception:
-        logger.exception('Getting Browsable Activities')
+        logger.exception('获取可被浏览器调用 Activities')
 
 
 def manifest_analysis(mfxml, man_data_dic, src_type, app_dir):
-    """Analyse manifest file."""
-    # pylint: disable=C0301
+    """分析 manifest file."""
     try:
-        logger.info('Manifest Analysis Started')
+        logger.info('开始分析 Manifest')
         exp_count = dict.fromkeys(['act', 'ser', 'bro', 'cnt'], 0)
         applications = mfxml.getElementsByTagName('application')
         datas = mfxml.getElementsByTagName('data')
@@ -165,6 +161,7 @@ def manifest_analysis(mfxml, man_data_dic, src_type, app_dir):
         actions = mfxml.getElementsByTagName('action')
         granturipermissions = mfxml.getElementsByTagName(
             'grant-uri-permission')
+        #开发者自定义权限
         permissions = mfxml.getElementsByTagName('permission')
         ret_value = []
         ret_list = []
@@ -174,11 +171,20 @@ def manifest_analysis(mfxml, man_data_dic, src_type, app_dir):
         icon_hidden = True
         do_netsec = False
         debuggable = False
-        # PERMISSION
+        cat = []
+        categories = mfxml.getElementsByTagName('category')
+        for category in categories:
+            cat.append(category.getAttribute('android:name'))
+        man_data_dic['categories'] = cat
+
+        #自定义权限保护级别
         for permission in permissions:
             if permission.getAttribute('android:protectionLevel'):
                 protectionlevel = permission.getAttribute(
                     'android:protectionLevel')
+                logger.info(permission.getAttribute(
+                    'android:name'))
+                logging.info(protectionlevel)
                 if protectionlevel == '0x00000000':
                     protectionlevel = 'normal'
                 elif protectionlevel == '0x00000001':
@@ -196,7 +202,6 @@ def manifest_analysis(mfxml, man_data_dic, src_type, app_dir):
 
         # APPLICATIONS
         for application in applications:
-            # Esteve 23.07.2016 - begin - identify permission at the
             # application level
             if application.getAttribute('android:permission'):
                 perm_appl_level_exists = True
@@ -207,23 +212,21 @@ def manifest_analysis(mfxml, man_data_dic, src_type, app_dir):
             # End
             if application.getAttribute('android:usesCleartextTraffic') == 'true':
                 ret_list.append(('a_clear_text', (), ()))
-            if application.getAttribute('android:directBootAware') == 'true':
-                ret_list.append(('a_boot_aware', (), ()))
-            if application.getAttribute('android:networkSecurityConfig'):
-                item = application.getAttribute('android:networkSecurityConfig')
-                ret_list.append(('a_network_sec', (item,), ()))
-                do_netsec = item
+
             if application.getAttribute('android:debuggable') == 'true':
                 ret_list.append(('a_debuggable', (), ()))
                 debuggable = True
+
             if application.getAttribute('android:allowBackup') == 'true':
                 ret_list.append(('a_allowbackup', (), ()))
             elif application.getAttribute('android:allowBackup') == 'false':
                 pass
             else:
                 ret_list.append(('a_allowbackup_miss', (), ()))
+
             if application.getAttribute('android:testOnly') == 'true':
                 ret_list.append(('a_testonly', (), ()))
+
             for node in application.childNodes:
                 an_or_a = ''
                 if node.nodeName == 'activity':
@@ -242,6 +245,7 @@ def manifest_analysis(mfxml, man_data_dic, src_type, app_dir):
                     if browse_dic['browsable']:
                         browsable_activities[node.getAttribute(
                             'android:name')] = browse_dic
+
                 elif node.nodeName == 'provider':
                     itemname = 'Content Provider'
                     cnt_id = 'cnt'
@@ -278,6 +282,8 @@ def manifest_analysis(mfxml, man_data_dic, src_type, app_dir):
                             or node.getAttribute('android:launchMode') == 'singleTask')):
                     item = node.getAttribute('android:name')
                     ret_list.append(('a_launchmode', (item,), ()))
+
+
                 # Exported Check
                 item = ''
                 is_inf = False
@@ -709,7 +715,7 @@ def manifest_analysis(mfxml, man_data_dic, src_type, app_dir):
                         ('a_high_action_priority', (value,), ()))
         for a_key, t_name, t_desc in ret_list:
             a_template = android_manifest_desc.MANIFEST_DESC.get(a_key)
-            if a_template:
+            if a_template:  
                 ret_value.append(
                     {'title': a_template['title'] % t_name,
                      'stat': a_template['level'],
@@ -724,13 +730,13 @@ def manifest_analysis(mfxml, man_data_dic, src_type, app_dir):
                 break
 
         permissons = {}
-        for k, permisson in man_data_dic['perm'].items():
-            permissons[k] = (
-                {
-                    'status': permisson[0],
-                    'info': permisson[1],
-                    'description': permisson[2],
-                })
+        # for k, permisson in man_data_dic['perm'].items():
+        #     permissons[k] = (
+        #         {
+        #             'status': permisson[0],
+        #             'info': permisson[1],
+        #             'description': permisson[2],
+        #         })
         # Prepare return dict
         exported_comp = {
             'exported_activities': exp_count['act'],

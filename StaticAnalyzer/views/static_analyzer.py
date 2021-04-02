@@ -1,7 +1,8 @@
 # -*- coding: utf_8 -*-
 """Android Static Code Analysis."""
 
-from StaticAnalyzer.views.manifest_analysis import get_manifest, get_manifest_data
+from StaticAnalyzer.views.code_analysis import code_analysis
+from StaticAnalyzer.views.manifest_analysis import get_manifest, get_manifest_data, manifest_analysis
 import logging
 import os
 import json
@@ -20,7 +21,7 @@ from django.template.defaulttags import register
 from androguard.core.bytecodes import apk    
 from StaticAnalyzer.models import RecentScansDB, StaticAnalyzerAndroid
 
-from Home.views.converter import unzip_apk_apktool
+from Home.views.converter import apk_2_java, unzip_apk_apktool
 from .db_operation import get_info_from_analysis,get_info_from_db_entry,save_or_update
 
 logger = logging.getLogger(__name__)
@@ -110,17 +111,16 @@ def static_analyzer(request):
                     # Set Manifest link
                 app_info['mani'] = ('../manifest_view/?md5='
                                        + app_info['md5']
-                                       + '&type=apk&bin=1')
+                                       + '&type=apfk&bin=1')
                 
                 manifest_data_dict = get_manifest_data(app_info['app_path'])
 
-                manifest_analysis_dict = collections.defaultdict(list)
-                #  manifest_analysis(
-                #         app_info['parsed_xml'],
-                #         manifest_data_dict,
-                #         '',
-                #         app_info['app_dir'],
-                #     )
+                manifest_analysis_dict =  manifest_analysis(
+                        app_info['parsed_xml'],
+                        manifest_data_dict,
+                        '',
+                        app_info['app_dir'],
+                    )
                 elf_dict = {'elf_analysis':''}
                 # elf_analysis(app_info['app_dir'])
 
@@ -129,11 +129,10 @@ def static_analyzer(request):
 
                 # dex_2_smali(app_info['app_dir'], app_info['tools_dir'])
 
-                code_an_dic =collections.defaultdict(list)
-                #  code_analysis(
-                #         app_info['app_dir'],
-                #         'apk',
-                #         app_info['manifest_file'])
+                code_an_dic = code_analysis(
+                        app_info['app_dir'],
+                        'apk',
+                        app_info['manifest_file'])
 
              # Get the strings from android resource and shared objects
                 string_res =''
