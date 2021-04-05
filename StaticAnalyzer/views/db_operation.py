@@ -40,20 +40,13 @@ def get_info_from_db_entry(db_entry: QuerySet) -> dict:
             'icon_hidden': db_entry[0].ICON_HIDDEN,
             'icon_found': db_entry[0].ICON_FOUND,
             'permissions': python_dict(db_entry[0].PERMISSIONS),
-            'certificate_analysis': python_dict(
-                db_entry[0].CERTIFICATE_ANALYSIS),
             'manifest_analysis': python_list(db_entry[0].MANIFEST_ANALYSIS),
             'network_security': python_list(db_entry[0].NETWORK_SECURITY),
-            'binary_analysis': python_list(db_entry[0].BINARY_ANALYSIS),
-            'file_analysis': python_list(db_entry[0].FILE_ANALYSIS),
             'android_api': python_dict(db_entry[0].ANDROID_API),
             'code_analysis': python_dict(db_entry[0].CODE_ANALYSIS),
             'niap_analysis': python_dict(db_entry[0].NIAP_ANALYSIS),
             'urls': python_list(db_entry[0].URLS),
-            'domains': python_dict(db_entry[0].DOMAINS),
-            'strings': python_list(db_entry[0].STRINGS),
-            'firebase_urls': python_list(db_entry[0].FIREBASE_URLS),
-            'files': python_list(db_entry[0].FILES),
+            'emails':python_list(db_entry[0].EMAILS),
             'exported_count': python_dict(db_entry[0].EXPORTED_COUNT),
         }
         return context
@@ -64,8 +57,7 @@ def get_info_from_db_entry(db_entry: QuerySet) -> dict:
 def get_info_from_analysis(app_info,
                               man_data_dic,
                               man_an_dic,
-                              code_an_dic,
-                              bin_anal,) -> dict:
+                              code_an_dic,) -> dict:
     """从分析结果中获取APK/ZIP信息"""
     try:
         # 原来是permissons man_an_dic
@@ -95,16 +87,11 @@ def get_info_from_analysis(app_info,
             'permissions': man_data_dic['permissions'],
             'manifest_analysis': man_an_dic['manifest_anal'],
             'network_security': man_an_dic['network_security'],
-            'binary_analysis': bin_anal,
             'android_api': code_an_dic['api'],
             'code_analysis': code_an_dic['findings'],
             'niap_analysis': code_an_dic['niap'],
             'urls': code_an_dic['urls'],
-            'domains': code_an_dic['domains'],
             'emails': code_an_dic['emails'],
-            'strings': app_info['strings'],
-            'firebase_urls': code_an_dic['firebase'],
-            'files': app_info['files'],
             'exported_count': man_an_dic['exported_cnt'],
         }
         return context
@@ -116,8 +103,7 @@ def save_or_update(update_type,
                    app_info,
                    man_data_dic,
                    man_an_dic,
-                   code_an_dic,
-                   bin_anal) -> None:
+                   code_an_dic,) -> None:
     """保存/更新APK/ZIP在数据库中的信息"""
     try:
         values = {
@@ -142,22 +128,15 @@ def save_or_update(update_type,
             'VERSION_CODE': man_data_dic['androver'],
             'ICON_HIDDEN': app_info['icon_hidden'],
             'ICON_FOUND': app_info['icon_found'],
-            'PERMISSIONS': man_an_dic['permissons'],
+            'PERMISSIONS': man_data_dic['permissons'],
             'MANIFEST_ANALYSIS': man_an_dic['manifest_anal'],
-            'BINARY_ANALYSIS': bin_anal,
-            'FILE_ANALYSIS': app_info['certz'],
             'ANDROID_API': code_an_dic['api'],
             'CODE_ANALYSIS': code_an_dic['findings'],
             'NIAP_ANALYSIS': code_an_dic['niap'],
             'URLS': code_an_dic['urls'],
-            'DOMAINS': code_an_dic['domains'],
-            'STRINGS': app_info['strings'],
-            'FIREBASE_URLS': code_an_dic['firebase'],
-            'FILES': app_info['files'],
+            'EMAILS':code_an_dic['emails'],
             'EXPORTED_COUNT': man_an_dic['exported_cnt'],
-            'PLAYSTORE_DETAILS': app_info['playstore'],
             'NETWORK_SECURITY': man_an_dic['network_security'],
-            'SECRETS': app_info['secrets'],
         }
         if update_type == 'save':
             StaticAnalyzerAndroid.objects.create(**values)

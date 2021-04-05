@@ -1,6 +1,7 @@
 # -*- coding: utf_8 -*-
 """Android Static Code Analysis."""
 
+from StaticAnalyzer.views.shared_func import unzip
 from StaticAnalyzer.views.code_analysis import code_analysis
 from StaticAnalyzer.views.manifest_analysis import get_manifest, get_manifest_data, manifest_analysis
 import logging
@@ -17,8 +18,7 @@ from django.http import HttpResponseRedirect
 from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.template.defaulttags import register
-
-from androguard.core.bytecodes import apk    
+ 
 from StaticAnalyzer.models import RecentScansDB, StaticAnalyzerAndroid
 
 from Home.views.converter import apk_2_java, unzip_apk_apktool
@@ -55,8 +55,7 @@ def static_analyzer(request):
             app_info['app_path'] = (
                 app_info['app_dir'] / app_info['app_file']).as_posix()    #apk文件路径
             app_info['app_dir'] = app_info['app_dir'].as_posix() + '/'
-            # unzip_apk_apktool(app_path=app_info['app_path'],app_dir= app_info['app_dir'],tools_dir=app_info['tools_dir'])
-                #检查数据库中是否已经有该app的分析数据
+            #检查数据库中是否已经有该app的分析数据
             re_db_entry = RecentScansDB.objects.get(MD5=app_info['md5'])
 
             db_entry = StaticAnalyzerAndroid.objects.filter(
@@ -65,20 +64,11 @@ def static_analyzer(request):
                     context = get_info_from_db_entry(db_entry)
             else:
                 # 开始分析
+                unzip_apk_apktool(app_path=app_info['app_path'],app_dir= app_info['app_dir'],tools_dir=app_info['tools_dir'])
                 app_info['size'] = str(
                     file_size(app_info['app_path'])) + 'MB'  # FILE SIZE
-                    # app_info['files'] = unzip(
-                    #     app_info['app_path'], app_info['app_dir'])
-                app_info['files'] = ['1']
                 logger.info('解压APK')
-                if not app_info['files']:
-                    # Can't Analyze APK, bail out.
-                    msg = 'APK file is invalid or corrupt'
-                    return print_n_send_error_response(
-                                request,
-                                msg,
-                                False)
-                    # Manifest XML
+                # Manifest XML
                 mani_file, mani_xml = get_manifest(
                         app_info['app_dir'],
                         '',
@@ -121,46 +111,16 @@ def static_analyzer(request):
                         '',
                         app_info['app_dir'],
                     )
-                elf_dict = {'elf_analysis':''}
-                # elf_analysis(app_info['app_dir'])
 
-                # apk_2_java(app_info['app_path'], app_info['app_dir'],
-                            #    app_info['tools_dir'])
-
-                # dex_2_smali(app_info['app_dir'], app_info['tools_dir'])
+                apk_2_java(app_info['app_path'], app_info['app_dir'],
+                               app_info['tools_dir'])
 
                 code_an_dic = code_analysis(
                         app_info['app_dir'],
                         'apk',
                         app_info['manifest_file'])
 
-             # Get the strings from android resource and shared objects
-                string_res =''
-                #  strings_from_apk(
-                #         app_info['app_file'],
-                #         app_info['app_dir'],
-                #         elf_dict['elf_strings'])
-                if string_res:
-                    app_info['strings'] = string_res['strings']
-                    app_info['secrets'] = string_res['secrets']
-                    code_an_dic['urls_list'].extend(
-                            string_res['urls_list'])
-                    code_an_dic['urls'].extend(string_res['url_nf'])
-                    code_an_dic['emails'].extend(string_res['emails_nf'])
-                else:
-                    app_info['strings'] = []
-                    app_info['secrets'] = []
-                    # Firebase DB Check
-                code_an_dic['firebase'] = []
-                # firebase_analysis(
-                #         list(set(code_an_dic['urls_list'])))
-                    # Domain Extraction and Malware Check
-                logger.info(
-                        'Performing Malware Check on extracted Domains')
-                code_an_dic['domains'] =[]
-                #  MalwareDomainCheck().scan(
-                #         list(set(code_an_dic['urls_list'])))
-                    # Copy App icon
+                # Copy App icon
                 # copy_icon(app_info['md5'], app_info['icon_path'])
                 app_info['zipped'] = 'apk'
 
@@ -175,22 +135,17 @@ def static_analyzer(request):
                                 manifest_data_dict,
                                 manifest_analysis_dict,
                                 code_an_dic,
-                                elf_dict['elf_analysis'],
                             )
                         # update_scan_timestamp(app_info['md5'])
                     elif rescan == '0':
                         logger.info('Saving to Database')
-                        # save_or_update(
-                        #         'save',
-                        #         app_info,
-                        #         manifest_data_dict,
-                        #         manifest_analysis_dict,
-                        #         code_an_dic,
-                        #         cert_dic,
-                        #         elf_dict['elf_analysis'],
-                        #         apkid_results,
-                        #         tracker_res,
-                        #     )
+                        save_or_update(
+                                'save',
+                                app_info,
+                                manifest_data_dict,
+                                manifest_analysis_dict,
+                                code_an_dic,
+                            )
                 except Exception:
                     logger.exception('Saving to Database Failed')
                 context = get_info_from_analysis(
@@ -198,28 +153,11 @@ def static_analyzer(request):
                         manifest_data_dict,
                         manifest_analysis_dict,
                         code_an_dic,
-                        elf_dict['elf_analysis'],
                     )
-            context['average_cvss'], context['security_score'] = 0,0
-                    # score(context['code_analysis'])
             context['dynamic_analysis_done'] = is_file_exists(
                     os.path.join(app_info['app_dir'], 'logcat.txt'))
-
-            context['virus_total'] = None
-            # if settings.VT_ENABLED:
-            #     vt = VirusTotal.VirusTotal()
-            #     context['virus_total'] = vt.get_result(
-            #             app_info['app_path'],
-            #             app_info['md5'])
             template = 'static_analysis/android_binary_analysis.html'
             return render(request, template, context) 
-                # Check if in DB
-                # pylint: disable=E1101
-                # db_entry = StaticAnalyzerAndroid.objects.filter(
-                #     MD5=app_info['md5']).update(PACKAGE_NAME = _apk.get_package(),
-                #     VERSION_NAME = _apk.get_androidversion_name(),
-                #     APP_NAME = _apk.get_app_name()
-                #     )
         logger.info('分析成功 : %s' , app_info['app_name'])
     template = 'static_analysis/android_binary_analysis.html'
     # return render(request, template, context={})

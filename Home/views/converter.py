@@ -80,7 +80,7 @@ def apk_2_java(app_path, app_dir, tools_dir):
             jadx = os.path.join(tools_dir, 'jadx/bin/jadx')
         # Set execute permission, if JADX is not executable
         if not os.access(jadx, os.X_OK):
-            os.chmod(jadx, stat.S_IEXEC)
+            os.chmod(jadx, stat.S_IRWXU)
         args = [
             jadx,
             '-ds',
