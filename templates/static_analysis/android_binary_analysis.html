@@ -605,8 +605,7 @@ sidebar-mini
                       </td>
                       <td>
                         {% for file_path, lines in details.files.items %}
-                        <a href="{% url "home" %}?file={{ file_path }}&amp;md5={{ md5
-                          }}&amp;type={{app_type}}&amp;lines={{ lines }}"> {{ file_path }}</a>
+                        <a href="{% url "view_source" %}?file={{ file_path }}&amp;md5={{ md5 }}&amp;type={{app_type}}&amp;lines={{ lines }}"> {{ file_path }}</a>
                         <br />
                         {% endfor %}
                       </td>
@@ -877,8 +876,7 @@ sidebar-mini
                       </td>
                       <td>
                         {% for file_path, lines in details.files.items %}
-                        <a href="{% url "home" %}?file={{ file_path }}&amp;md5={{ md5
-                          }}&amp;type={{app_type}}&amp;lines={{ lines}}"> {{ file_path }}</a>
+                        <a href="{% url "view_source" %}?file={{ file_path }}&amp;md5={{ md5 }}&amp;type={{app_type}}&amp;lines={{ lines}}"> {{ file_path }}</a>
                         <br />
                         {% endfor %}
                       </td>
@@ -986,8 +984,7 @@ sidebar-mini
                       </td>
 
                       <td>
-                        <a href="{% url "home" %}?file={{urldict|key:"path"}}&amp;md5={{
-                          md5}}&amp;type={{app_type}}">{{urldict|key:"path"}}</a>
+                        <a href="{% url "view_source" %}?file={{urldict|key:"path"}}&amp;md5={{ md5 }}&amp;type={{app_type}}">{{urldict|key:"path"}}</a>
                       </td>
                     </tr>
                     {% endfor %}
@@ -1031,8 +1028,7 @@ sidebar-mini
                         {% endfor %}
                       </td>
                       <td>
-                        <a href="{% url "home" %}?file={{email_dict|key:"path"}}&amp;md5={{
-                          md5}}&amp;type={{app_type}}">{{email_dict|key:"path"}}</a>
+                        <a href="{% url "view_source" %}?file={{email_dict|key:"path"}}&amp;md5={{ md5 }}&amp;type={{app_type}}">{{email_dict|key:"path"}}</a>
                       </td>
                     </tr>
                     {% endfor %}

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import re_path
 from Home.views import home
-from StaticAnalyzer.views import static_analyzer
+from StaticAnalyzer.views import manifest_view, static_analyzer,view_source
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +27,6 @@ urlpatterns = [
     # Static Analysis
     # Android
     re_path(r'^static_analyzer/$',static_analyzer.static_analyzer),
+    re_path(r'^manifest_view/$', manifest_view.run),
+    re_path(r'^view_file/$', view_source.run, name='view_source'),
 ]
