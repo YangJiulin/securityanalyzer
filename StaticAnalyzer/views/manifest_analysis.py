@@ -42,7 +42,7 @@ def get_manifest(app_dir, typ,is_apk):
             logger.info('Parsing AndroidManifest.xml')
             manifest = minidom.parseString(manifest)
         except Exception:
-            err = ('apktool 未能提取 '
+            err = ('apktool 未能提取'
                    'AndroidManifest.xml 或 转换失败')
             logger.exception(err)
             manifest = minidom.parseString(

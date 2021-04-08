@@ -69,7 +69,7 @@ class AndroidChecks(forms.Form):
     def clean_file(self):
         """Safe Extension."""
         file = self.cleaned_data['file']
-        ext = file.split('.')[-1]
+        ext = file.split('.')[-1] #文件扩展名
         ext_type = re.search('java|smali', ext)
         if not ext_type:
             raise forms.ValidationError('File Extension not supported')
