@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -151,6 +152,8 @@ STATIC_URL = '/static/'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 
+TOOLS_DIR = BASE_DIR/'DynamicAnalyzer/tools/'
+
  # ==========ANDROID SKIP CLASSES==========================
     # Common third party classes/paths that will be skipped
     # during static analysis
@@ -176,7 +179,7 @@ LOGGING = {
         'color': {
             '()': 'colorlog.ColoredFormatter',
             'format':
-                '%(log_color)s[%(levelname)s] %(asctime)-15s --%(pathname)s-->%(message)s',
+                '%(log_color)s[%(levelname)s] %(asctime)-15s -- %(pathname)s --> %(message)s',
             'datefmt': '%d/%b/%Y %H:%M:%S',
             'log_colors': {
                 'DEBUG': 'cyan',

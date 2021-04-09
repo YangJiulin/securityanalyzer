@@ -323,8 +323,8 @@ def get_device():
     """Get Device."""
     if os.getenv('ANALYZER_IDENTIFIER'):
         return os.getenv('ANALYZER_IDENTIFIER')
-    if settings.ANALYZER_IDENTIFIER:
-        return settings.ANALYZER_IDENTIFIER
+    # if settings.ANALYZER_IDENTIFIER:
+    #     return settings.ANALYZER_IDENTIFIER
     else:
         dev_id = ''
         out = subprocess.check_output([get_adb(), 'devices']).splitlines()
@@ -346,10 +346,10 @@ def get_adb():
                    ' with same adb binary used'
                    ' by Genymotion VM/Emulator AVD.')
         global ADB_PATH
-        if (len(settings.ADB_BINARY) > 0
-                and is_file_exists(settings.ADB_BINARY)):
-            ADB_PATH = settings.ADB_BINARY
-            return ADB_PATH
+        # if (len(settings.ADB_BINARY) > 0
+        #         and is_file_exists(settings.ADB_BINARY)):
+        #     ADB_PATH = settings.ADB_BINARY
+        #     return ADB_PATH
         if ADB_PATH:
             return ADB_PATH
         if platform.system() == 'Windows':
@@ -531,14 +531,14 @@ def is_md5(user_input):
 
 def get_config_loc():
     """Get config location."""
-    if settings.USE_HOME:
-        return os.path.join(
-            os.path.expanduser('~'),
-            '.MobSF',
-            'config.py',
-        )
-    else:
-        return 'MobSF/settings.py'
+    # if settings.USE_HOME:
+    #     return os.path.join(
+    #         os.path.expanduser('~'),
+    #         '.MobSF',
+    #         'config.py',
+    #     )
+    # else:
+    return 'securityanalyzer/settings.py'
 
 
 def get_http_tools_url(req):
