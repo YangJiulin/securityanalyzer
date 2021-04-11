@@ -63,74 +63,6 @@ def upstream_proxy(flaw_type):
     return proxies, verify
 
 
-def api_key():
-    """Print REST API Key."""
-    if os.environ.get('MOBSF_API_KEY'):
-        logger.info('\nAPI Key read from environment variable')
-        return os.environ['MOBSF_API_KEY']
-
-    secret_file = os.path.join(settings.MobSF_HOME, 'secret')
-    if is_file_exists(secret_file):
-        try:
-            _api_key = open(secret_file).read().strip()
-            return gen_sha256_hash(_api_key)
-        except Exception:
-            logger.exception('Cannot Read API Key')
-
-
-def print_version():
-    """Print MobSF Version."""
-    logger.info(settings.BANNER)
-    ver = settings.MOBSF_VER
-    if platform.system() == 'Windows':
-        logger.info('Mobile Security Framework %s', ver)
-        print('REST API Key: ' + api_key())
-    else:
-        logger.info('\033[1m\033[34mMobile Security Framework %s\033[0m', ver)
-        print('REST API Key: ' + Color.BOLD + api_key() + Color.END)
-    logger.info('OS: %s', platform.system())
-    logger.info('Platform: %s', platform.platform())
-    dist = distro.linux_distribution(full_distribution_name=False)
-    if dist:
-        logger.info('Dist: %s', ' '.join(dist))
-    find_java_binary()
-    check_basic_env()
-    thread = threading.Thread(target=check_update, name='check_update')
-    thread.start()
-
-
-def check_update():
-    try:
-        if not is_internet_available():
-            logger.warning('Internet Not Available. Skipping Update check')
-            return
-        logger.info('Checking for Update.')
-        github_url = settings.GITHUB_URL
-        try:
-            proxies, verify = upstream_proxy('https')
-        except Exception:
-            logger.exception('Setting upstream proxy')
-        response = requests.get(github_url, timeout=5,
-                                proxies=proxies, verify=verify)
-        html = str(response.text).split('\n')
-        local_version = settings.MOBSF_VER
-        for line in html:
-            if line.startswith('MOBSF_VER'):
-                remote_version = line.split('= ', 1)[1].replace('\'', '')
-                if LooseVersion(local_version) < LooseVersion(remote_version):
-                    logger.warning('A new version of MobSF is available, '
-                                   'Please update to %s from master branch.',
-                                   remote_version)
-                else:
-                    logger.info('No updates available.')
-                break
-    except requests.exceptions.HTTPError:
-        logger.warning('\nCannot check for updates..'
-                       ' No Internet Connection Found.')
-        return
-    except Exception:
-        logger.exception('Cannot Check for updates.')
-
 
 def find_java_binary():
     """Find Java."""
@@ -265,33 +197,6 @@ def is_internet_available():
             return False
 
 
-def sha256(file_path):
-    blocksize = 65536
-    hasher = hashlib.sha256()
-    with io.open(file_path, mode='rb') as afile:
-        buf = afile.read(blocksize)
-        while buf:
-            hasher.update(buf)
-            buf = afile.read(blocksize)
-    return hasher.hexdigest()
-
-
-def sha256_object(file_obj):
-    blocksize = 65536
-    hasher = hashlib.sha256()
-    buf = file_obj.read(blocksize)
-    while buf:
-        hasher.update(buf)
-        buf = file_obj.read(blocksize)
-    return hasher.hexdigest()
-
-
-def gen_sha256_hash(msg):
-    """Generate SHA 256 Hash of the message."""
-    hash_object = hashlib.sha256(msg.encode('utf-8'))
-    return hash_object.hexdigest()
-
-
 def is_file_exists(file_path):
     if os.path.isfile(file_path):
         return True
@@ -321,28 +226,22 @@ def find_process_by(name):
 
 def get_device():
     """Get Device."""
-    if os.getenv('ANALYZER_IDENTIFIER'):
-        return os.getenv('ANALYZER_IDENTIFIER')
     # if settings.ANALYZER_IDENTIFIER:
     #     return settings.ANALYZER_IDENTIFIER
-    else:
-        dev_id = ''
-        out = subprocess.check_output([get_adb(), 'devices']).splitlines()
-        if len(out) > 2:
-            dev_id = out[1].decode('utf-8').split('\t')[0]
-            return dev_id
+    dev_id = ''
+    out = subprocess.check_output([get_adb(), 'devices']).splitlines()
+    if len(out) > 2:
+        dev_id = out[1].decode('utf-8').split('\t')[0]
+        return dev_id
     logger.error('Is the Android VM running?\n'
-                 'MobSF cannot identify device id.\n'
-                 'Please set ''ANALYZER_IDENTIFIER in '
-                 '%s', get_config_loc())
+                 'cannot identify device id.\n')
 
 
 def get_adb():
     """Get ADB binary path."""
     try:
         adb_loc = None
-        adb_msg = ('Set adb path, ADB_BINARY in'
-                   f'{get_config_loc()}'
+        adb_msg = ('Set adb path, '
                    ' with same adb binary used'
                    ' by Genymotion VM/Emulator AVD.')
         global ADB_PATH
@@ -381,8 +280,8 @@ def get_adb():
 
 
 def check_basic_env():
-    """Check if we have basic env for MobSF to run."""
-    logger.info('MobSF Basic Environment Check')
+    """Check if we have basic env to run.""" 
+    logger.info('Basic Environment Check')
     try:
         import http_tools  # noqa F401
     except ImportError:
@@ -400,47 +299,13 @@ def check_basic_env():
             ' or JAVA_DIRECTORY in '
             '%s', get_config_loc())
         logger.info('Current Configuration: '
-                    'JAVA_DIRECTORY=%s', settings.JAVA_DIRECTORY)
+                    'JAVA_DIRECTORY=%s', 'settings.JAVA_DIRECTORY')
         logger.info('Example Configuration:'
                     '\nJAVA_DIRECTORY = "C:/Program Files/'
                     'Java/jdk1.7.0_17/bin/"'
                     '\nJAVA_DIRECTORY = "/usr/bin/"')
         os.kill(os.getpid(), signal.SIGTERM)
     get_adb()
-
-
-def update_local_db(db_name, url, local_file):
-    """Update Local DBs."""
-    update = None
-    inmemoryfile = None
-    try:
-        proxies, verify = upstream_proxy('https')
-    except Exception:
-        logger.exception('[ERROR] Setting upstream proxy')
-    try:
-        response = requests.get(url,
-                                timeout=3,
-                                proxies=proxies,
-                                verify=verify)
-        resp = response.content
-        inmemoryfile = io.BytesIO(resp)
-        # Create on first run
-        if not is_file_exists(local_file):
-            return resp
-        # Check1: SHA256 Change
-        if sha256_object(inmemoryfile) != sha256(local_file):
-            # Hash Changed
-            logger.info('%s Database is outdated!', db_name)
-            update = resp
-        else:
-            logger.info('%s Database is up-to-date', db_name)
-        return update
-    except Exception:
-        logger.exception('[ERROR] %s DB Update', db_name)
-        return update
-    finally:
-        if inmemoryfile:
-            inmemoryfile.truncate(0)
 
 
 def read_sqlite(sqlite_file):

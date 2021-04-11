@@ -34,7 +34,7 @@ from StaticAnalyzer.models import StaticAnalyzerAndroid
 
 logger = logging.getLogger(__name__)
 ANDROID_API_SUPPORTED = 29
-FRIDA_VERSION = '14.2.13'
+FRIDA_VERSION = '14.2.14'
 
 
 class Environment:
@@ -167,7 +167,7 @@ class Environment:
             os.remove(screen_file)
         # Delete Contents of Screenshot Dir
         screen_dir = os.path.join(
-            settings.UPLD_DIR, bin_hash + '/screenshots-apk/')
+            settings.MEDIA_ROOT / 'upload', bin_hash + '/screenshots-apk/')
         if os.path.isdir(screen_dir):
             shutil.rmtree(screen_dir)
         else:

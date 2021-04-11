@@ -42,15 +42,11 @@ def run(request):
             err = FormUtil.errors_message(viewsource_form)
             return print_n_send_error_response(request, err, False,exp)
         base = Path(settings.MEDIA_ROOT)/ 'upload' / md5
-        if typ == 'smali':
-            src = base / 'smali_source'
-            syntax = 'smali'
-        else:
-            try:
-                src, syntax, _ = find_java_source_folder(base)
-            except StopIteration:
-                msg = 'Invalid Directory Structure'
-                return print_n_send_error_response(request, msg, False)
+        try:
+            src, syntax, _ = find_java_source_folder(base)
+        except StopIteration:
+            msg = 'Invalid Directory Structure'
+            return print_n_send_error_response(request, msg, False)
 
         sfile = src / fil
         if not is_safe_path(src, sfile.as_posix()):

@@ -42,7 +42,6 @@ def dynamic_analysis(request, api=False):
             APP_TYPE='apk').order_by('-id')
         for apk in apks:
             temp_dict = {
-                'ICON_FOUND': apk.ICON_FOUND,
                 'MD5': apk.MD5,
                 'APP_NAME': apk.APP_NAME,
                 'VERSION_NAME': apk.VERSION_NAME,

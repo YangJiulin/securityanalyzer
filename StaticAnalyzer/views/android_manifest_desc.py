@@ -32,13 +32,11 @@ MANIFEST_DESC = {
     },
     'a_allowbackup_miss': {
         'title': ('应用数据可以备份<br>[android:allowBackup]'
-                  ' flag is missing.'),
+                  ' 标识缺失。'),
         'level': 'medium',
         'description': ("""
         flag [android:allowBackup]应该设置为false。默认情况下，它被设置为true并允许任何人这样做
-        通过adb备份您的应用程序数据。它允许用户
-        谁已启用USB调试复制应用程序
-        数据从设备中删除。
+        通过adb备份您的应用程序数据。它允许用户谁已启用USB调试复制应用程序数据从设备中删除。
         """),
         'name': ('应用数据可以备份 [android:allowBackup] flag'
                  ' is missing.'),
@@ -55,13 +53,11 @@ MANIFEST_DESC = {
     'a_taskaffinity': {
         'title': '给Activity设置了TaskAffinity </br>(%s)',
         'level': 'high',
-        'description': ('If taskAffinity is set, then other application'
-                        ' could read the Intents sent to Activities '
-                        'belonging to another task. Always use the default'
-                        ' setting keeping the affinity as the package name'
-                        ' in order to prevent sensitive information inside'
-                        ' sent or received Intents from being read by '
-                        'another application.'),
+        'description': ("""
+        如果设置了taskAffinity，则其他应用程序可以读出发送给属于另一个任务的活动的意图。
+        总是使用默认值设置将affinity作为包名为了防止里面有敏感信息
+        发送或接收意图被读取另一个应用程序。
+        """),
         'name': 'TaskAffinity is set for Activity',
     },
     'a_launchmode': {
@@ -78,472 +74,123 @@ MANIFEST_DESC = {
         'title': ('<strong>%s</strong> (%s) 受权限保护，但权限保护级别应该被检查。'
                   '</br>%s <br>[android:exported=true]'),
         'level': 'high',
-        'description': ('%s %s is found to be shared with other apps on the'
-                        ' device therefore leaving it accessible to any other'
-                        ' application on the device. It is protected by a '
-                        'permission. However, the protection level of the'
-                        '  permission is set to normal. This means that a '
-                        'malicious application can request and obtain'
-                        ' the permission and interact with the component.'
-                        ' If it was set to signature, only applications '
-                        'signed with the same certificate could obtain '
-                        'the permission.'),
+        'description': ("""
+        %s 被发现与其他应用程序共享。因此，任何在设备上其他应用都可以访问它。它被保护着，
+        然而，权限设置为normal。这意味着恶意应用程序可以请求和获取允许并与组件交互。
+        如果设置为signature，只适用于申请用相同的证书签名可以获得许可。
+        """ ),
         'name': ('受权限保护，但权限保护级别应该被检查。[android:exported=true]'),
     },
     'a_prot_danger': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission, but'
-                  ' the protection level of the permission should be checked.'
+        'title': ('<strong>%s</strong> (%s) 受权限保护, 但权限保护级别应该被检查。'
                   '</br>%s <br>[android:exported=true]'),
         'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps on the'
-                        ' device therefore leaving it accessible to any other'
-                        ' application on the device. It is protected by a'
-                        ' permission. However, the protection level of the'
-                        ' permission is set to dangerous. This means that a'
-                        ' malicious application can request and obtain the'
-                        ' permission and interact with the component. If it'
-                        ' was set to signature, only applications signed with'
-                        ' the same certificate could obtain the permission.'),
-        'name': ('is Protected by a permission, but the protection level of'
-                 ' the permission should be checked.[android:exported=true]'),
+        'description': ("""
+        %s被发现与其他应用程序共享.因此，任何在设备上其他应用程序都可以访问它。它被保护着，然而，保护水平权限设置为“危险”。这意味着a
+        恶意应用程序可以请求和获取允许并与组件交互。如果它是设置为signature，只有应用程序签名同一证书可以获得该权限。
+        """),
+        'name': ('受权限保护，但权限保护级别应该被检查。[android:exported=true]'),
     },
     'a_prot_unknown': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission, but'
-                  ' the protection level of the permission should be checked.'
+        'title': ('<strong>%s</strong> (%s) 受权限保护，但权限保护级别应该被检查。'
                   '</br>%s <br>[android:exported=true]'),
         'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps on the'
-                        ' device therefore leaving it accessible to any other'
-                        ' application on the device. It is protected by a '
-                        'permission which is not defined in the analysed '
-                        'application. As a result, the protection level of the'
-                        ' permission should be checked where it is defined. If'
-                        ' it is set to normal or dangerous, a malicious '
-                        'application can request and obtain the permission and'
-                        ' interact with the component. If it is set to '
-                        'signature, only applications signed with the same '
-                        'certificate can obtain the permission.'),
-        'name': ('is Protected by a permission, but the protection level '
-                 'of the permission should be '
-                 'checked.[android:exported=true]'),
+        'description': ("""
+        %s被发现与其他应用程序共享.因此，任何在设备上其他应用都可以访问它。它被保护着
+        在分析中没有定义的权限应用程序。因此，保护水平应该在定义权限的地方检查权限。如果
+        它被设置为正常或危险，恶意申请可以请求并获得权限和与组件交互。如果它被设置为
+        signature，只有用相同签名的应用程序证书可以获得权限。
+        """),
+        'name': ('受权限保护，但权限保护级别应该被检查。[android:exported=true]'),
     },
     'a_prot_normal_appl': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission at'
-                  ' the application level, but the protection level of the '
-                  'permission should be checked.</br>%s <br>'
+        'title': ('<strong>%s</strong> (%s) 受application级别权限保护，但权限保护级别应该被检查。</br>%s <br>'
                   '[android:exported=true]'),
         'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps on the'
-                        ' device therefore leaving it accessible to any other'
-                        ' application on the device.  It is protected by a '
-                        'permission at the application level. However, the'
-                        ' protection level of the permission is set to normal.'
-                        ' This means that a malicious application can request '
-                        'and obtain the permission and interact with the '
-                        'component. If it was set to signature, only '
-                        'applications signed with the same certificate '
-                        'could obtain the permission.'),
-        'name': ('is Protected by a permission at the application level,'
-                 ' but the protection level of the permission should be '
-                 'checked.[android:exported=true]'),
+        'description': ("""
+        %s被发现与其他应用程序共享。因此，任何在设备上其他应用都可以访问它。它被application级别权限保护着，
+        然而，权限设置为normal。这意味着恶意应用程序可以请求和获取允许并与组件交互。如果设置为signature，只适用于申请用相同的证书签名可以获得许可。
+        """),
+        'name': ('受application级别权限保护，但权限保护级别应该被检查。[android:exported=true]'),
     },
     'a_prot_danger_appl': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission at'
-                  ' the application level, but the protection level of the '
-                  'permission should be checked.'
+        'title': ('<strong>%s</strong> (%s)受application级别权限保护，但权限保护级别应该被检查。'
                   '</br>%s <br>[android:exported=true]'),
         'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps on the'
-                        ' device therefore leaving it accessible to any other'
-                        ' application on the device. It is protected by a '
-                        'permission at the application level. However, the '
-                        'protection level of the permission is set to '
-                        'dangerous. This means that a malicious application '
-                        'can request and obtain the permission and interact '
-                        'with the component. If it was set to signature, '
-                        'only applications signed with the same certificate'
-                        ' could obtain the permission.'),
-        'name': ('is Protected by a permission at the application level, but'
-                 ' the protection level of the permission should be '
-                 'checked.[android:exported=true]'),
+        'description': ("""%s被发现与其他应用程序共享。因此，任何在设备上其他应用都可以访问它。它被application级别权限保护着，
+        然而，权限设置为danger。这意味着恶意应用程序可以请求和获取允许并与组件交互。如果设置为signature，只适用于申请用相同的证书签名可以获得许可。
+        """),
+        'name': ('受application级别权限保护，但权限保护级别应该被检查。[android:exported=true]'),
     },
     'a_prot_unknown_appl': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission'
-                  ' at the application, but the protection level of the '
-                  'permission should be checked.'
+        'title': ('<strong>%s</strong> (%s)受application级别权限保护，但权限保护级别应该被检查。'
                   '</br>%s <br>[android:exported=true]'),
         'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps on '
-                        'the device therefore leaving it accessible to any'
-                        ' other application on the device. It is protected'
-                        ' by a permission at the application level which is'
-                        ' not defined in the analysed application. As a'
-                        ' result, the protection level of the permission'
-                        ' should be checked where it is defined. If it is'
-                        ' set to normal or dangerous, a malicious application'
-                        ' can request and obtain the permission and interact'
-                        ' with the component. If it is set to signature, only'
-                        ' applications signed with the same certificate can'
-                        ' obtain the permission.'),
-        'name': ('is Protected by a permission at the application, but the'
-                 ' protection level of the permission should be checked.'
+        'description': ("""
+        %s被发现与其他应用程序共享.因此，任何在设备上其他应用都可以访问它。它被application级别权限保护着
+        在分析中没有定义的权限应用程序。因此，保护水平应该在定义权限的地方检查权限。如果
+        它被设置为正常或危险，恶意申请可以请求并获得权限和与组件交互。如果它被设置为
+        signature，只有用相同签名的应用程序证书可以获得权限。
+        """),
+        'name': ('受application级别权限保护，但权限保护级别应该被检查。'
                  '[android:exported=true]'),
     },
     'a_not_protected': {
-        'title': ('<strong>%s</strong> (%s) is not Protected.'
+        'title': ('<strong>%s</strong> (%s) 未被保护。'
                   ' <br>[android:exported=true]'),
         'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps on the'
-                        ' device therefore leaving it accessible to any other'
-                        ' application on the device.'),
-        'name': 'is not Protected. [android:exported=true]',
+        'description': ('%s 被发现与其他应用程序共享,因此任何其他设备上的应用都可以访问它。'),
+        'name': '未被保护。 [android:exported=true]',
     },
     'a_not_protected_filter': {
-        'title': ('<strong>%s</strong> (%s) is not Protected.<br>'
-                  'An intent-filter exists.'),
+        'title': ('<strong>%s</strong> (%s) 未被保护。<br>'
+                  '存在一个intent-filter.'),
         'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps on the'
-                        ' device therefore leaving it accessible to any other '
-                        'application on the device. The presence of '
-                        'intent-filter indicates that the %s'
-                        ' is explicitly exported.'),
-        'name': 'is not Protected.An intent-filter exists.',
-    },
-    'c_not_protected': {
-        'title': ('<strong>%s</strong> (%s) is not Protected. <br>'
-                  '[[Content Provider, targetSdkVersion < 17]'),
-        'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps'
-                        ' on the device therefore leaving it accessible '
-                        'to any other application on the device. It is '
-                        'a Content Provider that targets an API level '
-                        'under 17, which makes it exported by default,'
-                        ' regardless of the API level of the system '
-                        'that the application runs on.'),
-        'name': 'is not Protected.[[Content Provider, targetSdkVersion < 17]',
-    },
-    'c_not_protected2': {
-        'title': ('<strong>%s</strong> (%s) would not be Protected if the'
-                  ' application ran on a device where the the API level was'
-                  ' less than 17. <br>[Content Provider, '
-                  'targetSdkVersion >= 17]'),
-        'level': 'high',
-        'description': ('The Content Provider(%s %s) would be exported if the'
-                        ' application ran on a device where the the API level '
-                        'was less than 17. In that situation, it would be '
-                        'shared with other apps on the device therefore '
-                        'leaving it accessible to any other application '
-                        'on the device.'),
-        'name': ('would not be Protected if the application ran on a device'
-                 ' where the the API level was less than 17.[Content Provider,'
-                 ' targetSdkVersion >= 17]'),
-    },
-    'c_prot_normal': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission, but'
-                  ' the protection level of the permission should be checked.'
-                  '</br>%s <br>[Content Provider, targetSdkVersion < 17]'),
-        'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps on the'
-                        ' device therefore leaving it accessible to any other'
-                        ' application on the device. It is protected by a '
-                        'permission. However, the protection level of the'
-                        ' permission is set to normal. This means that a '
-                        'malicious application can request and obtain '
-                        'the permission and interact with the component. '
-                        'If it was set to signature, only applications signed '
-                        'with the same certificate could obtain '
-                        'the permission.'),
-        'name': ('is Protected by a permission, but the protection level'
-                 ' of the permission should be checked.[Content Provider,'
-                 ' targetSdkVersion < 17]'),
-    },
-    'c_prot_danger': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission, '
-                  'but the protection level of the permission should be '
-                  'checked.</br>%s <br>[Content Provider, '
-                  'targetSdkVersion < 17]'),
-        'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps on the'
-                        ' device therefore leaving it accessible to any other'
-                        ' application on the device. It is protected by a '
-                        'permission. However, the protection level of the '
-                        'permission is set to dangerous. This means that a '
-                        'malicious application can request and obtain the '
-                        'permission and interact with the component. If it'
-                        ' was set to signature, only applications signed with'
-                        ' the same certificate could obtain '
-                        'the permission.'),
-        'name': ('is Protected by a permission, but the protection level of '
-                 'the permission should be checked.[Content Provider, '
-                 'targetSdkVersion < 17]'),
-    },
-    'c_prot_unknown': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission, but'
-                  ' the protection level of the permission should be checked.'
-                  '</br>%s <br>[Content Provider, targetSdkVersion < 17]'),
-        'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps on the '
-                        'device therefore leaving it accessible to any other '
-                        'application on the device. It is protected by a '
-                        'permission which is not defined in the analysed '
-                        'application. As a result, the protection level of the'
-                        ' permission should be checked where it is defined. If'
-                        ' it is set to normal or dangerous, a malicious '
-                        'application can request and obtain the permission and'
-                        ' interact with the component. If it is set to '
-                        'signature, only applications signed with the same '
-                        'certificate can obtain the permission.'),
-        'name': ('is Protected by a permission, but the protection level of'
-                 ' the permission should be checked.[Content Provider,'
-                 ' targetSdkVersion < 17]'),
-    },
-    'c_prot_normal_appl': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission at'
-                  ' the application level, but the protection level of the'
-                  ' permission should be checked.'
-                  '</br>%s <br>[Content Provider, targetSdkVersion < 17]'),
-        'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps on the'
-                        ' device therefore leaving it accessible to any other'
-                        ' application on the device. It is protected by a'
-                        ' permission at the application level. However, the'
-                        ' protection level of the permission is set to normal.'
-                        ' This means that a malicious application can request'
-                        ' and obtain the permission and interact with the'
-                        ' component. If it was set to signature, only '
-                        'applications signed with the same certificate could'
-                        ' obtain the permission.'),
-        'name': ('is Protected by a permission at the application level, but'
-                 ' the protection level of the permission should be checked.'
-                 '[Content Provider, targetSdkVersion < 17]'),
-    },
-    'c_prot_danger_appl': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission at '
-                  'the application level, but the protection level of the '
-                  'permission should be checked.'
-                  '</br>%s <br>[Content Provider, targetSdkVersion < 17]'),
-        'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps on the'
-                        ' device therefore leaving it accessible to any other'
-                        ' application on the device. It is protected by a '
-                        'permission at the application level. However, the '
-                        'protection level of the permission is set to '
-                        'dangerous. This means that a malicious application'
-                        ' can request and obtain the permission and interact'
-                        ' with the component. If it was set to signature, '
-                        'only applications signed with the same certificate'
-                        ' could obtain the permission.'),
-        'name': ('is Protected by a permission at the application level, but'
-                 ' the protection level of the permission should be checked.'
-                 '[Content Provider, targetSdkVersion < 17]'),
-    },
-    'c_prot_unknown_appl': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission at'
-                  ' application level, but the protection level of the '
-                  'permission should be checked.</br>%s '
-                  '<br>[Content Provider, targetSdkVersion < 17]'),
-        'level': 'high',
-        'description': ('A%s %s is found to be shared with other apps on the'
-                        ' device therefore leaving it accessible to any other'
-                        ' application on the device. It is protected by a '
-                        'permission at application level which is not defined'
-                        ' in the analysed application. As a result, the '
-                        'protection level of the permission should be checked'
-                        ' where it is defined. If it is set to normal or '
-                        'dangerous, a malicious application can request and'
-                        ' obtain the permission and interact with the '
-                        'component. If it is set to signature, only '
-                        'applications signed with the same certificate '
-                        'can obtain the permission.'),
-        'name': ('is Protected by a permission at application level, but'
-                 ' the protection level of the permission should be checked.'
-                 '[Content Provider, targetSdkVersion < 17]'),
-    },
-    'c_prot_normal_new': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission, '
-                  'but the protection level of the permission should be '
-                  'checked if the application runs on a device where the '
-                  'the API level is less than 17'
-                  '</br>%s <br>[Content Provider, targetSdkVersion >= 17]'),
-        'level': 'high',
-        'description': ('The Content Provider (%s) would be exported if the'
-                        ' application ran on a device where the the API level'
-                        ' was less than 17. In that situation, it would still'
-                        ' be protected by a permission. However, the '
-                        'protection level of the permission is set to normal. '
-                        'This means that a malicious application could request'
-                        ' and obtain the permission and interact with the'
-                        ' component. If it was set to signature, only'
-                        ' applications signed with the same certificate '
-                        'could obtain the permission.'),
-        'name': ('is Protected by a permission, but the protection level of'
-                 ' the permission should be checked if the application runs '
-                 'on a device where the the API level is less than 17 '
-                 '[Content Provider, targetSdkVersion >= 17]'),
-    },
-    'c_prot_danger_new': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission,'
-                  ' but the protection level of the permission should be '
-                  'checked if the application runs on a device where '
-                  'the API level is less than 17.</br>%s <br>'
-                  '[Content Provider, targetSdkVersion >= 17]'),
-        'level': 'high',
-        'description': ('The Content Provider(%s) would be exported if the'
-                        ' application ran on a device where the the API level'
-                        ' was less than 17. In that situation, it would still'
-                        ' be protected by a permission. However, the '
-                        'protection level of the permission is set to'
-                        ' dangerous. This means that a malicious application'
-                        ' could request and obtain the permission and interact'
-                        ' with the component. If it was set to signature, only'
-                        ' applications signed with the same certificate could'
-                        ' obtain the permission.'),
-        'name': ('is Protected by a permission, but the protection level of'
-                 ' the permission should be checked if the application runs on'
-                 ' a device where the the API level is less than 17.'
-                 '[Content Provider, targetSdkVersion >= 17]'),
-    },
-    'c_prot_unknown_new': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission, but'
-                  ' the protection level of the permission should be checked'
-                  '  if the application runs on a device where the the API '
-                  'level is less than 17.</br>%s <br>'
-                  '[Content Provider, targetSdkVersion >= 17]'),
-        'level': 'high',
-        'description': ('The Content Provider(%s) would be exported if the'
-                        ' application ran on a device where the the API level'
-                        ' was less than 17. In that situation, it would still'
-                        ' be protected by a permission which is not defined in'
-                        ' the analysed application. As a result, the '
-                        'protection level of the permission should be '
-                        'checked where it is defined. If it is set to normal'
-                        ' or dangerous, a malicious application can request'
-                        ' and obtain the permission and interact with the '
-                        'component. If it is set to signature, only '
-                        'applications signed with the same certificate'
-                        ' can obtain the permission.'),
-        'name': ('is Protected by a permission, but the protection level of'
-                 ' the permission should be checked  if the application runs'
-                 ' on a device where the the API level is less than 17.'
-                 '[Content Provider, targetSdkVersion >= 17]'),
-    },
-    'c_prot_normal_new_appl': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission at'
-                  ' the application level, but the protection level of the'
-                  ' permission should be checked if the application runs on'
-                  ' a device where the the API level is less than 17'
-                  '</br>%s <br>[Content Provider, targetSdkVersion >= 17]'),
-        'level': 'high',
-        'description': ('The Content Provider (%s) would be exported if the'
-                        ' application ran on a device where the the API '
-                        'level was less than 17. In that situation, it'
-                        ' would still be protected by a permission. '
-                        'However, the protection level of the permission'
-                        ' is set to normal. This means that a malicious'
-                        ' application could request and obtain the '
-                        'permission and interact with the component. '
-                        'If it was set to signature, only applications '
-                        'signed with the same certificate could obtain'
-                        ' the permission.'),
-        'name': ('is Protected by a permission at the application level '
-                 'should be checked, but the protection level of the '
-                 'permission if the application runs on a device where'
-                 ' the the API level is less than 17.'
-                 '[Content Provider, targetSdkVersion >= 17]'),
-    },
-    'c_prot_danger_new_appl': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission at'
-                  ' the application level, but the protection level of the'
-                  ' permission should be checked if the application runs on'
-                  ' a device where the the API level is less than 17.'
-                  '</br>%s <br>[Content Provider, targetSdkVersion >= 17]'),
-        'level': 'high',
-        'description': ('The Content Provider(%s) would be exported if the'
-                        ' application ran on a device where the the API '
-                        'level was less than 17. In that situation, it'
-                        ' would still be protected by a permission. However,'
-                        ' the protection level of the permission is set to'
-                        ' dangerous. This means that a malicious application'
-                        ' could request and obtain the permission and interact'
-                        ' with the component. If it was set to signature, only'
-                        ' applications signed with the same certificate could'
-                        ' obtain the permission.'),
-        'name': ('is Protected by a permission at the application level, but'
-                 ' the protection level of the permission should be checked '
-                 'if the application runs on a device where the the API level '
-                 'is less than 17.[Content Provider, targetSdkVersion >= 17]'),
-    },
-    'c_prot_unknown_new_appl': {
-        'title': ('<strong>%s</strong> (%s) is Protected by a permission at '
-                  'the application level, but the protection level of the '
-                  'permission should be checked  if the application runs on'
-                  ' a device where the the API level is less than 17.'
-                  '</br>%s <br>[Content Provider, targetSdkVersion >= 17]'),
-        'level': 'high',
-        'description': ('The Content Provider(%s) would be exported if the'
-                        ' application ran on a device where the the API level'
-                        ' was less than 17. In that situation, it would still'
-                        ' be protected by a permission which is not defined '
-                        'in the analysed application. As a result, the'
-                        ' protection level of the permission should be checked'
-                        ' where it is defined. If it is set to normal or'
-                        ' dangerous, a malicious application can request'
-                        ' and obtain the permission and interact with the'
-                        ' component. If it is set to signature, only '
-                        'applications signed with the same certificate'
-                        ' can obtain the permission.'),
-        'name': ('is Protected by a permission at the application level,'
-                 ' but the protection level of the permission should be'
-                 ' checked  if the application runs on a device where the'
-                 ' the API level is less than 17.'
-                 '[Content Provider, targetSdkVersion >= 17]'),
+        'description': ("""%s 被发现与其他应用程序共享,因此任何其他设备上的应用都可以访问它。 
+                            intent-filter的存在表明%s被显式导出"""),
+        'name': '存在一个未被保护的intent-filter。',
     },
     'a_improper_provider': {
-        'title': 'Improper Content Provider Permissions<br>[%s]',
+        'title': '不适当的 Content Provider 权限<br>[%s]',
         'level': 'high',
-        'description': ('A content provider permission was set to allows'
-                        ' access from any other app on the device. '
-                        'Content providers may contain sensitive '
-                        'information about an app and therefore '
-                        'should not be shared.'),
-        'name': 'Improper Content Provider Permissions',
+        'description': ("""一个 content provider 权限被设置为允许从设备上的任何其他应用程序访问。
+                    内容提供者可能包含关于应用程序的敏感内容信息，因此不应该分享。"""),
+        'name': '不适当的 Content Provider 权限',
     },
     'a_dailer_code': {
         'title': ('Dailer Code: %s Found'
                   ' <br>[android:scheme="android_secret_code"]'),
         'level': 'high',
-        'description': ('A secret code was found in the manifest. These codes,'
-                        ' when entered into the dialer grant access to hidden'
-                        ' content that may contain sensitive information.'),
+        'description': ("""
+        发现了一个代码。这些代码,当进入拨号器时授予访问隐藏可能包含敏感信息的内容。
+        """),
         'name': ('Dailer Code: Found '
                  '<br>[android:scheme="android_secret_code"]'),
     },
     'a_sms_receiver_port': {
-        'title': 'Data SMS Receiver Set on Port: %s Found<br>[android:port]',
+        'title': '数据短信接收端设置在端口上: %s Found<br>[android:port]',
         'level': 'high',
-        'description': ('A binary SMS receiver is configured to listen on a'
-                        ' port. Binary SMS messages sent to a device are '
-                        'processed by the application in whichever way the'
-                        ' developer choses. The data in this SMS should be'
-                        ' properly validated by the application. Furthermore,'
-                        ' the application should assume that the SMS being'
-                        ' received is from an untrusted source.'),
-        'name': 'Data SMS Receiver Set on Port: Found<br>[android:port]',
+        'description': ("""
+        二进制短信接收器被配置为监听在一个端口。发送到设备的二进制短信是被开发者
+        申请以任何方式处理的东西。这个短信中的数据应该是应用程序适当地验证。
+        此外,应用程序应该假定SMS是收到的消息来自一个不可信的来源。”
+        """),
+        'name': '数据短信接收端设置在端口上: Found<br>[android:port]',
     },
     'a_high_intent_priority': {
-        'title': 'High Intent Priority (%s)<br>[android:priority]',
+        'title': '优先级高的Intent (%s)<br>[android:priority]',
         'level': 'medium',
-        'description': ('By setting an intent priority higher than another'
-                        ' intent, the app effectively overrides '
-                        'other requests.'),
-        'name': 'High Intent Priority [android:priority]',
+        'description': ("""
+        通过设置一个高于另一个的意图优先级Intent，应用程序有效地覆盖其他请求。
+        """),
+        'name': '优先级高的Intent [android:priority]',
     },
     'a_high_action_priority': {
-        'title': 'High Action Priority (%s)<br>[android:priority] ',
+        'title': '行动的优先级高 (%s)<br>[android:priority] ',
         'level': 'medium',
-        'description': ('By setting an action priority higher than'
-                        ' another action, the app effectively '
-                        'overrides other requests.'),
-        'name': 'High Action Priority [android:priority]',
+        'description': ("""
+        通过设置一个行动优先级高于另一个动作，应用程序有效覆盖其他请求。
+        """),
+        'name': '行动的优先级高 [android:priority]',
     },
 }

@@ -152,7 +152,39 @@ STATIC_URL = '/static/'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 
+# -------------------------
+    # DYNAMIC ANALYZER SETTINGS
+    # -------------------------
+
+    # =======ANDROID DYNAMIC ANALYSIS SETTINGS===========
+ANALYZER_IDENTIFIER = ''
+FRIDA_TIMEOUT = 4
+    # ==============================================
+
+    # ================HTTPS PROXY ===============
+PROXY_IP = '127.0.0.1'
+PROXY_PORT = 1337  # Proxy Port
+    # ===================================================
+
+    # ========UPSTREAM PROXY SETTINGS ==============
+    # If you are behind a Proxy
+UPSTREAM_PROXY_ENABLED = False
+UPSTREAM_PROXY_SSL_VERIFY = True
+UPSTREAM_PROXY_TYPE = 'http'
+UPSTREAM_PROXY_IP = '127.0.0.1'
+UPSTREAM_PROXY_PORT = 3128
+UPSTREAM_PROXY_USERNAME = ''
+UPSTREAM_PROXY_PASSWORD = ''
+    # ==============================================
+
+
+# Download Directory
+DWD_DIR = os.path.join(MEDIA_ROOT, 'downloads/')
+FRIDA_SERVER = 'https://api.github.com/repos/frida/frida/releases/tags/'
+
 TOOLS_DIR = BASE_DIR/'DynamicAnalyzer/tools/'
+# Screenshot Directory
+SCREEN_DIR = os.path.join(MEDIA_ROOT, 'downloads/screen/')
 
  # ==========ANDROID SKIP CLASSES==========================
     # Common third party classes/paths that will be skipped

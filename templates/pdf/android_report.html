@@ -583,38 +583,6 @@
                     </table>
     {% endif %}
               
-    <h2><i class="fa fa-id-badge"></i> NIAP ANALYSIS v1.3</h2>
-    <table class="basic">
-              <thead>
-                  <tr>
-                    <th>NO</th>
-                    <th>IDENTIFIER</th>
-                    <th>REQUIREMENT</th>
-                    <th>FEATURE</th>
-                    <th>DESCRIPTION</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for iden, details in niap_analysis.items %}
-                  <tr>
-                  <td>{{ forloop.counter }}</td>
-                  <td>
-                    <span class="{% if 'does not' in details.choice %} warning {% elif 'not in accordance' in details.choice %} danger {% else %} info {% endif %}"> {{ iden }}</span>
-                  </td>
-                   <td>
-                   {{ details.class }}
-                  </td>
-                  <td>
-                    {{ details.description }}
-                   </td>
-                   <td>
-                    {{ details.choice }}
-                   </td>
-                </tr>    
-              {% endfor %} 
-            </tbody>
-                  </table>
-
       {% if domains  %}
       <h2><i class="fab fa-searchengin"></i> DOMAIN MALWARE CHECK</h2>
          <table  class="basic">

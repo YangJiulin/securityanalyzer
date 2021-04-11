@@ -19,7 +19,12 @@ from django.urls.conf import re_path
 from Home.views import home
 from StaticAnalyzer.views import manifest_view, static_analyzer,view_source
 from DynamicAnalyzer.views import dynamic_analyzer as dz
-
+from DynamicAnalyzer.views import (
+    operations,
+    report,
+    tests_common,
+    tests_frida,
+)
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$', home.index, name='home'),
@@ -41,4 +46,16 @@ urlpatterns = [
             dz.httptools_start,
             name='httptools'),
     re_path(r'^logcat/$', dz.logcat),
+
+
+     # Dynamic Tests
+    re_path(r'^activity_tester/$', tests_common.activity_tester),
+    re_path(r'^download_data/$', tests_common.download_data),
+    re_path(r'^collect_logs/$', tests_common.collect_logs),
+    # Frida
+    re_path(r'^frida_instrument/$', tests_frida.instrument),
+    re_path(r'^live_api/$', tests_frida.live_api),
+    re_path(r'^frida_logs/$', tests_frida.frida_logs),
+    re_path(r'^list_frida_scripts/$', tests_frida.list_frida_scripts),
+    re_path(r'^get_script/$', tests_frida.get_script),
 ]

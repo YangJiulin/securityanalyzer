@@ -11,23 +11,19 @@ from StaticAnalyzer.views.shared_func import (
     url_n_email_extract,
 )
 from .sast_engine import (
-    niap_scan,
     scan,
 )
 
 logger = logging.getLogger(__name__)
 
 
-def code_analysis(app_dir, typ, manifest_file):
+def code_analysis(app_dir, typ):
     """Perform the code analysis."""
     try:
         logger.info('Code Analysis Started')
         root = Path(settings.BASE_DIR) / 'StaticAnalyzer' / 'views'
         code_rules = root / 'rules' / 'android_rules.yaml'
-        api_rules = root /  'rules' / 'android_apis.yaml'
-        niap_rules = root / 'rules' / 'android_niap.yaml'
         code_findings = {}
-        api_findings = {}
         email_n_file = []
         url_n_file = []
         url_list = []
@@ -51,19 +47,6 @@ def code_analysis(app_dir, typ, manifest_file):
             {'.java', '.kt'},
             [src],
             skp)
-        api_findings = scan(
-            api_rules.as_posix(),
-            {'.java', '.kt'},
-            [src],
-            skp)
-        # NIAP Scan
-        logger.info('Running NIAP Analyzer')
-        niap_findings = niap_scan(
-            niap_rules.as_posix(),
-            {'.java', '.xml'},
-            [src],
-            manifest_file,
-            None)
         # Extract URLs and Emails
         for pfile in Path(src).rglob('*'):
             if (
@@ -85,9 +68,7 @@ def code_analysis(app_dir, typ, manifest_file):
                 email_n_file.extend(emails_nf)
         logger.info('Finished Code Analysis, Email and URL Extraction')
         code_an_dic = {
-            'api': api_findings,
             'findings': code_findings,
-            'niap': niap_findings,
             'urls_list': url_list,
             'urls': url_n_file,
             'emails': email_n_file,

@@ -8,13 +8,11 @@ import logging
 import os
 import json
 import re
-import collections
 from securityanalyzer.utils import file_size, get_config_loc, is_file_exists, print_n_send_error_response
 import shutil
 from pathlib import Path
 
 from django.conf import settings
-from django.http import HttpResponseRedirect
 from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.template.defaulttags import register
@@ -80,24 +78,6 @@ def static_analyzer(request):
                 # get app_name
                 app_info['real_name'] = re_db_entry.APP_NAME
 
-                # Get icon
-                res_path = os.path.join(app_info['app_dir'], 'res')
-                app_info['icon_hidden'] = True
-                # Even if the icon is hidden, try to guess it by the
-                # default paths
-                app_info['icon_found'] = False
-                app_info['icon_path'] = ''
-                    # TODO: Check for possible different names for resource
-                    # folder?
-                if os.path.exists(res_path):
-                    icon_dic = {}
-                    # get_icon(
-                        # app_info['app_path'], res_path)
-                    if icon_dic:
-                        app_info['icon_hidden'] = icon_dic['hidden']
-                        app_info['icon_found'] = bool(icon_dic['path'])
-                        app_info['icon_path'] = icon_dic['path']
-
                     # Set Manifest link
                 app_info['mani'] = ('../manifest_view/?md5='
                                        + app_info['md5']
@@ -112,16 +92,12 @@ def static_analyzer(request):
                         app_info['app_dir'],
                     )
 
-                apk_2_java(app_info['app_path'], app_info['app_dir'],
-                               app_info['tools_dir'])
+                # apk_2_java(app_info['app_path'], app_info['app_dir'],
+                            #    app_info['tools_dir'])
 
                 code_an_dic = code_analysis(
                         app_info['app_dir'],
-                        'apk',
-                        app_info['manifest_file'])
-
-                # Copy App icon
-                # copy_icon(app_info['md5'], app_info['icon_path'])
+                        'apk',)
                 app_info['zipped'] = 'apk'
 
                 logger.info('Connecting to Database')
@@ -159,6 +135,6 @@ def static_analyzer(request):
             template = 'static_analysis/android_binary_analysis.html'
             return render(request, template, context) 
         logger.info('分析成功 : %s' , app_info['app_name'])
-    template = 'static_analysis/android_binary_analysis.html'
-    # return render(request, template, context={})
-    return HttpResponse(json.dumps('success'))
+    else:
+        msg = 'Hash match failed or Invalid file extension or file type'
+        return print_n_send_error_response(request, msg, True)
