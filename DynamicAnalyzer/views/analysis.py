@@ -1,5 +1,5 @@
 # -*- coding: utf_8 -*-
-"""Perform Analysis on Dynamic Analysis Data."""
+"""处理并分析动态分析数据"""
 import io
 import logging
 import os
@@ -19,9 +19,9 @@ logger = logging.getLogger(__name__)
 
 
 def run_analysis(apk_dir, md5_hash, package):
-    """Run Dynamic File Analysis."""
+    """动态分析日志分析"""
     analysis_result = {}
-    logger.info('Dynamic File Analysis')
+    logger.info('动态文件分析')
     domains = {}
     clipboard = []
     # Collect Log data
@@ -45,8 +45,8 @@ def run_analysis(apk_dir, md5_hash, package):
         urls = list(set(urls))
     else:
         urls = []
-    # Domain Extraction and Malware Check
-    logger.info('Performing Malware Check on extracted Domains')
+    # Domain提取和恶意检查
+    logger.info('对提取出的链接进行检查')
     domains = []
 
     # Email Etraction Regex
@@ -68,7 +68,7 @@ def run_analysis(apk_dir, md5_hash, package):
 
 
 def get_screenshots(md5_hash, download_dir):
-    """Get Screenshots."""
+    """屏幕截图"""
     # Only After Download Process is Done
     result = {}
     imgs = []

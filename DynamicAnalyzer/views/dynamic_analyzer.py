@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 
 
 def dynamic_analysis(request, api=False):
-    """Android Dynamic Analysis Entry point."""
+    """Android动态分析入口"""
     try:
         scan_apps = []
         apks = StaticAnalyzerAndroid.objects.filter(
@@ -50,23 +50,19 @@ def dynamic_analysis(request, api=False):
             }
             scan_apps.append(temp_dict)
         try:
+            #获取设备id
             identifier = get_device()
         except Exception:
-            msg = ('Is Android VM running? MobSF cannot'
-                   ' find android instance identifier.'
-                   ' Please run an android instance and refresh'
-                   ' this page. If this error persists,'
-                   ' set ANALYZER_IDENTIFIER in '
-                   f'{get_config_loc()}')
+            msg = ('Android设备运行了吗'
+                   '找不到设备id'
+                   '请重新启动设备再刷新此页面')
             return print_n_send_error_response(request, msg, api)
         proxy_ip = get_proxy_ip(identifier)
         context = {'apps': scan_apps,
                    'identifier': identifier,
                    'proxy_ip': proxy_ip,
                    'proxy_port': settings.PROXY_PORT,
-                   'title': 'MobSF Dynamic Analysis',}
-        if api:
-            return context
+                   'title': 'Dynamic Analysis',}
         template = 'dynamic_analysis/dynamic_analysis.html'
         return render(request, template, context)
     except Exception as exp:
@@ -78,12 +74,11 @@ def dynamic_analysis(request, api=False):
 
 def dynamic_analyzer(request, checksum, api=False):
     """Android Dynamic Analyzer Environment."""
-    logger.info('Creating Dynamic Analysis Environment')
+    logger.info('创建动态分析环境')
     try:
         no_device = False
         if not is_md5(checksum):
-            # We need this check since checksum is not validated
-            # in REST API
+            # 检查MD5值
             return print_n_send_error_response(
                 request,
                 'Invalid Parameters',
@@ -99,12 +94,9 @@ def dynamic_analyzer(request, checksum, api=False):
         except Exception:
             no_device = True
         if no_device or not identifier:
-            msg = ('Is the android instance running? MobSF cannot'
-                   ' find android instance identifier. '
-                   'Please run an android instance and refresh'
-                   ' this page. If this error persists,'
-                   ' set ANALYZER_IDENTIFIER in '
-                   f'{get_config_loc()}')
+            msg = ('Android设备运行了吗'
+                   '找不到设备id'
+                   '请重新启动设备再刷新此页面')
             return print_n_send_error_response(request, msg, api)
         env = Environment(identifier)
         if not env.connect_n_mount():
@@ -112,60 +104,46 @@ def dynamic_analyzer(request, checksum, api=False):
             return print_n_send_error_response(request, msg, api)
         version = env.get_android_version()
         logger.info('Android Version identified as %s', version)
-        xposed_first_run = False
-        if not env.is_mobsfyied(version):
-            msg = ('This Android instance is not MobSfyed/Outdated.\n'
-                   'MobSFying the android runtime environment')
+        if not env.is_init():
+            msg = ('设备动态分析环境未被初始化或已经过时，正重新设置环境')
             logger.warning(msg)
-            if not env.mobsfy_init():
+            if not env.env_init():
                 return print_n_send_error_response(
                     request,
-                    'Failed to MobSFy the instance',
+                    '设备环境初始化失败',
                     api)
-            if version < 5:
-                xposed_first_run = True
-        if xposed_first_run:
-            msg = ('Have you MobSFyed the instance before'
-                   ' attempting Dynamic Analysis?'
-                   ' Install Framework for Xposed.'
-                   ' Restart the device and enable'
-                   ' all Xposed modules. And finally'
-                   ' restart the device once again.')
-            return print_n_send_error_response(request, msg, api)
-        # Clean up previous analysis
+        # 分析之前清除旧数据
         env.dz_cleanup(checksum)
-        # Configure Web Proxy
+        # 配置代理
         env.configure_proxy(package, request)
         # Supported in Android 5+
         env.enable_adb_reverse_tcp(version)
-        # Apply Global Proxy to device
+        # 设置代理
         env.set_global_proxy(version)
-        # Start Clipboard monitor
+        # 开启剪贴板监听
         env.start_clipmon()
-        # Get Screen Resolution
+        # 获取屏幕分辨率
         screen_width, screen_height = env.get_screen_res()
-        apk_path = Path(settings.UPLD_DIR) / checksum / f'{checksum}.apk'
+        apk_path = Path(settings.MEDIA_ROOT) / 'upload' / checksum / f'{checksum}.apk'
         # Install APK
         status, output = env.install_apk(apk_path.as_posix(), package)
         if not status:
             # Unset Proxy
             env.unset_global_proxy()
-            msg = (f'This APK cannot be installed. Is this APK '
-                   f'compatible the Android VM/Emulator?\n{output}')
+            msg = (f'安装APK失败 '
+                   f'APK能安装在分析该设备上吗?\n{output}')
             return print_n_send_error_response(
                 request,
                 msg,
                 api)
-        logger.info('Testing Environment is Ready!')
+        logger.info('测试环境已经准备好了!')
         context = {'screen_witdth': screen_width,
                    'screen_height': screen_height,
                    'package': package,
                    'hash': checksum,
                    'android_version': version,
-                   'title': 'Dynamic Analyzer'}
+                   'title': '动态分析'}
         template = 'dynamic_analysis/android/dynamic_analyzer.html'
-        if api:
-            return context
         return render(request, template, context)
     except Exception:
         logger.exception('Dynamic Analyzer')

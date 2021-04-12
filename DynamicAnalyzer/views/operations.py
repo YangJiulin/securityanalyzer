@@ -245,10 +245,10 @@ def mobsf_ca(request, api=False):
         env = Environment()
         action = request.POST['action']
         if action == 'install':
-            env.install_mobsf_ca(action)
+            env.install_mitm_ca(action)
             data = {'status': 'ok', 'message': 'installed'}
         elif action == 'remove':
-            env.install_mobsf_ca(action)
+            env.install_mitm_ca(action)
             data = {'status': 'ok', 'message': 'removed'}
         else:
             data = {'status': 'failed',

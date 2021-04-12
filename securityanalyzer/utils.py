@@ -226,15 +226,12 @@ def find_process_by(name):
 
 def get_device():
     """Get Device."""
-    # if settings.ANALYZER_IDENTIFIER:
-    #     return settings.ANALYZER_IDENTIFIER
-    dev_id = ''
     out = subprocess.check_output([get_adb(), 'devices']).splitlines()
     if len(out) > 2:
         dev_id = out[1].decode('utf-8').split('\t')[0]
         return dev_id
-    logger.error('Is the Android VM running?\n'
-                 'cannot identify device id.\n')
+    logger.error('启动安卓设备了吗?\n'
+                 '找不到设备id\n')
 
 
 def get_adb():
@@ -347,7 +344,7 @@ def get_network():
         for det in psutil.net_if_addrs().values():
             ips.append(det[0].address)
     except Exception:
-        logger.exception('Failed to enumerate network interfaces')
+        logger.exception('获取网络接口失败')
     return ips
 
 

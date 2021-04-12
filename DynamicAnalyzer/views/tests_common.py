@@ -106,7 +106,7 @@ def download_data(request, api=False):
             data = {'status': 'failed',
                     'message': 'App details not found in database'}
             return send_response(data, api)
-        apk_dir = os.path.join(settings.UPLD_DIR, md5_hash + '/')
+        apk_dir = os.path.join(settings.MEDIA_ROOT / 'upload', md5_hash + '/')
         httptools_url = get_http_tools_url(request)
         stop_httptools(httptools_url)
         files_loc = '/data/local/'

@@ -57,14 +57,8 @@ def update_frida_server(arch, version):
     if not is_internet_available():
         return False
     try:
-        proxies, verify = upstream_proxy('https')
-    except Exception:
-        logger.exception('[ERROR] Setting upstream proxy')
-    try:
         response = requests.get(f'{settings.FRIDA_SERVER}{version}',
-                                timeout=3,
-                                proxies=proxies,
-                                verify=verify)
+                                timeout=3)
         for item in response.json()['assets']:
             if item['name'] == f'{fserver}.xz':
                 url = item['browser_download_url']

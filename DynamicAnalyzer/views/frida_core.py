@@ -37,7 +37,7 @@ class Frida:
         self.code = code
         self.frida_dir = os.path.join(settings.TOOLS_DIR,
                                       'frida_scripts')
-        self.apk_dir = os.path.join(settings.UPLD_DIR, self.hash + '/')
+        self.apk_dir = os.path.join(settings.MEDIA_ROOT/'upload', self.hash + '/')
         self.api_mon = os.path.join(self.apk_dir, 'mobsf_api_monitor.txt')
         self.frida_log = os.path.join(self.apk_dir, 'mobsf_frida_out.txt')
 

@@ -29,7 +29,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$', home.index, name='home'),
     re_path(r'^upload/$', home.Upload.as_view),
-
+    re_path(r'^download/', home.download),
+    re_path(r'^recent_scans/$', home.recent_scans, name='recent'),
     # Static Analysis
     # Android
     re_path(r'^static_analyzer/$',static_analyzer.static_analyzer),
@@ -47,7 +48,14 @@ urlpatterns = [
             name='httptools'),
     re_path(r'^logcat/$', dz.logcat),
 
-
+     # Android Operations
+    re_path(r'^mobsfy/$', operations.mobsfy),
+    re_path(r'^screenshot/$', operations.take_screenshot),
+    re_path(r'^execute_adb/$', operations.execute_adb),
+    re_path(r'^screen_cast/$', operations.screen_cast),
+    re_path(r'^touch_events/$', operations.touch),
+    re_path(r'^get_component/$', operations.get_component),
+    re_path(r'^mobsf_ca/$', operations.mobsf_ca),
      # Dynamic Tests
     re_path(r'^activity_tester/$', tests_common.activity_tester),
     re_path(r'^download_data/$', tests_common.download_data),

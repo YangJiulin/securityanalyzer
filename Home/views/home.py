@@ -1,10 +1,12 @@
 #  -*- coding: utf_8 -*-
 # """Upload and Home Routes."""
+from StaticAnalyzer.models import RecentScansDB, StaticAnalyzerAndroid
 import json
 import logging
 import os
 import platform
 import re
+from securityanalyzer.utils import print_n_send_error_response
 import shutil
 from wsgiref.util import FileWrapper
 
@@ -162,27 +164,26 @@ def not_found(request):
     return render(request, template, context)
 
 
-# def recent_scans(request):
-#     """Show Recent Scans Route."""
-#     entries = []
-#     db_obj = RecentScansDB.objects.all().order_by('-TIMESTAMP').values()
-#     android = StaticAnalyzerAndroid.objects.all()
-#     package_mapping = {}
-#     for item in android:
-#         package_mapping[item.MD5] = item.PACKAGE_NAME
-#     for entry in db_obj:
-#         if entry['MD5'] in package_mapping.keys():
-#             entry['PACKAGE'] = package_mapping[entry['MD5']]
-#         else:
-#             entry['PACKAGE'] = ''
-#         entries.append(entry)
-#     context = {
-#         'title': 'Recent Scans',
-#         'entries': entries,
-#         'version': settings.MOBSF_VER,
-#     }
-#     template = 'general/recent.html'
-#     return render(request, template, context)
+def recent_scans(request):
+    """Show Recent Scans Route."""
+    entries = []
+    db_obj = RecentScansDB.objects.all().order_by('-TIMESTAMP').values()
+    android = StaticAnalyzerAndroid.objects.all()
+    package_mapping = {}
+    for item in android:
+        package_mapping[item.MD5] = item.PACKAGE_NAME
+    for entry in db_obj:
+        if entry['MD5'] in package_mapping.keys():
+            entry['PACKAGE'] = package_mapping[entry['MD5']]
+        else:
+            entry['PACKAGE'] = ''
+        entries.append(entry)
+    context = {
+        'title': 'Recent Scans',
+        'entries': entries,
+    }
+    template = 'general/recent.html'
+    return render(request, template, context)
 
 
 # def search(request):
@@ -200,30 +201,30 @@ def not_found(request):
 #     return print_n_send_error_response(request, 'Invalid Scan Hash')
 
 
-# def download(request):
-#     """Download from mobsf.MobSF Route."""
-#     msg = 'Error Downloading File '
-#     if request.method == 'GET':
-#         allowed_exts = settings.ALLOWED_EXTENSIONS
-#         filename = request.path.replace('/download/', '', 1)
-#         # Security Checks
-#         if '../' in filename:
-#             msg = 'Path Traversal Attack Detected'
-#             return print_n_send_error_response(request, msg)
-#         ext = os.path.splitext(filename)[1]
-#         if ext in allowed_exts:
-#             dwd_file = os.path.join(settings.DWD_DIR, filename)
-#             if os.path.isfile(dwd_file):
-#                 wrapper = FileWrapper(open(dwd_file, 'rb'))
-#                 response = HttpResponse(
-#                     wrapper, content_type=allowed_exts[ext])
-#                 response['Content-Length'] = os.path.getsize(dwd_file)
-#                 return response
-#     if ('screen/screen.png' not in filename
-#             and '-icon.png' not in filename):
-#         msg += filename
-#         return print_n_send_error_response(request, msg)
-#     return HttpResponse('')
+def download(request):
+    """Download from mobsf.MobSF Route."""
+    msg = 'Error Downloading File '
+    if request.method == 'GET':
+        allowed_exts = settings.ALLOWED_EXTENSIONS
+        filename = request.path.replace('/download/', '', 1)
+        # Security Checks
+        if '../' in filename:
+            msg = 'Path Traversal Attack Detected'
+            return print_n_send_error_response(request, msg)
+        ext = os.path.splitext(filename)[1]
+        if ext in allowed_exts:
+            dwd_file = os.path.join(settings.DWD_DIR, filename)
+            if os.path.isfile(dwd_file):
+                wrapper = FileWrapper(open(dwd_file, 'rb'))
+                response = HttpResponse(
+                    wrapper, content_type=allowed_exts[ext])
+                response['Content-Length'] = os.path.getsize(dwd_file)
+                return response
+    if ('screen/screen.png' not in filename
+            and '-icon.png' not in filename):
+        msg += filename
+        return print_n_send_error_response(request, msg)
+    return HttpResponse('')
 
 
 # def delete_scan(request, api=False):
@@ -273,23 +274,23 @@ def not_found(request):
 #             return print_n_send_error_response(request, msg, False, exp_doc)
 
 
-# class RecentScans(object):
+class RecentScans(object):
 
-#     def __init__(self, request):
-#         self.request = request
+    def __init__(self, request):
+        self.request = request
 
-#     def recent_scans(self):
-#         page = self.request.GET.get('page', 1)
-#         page_size = self.request.GET.get('page_size', 10)
-#         result = RecentScansDB.objects.all().values().order_by('-TIMESTAMP')
-#         try:
-#             paginator = Paginator(result, page_size)
-#             content = paginator.page(page)
-#             data = {
-#                 'content': list(content),
-#                 'count': paginator.count,
-#                 'num_pages': paginator.num_pages,
-#             }
-#         except Exception as exp:
-#             data = {'error': str(exp)}
-#         return data
+    def recent_scans(self):
+        page = self.request.GET.get('page', 1)
+        page_size = self.request.GET.get('page_size', 10)
+        result = RecentScansDB.objects.all().values().order_by('-TIMESTAMP')
+        try:
+            paginator = Paginator(result, page_size)
+            content = paginator.page(page)
+            data = {
+                'content': list(content),
+                'count': paginator.count,
+                'num_pages': paginator.num_pages,
+            }
+        except Exception as exp:
+            data = {'error': str(exp)}
+        return data
