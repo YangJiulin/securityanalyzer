@@ -53,7 +53,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div id="mobsf_header">
-            <h2><strong>Dynamic Analyzer </strong>- {{ package }}</h2>
+            <h2><strong>动态分析 </strong>- {{ package }}</h2>
           <input type="hidden" id="screen_width" value="{{ screen_witdth }}">
           <input type="hidden" id="screen_height" value="{{ screen_height }}">
         </div>
@@ -69,14 +69,14 @@
               <!-- /.card-header -->
               <div class="card-body">
                  <div id="but" align="center">
-                  <a href="#" id="screen" class="btn btn-primary" role="button">Show Screen</a>
-                  <a href="#" id="rootca" class="btn btn-primary" role="button">Remove MobSF RootCA</a>
-                  <a href="#" id="expactt" class="btn btn-primary" role="button">Start Exported Activity Tester</a>
-                  <a href="#" id="actt" class="btn btn-primary" role="button" >Start Activity Tester</a>
-                  <a href="#" id="ss" class="btn btn-primary" role="button">Take a Screenshot</a>
-                  <a href="#" id="logstream" class="btn btn-primary">Logcat Stream</a>
-                  <a href="../../live_api/?hash={{ hash }}&amp;package={{ package }}" id="apimon" target="_blank" class="btn btn-primary" style='display: none'>Live API Monitor</a>
-                  <a href="#" id="stop" class="btn btn-info" role="button" >Generate Report</a>
+                  <a href="#" id="screen" class="btn btn-primary" role="button">展示屏幕</a>
+                  <a href="#" id="rootca" class="btn btn-primary" role="button">移除mitm证书</a>
+                  <a href="#" id="expactt" class="btn btn-primary" role="button">开始Exported Activity测试</a>
+                  <a href="#" id="actt" class="btn btn-primary" role="button" >开始Activity测试</a>
+                  <a href="#" id="ss" class="btn btn-primary" role="button">截图</a>
+                  <a href="#" id="logstream" class="btn btn-primary">日志</a>
+                  <a href="../../live_api/?hash={{ hash }}&amp;package={{ package }}" id="apimon" target="_blank" class="btn btn-primary" style='display: none'>实时api监控</a>
+                  <a href="#" id="stop" class="btn btn-info" role="button" >生成报告</a>
                 </div>
               </div>
               <!-- /.card-body -->
@@ -117,7 +117,7 @@
               <div class="card-header p-0 border-bottom-0">
                 <ul class="nav nav-tabs" id="tabnav" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link active" id="dm-tab" data-toggle="pill" href="#dm" role="tab" aria-controls="dm" aria-selected="true">Dynamic Analyzer</a>
+                    <a class="nav-link active" id="dm-tab" data-toggle="pill" href="#dm" role="tab" aria-controls="dm" aria-selected="true">动态分析</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" id="errors-tab" data-toggle="pill" href="#errors" role="tab" aria-controls="errors" aria-selected="false">Errors</a>
@@ -140,54 +140,54 @@
                       <div class="box-body">
                         <div class="form-group">
                             <hr/>
-                        <h4> Default </h4>
+                        <h4> 默认 </h4>
                           <label>
                               <input name="default_hooks" type="checkbox" value="api_monitor" checked>
-                              API Monitoring 
+                              API监控 
                             </label>
                              <label>
                               <input name="default_hooks" type="checkbox" value="ssl_pinning_bypass" checked>
-                              SSL Pinning Bypass 
+                              SSL固定 
                             </label>
                              <label>
                              <input name="default_hooks" type="checkbox"  value="root_bypass" checked>
-                              Root Detection Bypass 
+                              Root检测 
                             </label>
                              <label>
                             <input name="default_hooks" type="checkbox" value="debugger_check_bypass" checked>
-                              Debugger Check Bypass
+                              Debugger检测
                             </label>
                         </div>
                                            <hr/>
                         <div class="form-group">
-                        <h4> Auxiliary </h4>
+                        <h4> 辅助 </h4>
                             <label>
                             <input name="auxiliary" type="checkbox" value="enum_class" id="enum_class">
-                              Enumerate Loaded Classes
+                              列举已加载Classes
                             </label> 
                              <label>
                             <input name="auxiliary" type="checkbox" value="string_catch" id="string_catch">
-                               Capture Strings
+                              捕获Strings
                             </label>
                              <label>
                             <input name="auxiliary" type="checkbox" value="string_compare" id="string_compare">
-                                Capture String Comparisons
+                              比较捕获String
                             </label>
                             <br />
                              <label>
                               <input onclick="aux_click(this)" name="auxiliary" type="checkbox" value="enum_methods" id="enum_methods">
-                              Enumerate Class methods
+                              列举Class方法
                             </label>
                              <input type="text" class="form-control" id="class_name" placeholder="java.io.File">
 
                              <label>
                               <input onclick="aux_click(this)" name="auxiliary" type="checkbox" value="search_class" id="search_class">
-                              Search Class Pattern
+                              查询Class表达式
                             </label>
                              <input type="text" class="form-control" id="class_search" placeholder="ssl\.Trust*">
                              <label>
                              <input onclick="aux_click(this)" name="auxiliary" type="checkbox"  value="trace_class" id="trace_class">
-                              Trace Class Methods
+                              跟踪Class方法
                             </label>
                              <input type="text" class="form-control" id="class_trace" placeholder="java.net.Socket,java.io.File,java.lang.String">
                         </div>
@@ -199,7 +199,7 @@
 
                       <div class="box-footer">
                      
-                      <button id="frida_spawn" type="submit" class="btn btn-success">Start Instrumentation</button> <button id="fd_log" type="button" class="btn btn-primary" disabled>Frida Live Logs</button>
+                      <button id="frida_spawn" type="submit" class="btn btn-success">Start Instrumentation</button> <button id="fd_log" type="button" class="btn btn-primary" disabled>Frida实时日志</button>
                       </div>
                     </form>
                   </div>

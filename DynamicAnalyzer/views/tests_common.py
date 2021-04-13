@@ -40,7 +40,7 @@ def activity_tester(request, api=False):
         md5_hash = request.POST['hash']
         if not is_md5(md5_hash):
             return invalid_params(api)
-        app_dir = os.path.join(settings.UPLD_DIR, md5_hash + '/')
+        app_dir = os.path.join(settings.MEDIA_ROOT / 'upload', md5_hash + '/')
         screen_dir = os.path.join(app_dir, 'screenshots-apk/')
         if not os.path.exists(screen_dir):
             os.makedirs(screen_dir)
@@ -142,7 +142,7 @@ def collect_logs(request, api=False):
             data = {'status': 'failed',
                     'message': 'App details not found in database'}
             return send_response(data, api)
-        apk_dir = os.path.join(settings.UPLD_DIR, md5_hash + '/')
+        apk_dir = os.path.join(settings.MEDIA_ROOT / 'upload', md5_hash + '/')
         lout = os.path.join(apk_dir, 'logcat.txt')
         dout = os.path.join(apk_dir, 'dump.txt')
         logger.info('Downloading logcat logs')

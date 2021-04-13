@@ -112,7 +112,7 @@ class Environment:
     def install_apk(self, apk_path, package) -> bool: 
         """安装APK并验证安装结果"""
         if self.is_package_installed(package, ''):
-            logger.info('Removing existing installation')
+            logger.info('卸载已安装apk')
             # Remove existing installation'
             self.adb_command(['uninstall', package], False, True)
         # 关闭adb安装确认
@@ -250,7 +250,12 @@ class Environment:
              ':0'], True)
 
     def enable_adb_reverse_tcp(self, version):
-        """设设备能过通过局域网连接"""
+        """
+        反向映射 将Android设备端口映射到远程端口
+        # 反向映射端口连接(DEVICE —> PC)
+        adb reverse (remote) (local)
+        adb reverse tcp:7000 tcp:5000
+        """
         # Androd 5+ supported
         proxy_port = settings.PROXY_PORT
         logger.info('Enabling ADB Reverse TCP on %s', proxy_port)

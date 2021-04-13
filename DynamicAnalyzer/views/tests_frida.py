@@ -119,16 +119,12 @@ def instrument(request, api=False):
 
 def live_api(request, api=False):
     try:
-        if api:
-            apphash = request.POST['hash']
-            stream = True
-        else:
-            apphash = request.GET.get('hash', '')
-            stream = request.GET.get('stream', '')
+        apphash = request.GET.get('hash', '')
+        stream = request.GET.get('stream', '')
         if not is_md5(apphash):
             return invalid_params(api)
         if stream:
-            apk_dir = os.path.join(settings.UPLD_DIR, apphash + '/')
+            apk_dir = os.path.join(settings.MEDIA_ROOT / 'upload', apphash + '/')
             apimon_file = os.path.join(apk_dir, 'mobsf_api_monitor.txt')
             data = {}
             if not is_file_exists(apimon_file):
@@ -149,10 +145,9 @@ def live_api(request, api=False):
                       template,
                       {'hash': apphash,
                        'package': request.GET.get('package', ''),
-                       'version': settings.MOBSF_VER,
-                       'title': 'Live API Monitor'})
+                       'title': 'API实时监控'})
     except Exception:
-        logger.exception('API monitor streaming')
+        logger.exception('API实时监控')
         err = 'Error in API monitor streaming'
         return print_n_send_error_response(request, err, api)
 
@@ -168,7 +163,7 @@ def frida_logs(request, api=False):
         if not is_md5(apphash):
             return invalid_params(api)
         if stream:
-            apk_dir = os.path.join(settings.UPLD_DIR, apphash + '/')
+            apk_dir = os.path.join(settings.MEDIA_ROOT / 'upload', apphash + '/')
             frida_logs = os.path.join(apk_dir, 'mobsf_frida_out.txt')
             data = {}
             if not is_file_exists(frida_logs):
@@ -187,8 +182,7 @@ def frida_logs(request, api=False):
                       template,
                       {'hash': apphash,
                        'package': request.GET.get('package', ''),
-                       'version': settings.MOBSF_VER,
-                       'title': 'Live Frida logs'})
+                       'title': 'Frida实时日志'})
     except Exception:
         logger.exception('Frida log streaming')
         err = 'Error in Frida log streaming'

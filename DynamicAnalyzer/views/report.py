@@ -62,7 +62,7 @@ def view_report(request, checksum, api=False):
                 request,
                 'Invalid Parameters',
                 api)
-        app_dir = os.path.join(settings.UPLD_DIR, checksum + '/')
+        app_dir = os.path.join(settings.MEDIA_ROOT / 'upload', checksum + '/')
         download_dir = settings.DWD_DIR
         if not is_file_exists(os.path.join(app_dir, 'logcat.txt')):
             msg = ('Dynamic Analysis report is not available '
@@ -90,7 +90,6 @@ def view_report(request, checksum, api=False):
                    'apimon': apimon,
                    'frida_logs': is_file_exists(fd_log),
                    'package': package,
-                   'version': settings.MOBSF_VER,
                    'title': 'Dynamic Analysis'}
         template = 'dynamic_analysis/android/dynamic_report.html'
         if api:
@@ -123,7 +122,7 @@ def view_file(request, api=False):
                                                'Invalid Parameters',
                                                api)
         src = os.path.join(
-            settings.UPLD_DIR,
+            settings.MEDIA_ROOT / 'upload',
             md5_hash,
             'DYNAMIC_DeviceData/')
         sfile = os.path.join(src, fil)
@@ -150,7 +149,6 @@ def view_file(request, api=False):
             'data': dat,
             'sqlite': sql_dump,
             'type': rtyp,
-            'version': settings.MOBSF_VER,
         }
         template = 'general/view.html'
         if api:

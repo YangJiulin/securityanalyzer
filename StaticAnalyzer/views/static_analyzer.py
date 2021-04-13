@@ -92,12 +92,13 @@ def static_analyzer(request):
                         app_info['app_dir'],
                     )
 
-                # apk_2_java(app_info['app_path'], app_info['app_dir'],
-                            #    app_info['tools_dir'])
+                apk_2_java(app_info['app_path'], app_info['app_dir'],
+                               app_info['tools_dir'])
 
                 code_an_dic = code_analysis(
                         app_info['app_dir'],
                         'apk',)
+
                 app_info['zipped'] = 'apk'
 
                 logger.info('Connecting to Database')

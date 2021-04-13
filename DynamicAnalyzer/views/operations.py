@@ -173,7 +173,7 @@ def take_screenshot(request, api=False):
             return invalid_params(api)
         data = {}
         rand_int = random.randint(1, 1000000)
-        screen_dir = os.path.join(settings.UPLD_DIR,
+        screen_dir = os.path.join(settings.MEDIA_ROOT / 'upload',
                                   bin_hash + '/screenshots-apk/')
         if not os.path.exists(screen_dir):
             os.makedirs(screen_dir)
