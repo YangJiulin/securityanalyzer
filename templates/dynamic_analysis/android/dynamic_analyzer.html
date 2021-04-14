@@ -69,7 +69,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                  <div id="but" align="center">
-                  <a href="#" id="screen" class="btn btn-primary" role="button">展示屏幕</a>
+                  <a href="#" id="screen" class="btn btn-primary" role="button">实时画面</a>
                   <a href="#" id="rootca" class="btn btn-primary" role="button">移除mitm证书</a>
                   <a href="#" id="expactt" class="btn btn-primary" role="button">开始Exported Activity测试</a>
                   <a href="#" id="actt" class="btn btn-primary" role="button" >开始Activity测试</a>
@@ -558,13 +558,7 @@ var term = new Terminal('#input-line .cmdline', '#shell output');
 term.init();
 
 // Start up
-{% if android_version < 5 %}
-  $('#frida_options').hide()
-  $('#codeedit').hide()
-{% else %}
-   load_frida_others();
-{% endif %}
-
+load_frida_others();
 
 
 //Print Status
@@ -572,11 +566,8 @@ function print_status(message){
   $('#stat').append(message + '\n');
   $('#stat').scrollTop($('#stat')[0].scrollHeight);
 }
-print_status("Setting up Dynamic Analysis environment");
-print_status("Running HTTPS intercepting proxy");
-print_status("Invoking MobSF agents");
-print_status("Environment is ready for user assisted dynamic analysis.");
-print_status("Navigate through all the flows of the app manually.");
+print_status("设置动态分析环境...");
+print_status("动态分析测试环境已经准备好了");
 
 
 // Touch Events
@@ -612,8 +603,8 @@ $('#my').click(function(e) {
 var screenfunc;
 $("#screen").click(function() {
       var stext = $("#screen").text();
-      if (stext === "Show Screen"){
-          $("#screen").text("Stop Screen");
+      if (stext === "实时画面"){
+          $("#screen").text("停止实时画面");
           print_status('Screen streaming started')
           touch = "on";
           screenfunc = setInterval(function(){
@@ -626,7 +617,7 @@ $("#screen").click(function() {
                });
           },3000);
       } else {
-          $("#screen").text("Show Screen");
+          $("#screen").text("实时画面");
           print_status("Screen streaming stopped");
           $('#my').attr('src', '/static/img/loading.jpg');
           clearInterval(screenfunc);
@@ -654,18 +645,18 @@ $("#ss").click(function() {
 $("#rootca").click(function() {
   var stext = $("#rootca").text();
   var act;
-  if (stext === "Remove MobSF RootCA"){
-    $("#rootca").text("Install MobSF RootCA");
+  if (stext === "移除mitm证书"){
+    $("#rootca").text("安装mitm证书");
     act = "remove";
   } else {
-    $("#rootca").text("Remove MobSF RootCA");
+    $("#rootca").text("移除mitm证书");
     act = "install";
   }
   action(document.location.origin + '/mobsf_ca/', {action: act}, function(json) {
       if (json.message === "installed")
-        print_status("MobSF RootCA installed successfully");
+        print_status("mitm证书安装成功");
       else if (json.message === "removed")
-        print_status("MobSF RootCA removed successfully");
+        print_status("mitm证书移除成功");
       else
         print_status(json.message);
     });
@@ -676,23 +667,23 @@ function activity_tester(test){
   action(document.location.origin + '/activity_tester/', {hash: '{{ hash }}', 'test': test}, function(json) {
     if (json.status === "ok")
       if (test === 'exported')
-        print_status("Exported Activity testing completed.");
+        print_status("Exported Activity测试成功。");
       else
-        print_status("Activity testing completed.");
+        print_status("Activity测试成功。");
     else
       print_status(json.message);
   });
 }
 //Start ExportedActivity Tester
 $("#expactt").click(function()  {
-  print_status("Starting Exported Activity tester...")
+  print_status("开始Exported Activity测试...")
   activity_tester('exported')
   return false;  
 });
 
 //Start Activity Tester
 $("#actt").click(function()  {
-  print_status("Starting Activity tester...")
+  print_status("开始Activity测试...")
   activity_tester('all_activities')
   return false;  
 }); 

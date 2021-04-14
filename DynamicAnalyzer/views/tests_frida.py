@@ -33,7 +33,7 @@ logger = logging.getLogger(__name__)
 
 
 @require_http_methods(['GET'])
-def list_frida_scripts(request, api=False):
+def list_frida_scripts(request):
     """Get frida scripts from others."""
     scripts = []
     others = os.path.join(settings.TOOLS_DIR,
@@ -43,13 +43,12 @@ def list_frida_scripts(request, api=False):
     for item in files:
         scripts.append(Path(item).stem)
     return send_response({'status': 'ok',
-                          'files': scripts},
-                         api)
+                          'files': scripts},)
+
+
 # AJAX
-
-
 @require_http_methods(['POST'])
-def get_script(request, api=False):
+def get_script(request):
     """Get frida scripts from others."""
     data = {'status': 'ok', 'content': ''}
     try:
@@ -64,22 +63,21 @@ def get_script(request, api=False):
                 data = {
                     'status': 'failed',
                     'message': 'Path traversal detected.'}
-                return send_response(data, api)
+                return send_response(data)
             if is_file_exists(script_file):
                 script_ct.append(Path(script_file).read_text())
         data['content'] = '\n'.join(script_ct)
     except Exception:
         pass
-    return send_response(data, api)
+    return send_response(data)
+
 # AJAX
-
-
 @require_http_methods(['POST'])
-def instrument(request, api=False):
+def instrument(request):
     """Instrument app with frida."""
     data = {}
     try:
-        logger.info('Starting Instrumentation')
+        logger.info('开始检测')
         md5_hash = request.POST['hash']
         default_hooks = request.POST['default_hooks']
         auxiliary_hooks = request.POST['auxiliary_hooks']
@@ -97,10 +95,10 @@ def instrument(request, api=False):
             extras['class_trace'] = cls_trace.strip()
         if (is_attack_pattern(default_hooks)
                 or not is_md5(md5_hash)):
-            return invalid_params(api)
+            return invalid_params()
         package = get_package_name(md5_hash)
         if not package:
-            return invalid_params(api)
+            return invalid_params()
         frida_obj = Frida(md5_hash,
                           package,
                           default_hooks.split(','),
@@ -114,31 +112,31 @@ def instrument(request, api=False):
     except Exception as exp:
         logger.exception('Instrumentation failed')
         data = {'status': 'failed', 'message': str(exp)}
-    return send_response(data, api)
+    return send_response(data)
 
 
-def live_api(request, api=False):
+def live_api(request):
     try:
         apphash = request.GET.get('hash', '')
         stream = request.GET.get('stream', '')
         if not is_md5(apphash):
-            return invalid_params(api)
+            return invalid_params()
         if stream:
             apk_dir = os.path.join(settings.MEDIA_ROOT / 'upload', apphash + '/')
-            apimon_file = os.path.join(apk_dir, 'mobsf_api_monitor.txt')
+            apimon_file = os.path.join(apk_dir, 'api_monitor.txt')
             data = {}
             if not is_file_exists(apimon_file):
                 data = {
                     'status': 'failed',
                     'message': 'Data does not exist.'}
-                return send_response(data, api)
+                return send_response(data)
             with open(apimon_file, 'r',
                       encoding='utf8',
                       errors='ignore') as flip:
                 api_list = json.loads('[{}]'.format(
                     flip.read()[:-1]))
             data = {'data': api_list}
-            return send_response(data, api)
+            return send_response(data)
         logger.info('Starting API monitor streaming')
         template = 'dynamic_analysis/android/live_api.html'
         return render(request,
@@ -149,19 +147,15 @@ def live_api(request, api=False):
     except Exception:
         logger.exception('API实时监控')
         err = 'Error in API monitor streaming'
-        return print_n_send_error_response(request, err, api)
+        return print_n_send_error_response(request, err)
 
 
-def frida_logs(request, api=False):
+def frida_logs(request):
     try:
-        if api:
-            apphash = request.POST['hash']
-            stream = True
-        else:
-            apphash = request.GET.get('hash', '')
-            stream = request.GET.get('stream', '')
+        apphash = request.GET.get('hash', '')
+        stream = request.GET.get('stream', '')
         if not is_md5(apphash):
-            return invalid_params(api)
+            return invalid_params()
         if stream:
             apk_dir = os.path.join(settings.MEDIA_ROOT / 'upload', apphash + '/')
             frida_logs = os.path.join(apk_dir, 'mobsf_frida_out.txt')
@@ -170,12 +164,12 @@ def frida_logs(request, api=False):
                 data = {
                     'status': 'failed',
                     'message': 'Data does not exist.'}
-                return send_response(data, api)
+                return send_response(data)
             with open(frida_logs, 'r',
                       encoding='utf8',
                       errors='ignore') as flip:
                 data = {'data': flip.read()}
-            return send_response(data, api)
+            return send_response(data)
         logger.info('Frida Logs live streaming')
         template = 'dynamic_analysis/android/frida_logs.html'
         return render(request,
@@ -186,7 +180,7 @@ def frida_logs(request, api=False):
     except Exception:
         logger.exception('Frida log streaming')
         err = 'Error in Frida log streaming'
-        return print_n_send_error_response(request, err, api)
+        return print_n_send_error_response(request, err)
 
 
 def decode_base64(data, altchars=b'+/'):
@@ -234,7 +228,7 @@ def apimon_analysis(app_dir):
     """API Analysis."""
     api_details = {}
     try:
-        location = os.path.join(app_dir, 'mobsf_api_monitor.txt')
+        location = os.path.join(app_dir, 'api_monitor.txt')
         if not is_file_exists(location):
             return {}
         logger.info('Frida API Monitor Analysis')

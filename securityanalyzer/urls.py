@@ -66,4 +66,9 @@ urlpatterns = [
     re_path(r'^frida_logs/$', tests_frida.frida_logs),
     re_path(r'^list_frida_scripts/$', tests_frida.list_frida_scripts),
     re_path(r'^get_script/$', tests_frida.get_script),
+
+    # Report
+    re_path(r'^dynamic_report/(?P<checksum>[0-9a-f]{32})$',
+            report.view_report),
+    re_path(r'^dynamic_view_file/$', report.view_file),
 ]

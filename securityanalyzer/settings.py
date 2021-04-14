@@ -187,12 +187,12 @@ UPSTREAM_PROXY_PASSWORD = ''
 
 
 # Download Directory
-DWD_DIR = os.path.join(MEDIA_ROOT, 'downloads/')
+DWD_DIR = MEDIA_ROOT / 'downloads/'
 FRIDA_SERVER = 'https://api.github.com/repos/frida/frida/releases/tags/'
 
-TOOLS_DIR = BASE_DIR/'DynamicAnalyzer/tools/'
+TOOLS_DIR = BASE_DIR / 'DynamicAnalyzer/tools/'
 # Screenshot Directory
-SCREEN_DIR = os.path.join(MEDIA_ROOT, 'downloads/screen/')
+SCREEN_DIR = MEDIA_ROOT / 'downloads/screen/'
 
  # ==========ANDROID SKIP CLASSES==========================
     # Common third party classes/paths that will be skipped

@@ -1,4 +1,4 @@
-from pathlib import Path
+from pathlib import Path,PurePath
 import subprocess
 
 import psutil
@@ -18,11 +18,10 @@ def b():
     next(i for i in range(10))
 
 if __name__ == '__main__':
-    import logging
-    logger = logging.getLogger(__name__)
-    out = subprocess.check_output(
-                ['adb','devices'],
-                stderr=subprocess.STDOUT)
-    print(out)
-    out = out.decode(encoding='utf-8')
-    print(out)
+    import os
+    p = Path(__file__)
+    print(p)
+    print(p / 'tt/')
+    print(p / 'tt')
+    print(p / '/tt')
+    print(os.path.join(p,'tt'))

@@ -178,7 +178,7 @@ sidebar-mini
         <a href="../dynamic_report/{{ md5 }}" class="nav-link">
           <i class="nav-icon fas fa-file-alt"></i>
           <p>
-            Dynamic Analysis Report
+            动态分析报告
           </p>
         </a>
       </li>
@@ -187,7 +187,7 @@ sidebar-mini
         <a href="../android_dynamic/{{md5}}" class="nav-link">
           <i class="nav-icon fa fa-play-circle"></i>
           <p>
-            Start Dynamic Analysis
+            开始动态分析
           </p>
         </a>
       </li>
@@ -416,10 +416,10 @@ sidebar-mini
                 <strong><i class="fas fa-cog"></i> SCAN OPTIONS</strong>
               </p>
               <p> <a href="../static_analyzer/?checksum={{ md5 }}&amp;name={{ file_name }}&amp;type=apk&amp;rescan=1"
-                  class="btn btn-info" role="button"><i class="fa fa-sync"></i> Rescan</a></p>
+                  class="btn btn-info" role="button"><i class="fa fa-sync"></i> 重新扫描</a></p>
               <p>
                 <a href="../android_dynamic/{{md5}}" class="btn btn-success" role="button"><i
-                    class="fa fa-play-circle"></i> Start Dynamic Analysis</a>
+                    class="fa fa-play-circle"></i> 开始动态分析</a>
               </p>
             </div>
           </div><!-- /.card -->
@@ -757,8 +757,7 @@ sidebar-mini
                         (medium)
                         {% elif details.metadata.cvss < 4 %} (low) {% endif %} {% if details.metadata.cwe %}</br>
                           <strong>CWE: </strong>{{ details.metadata.cwe }}{% endif %}
-                          {% if details.metadata|key:"owasp-mobile" %}</br> <strong>OWASP Top 10: </strong>{{
-                          details.metadata|key:"owasp-mobile" }}{% endif %}
+                          {% if details.metadata|key:"owasp-mobile" %}</br> <strong>OWASP Top 10: </strong>{{ details.metadata|key:"owasp-mobile" }}{% endif %}
                           {% if details.metadata.masvs %}</br> <strong>OWASP MASVS: </strong>{{ details.metadata.masvs }}{% endif %}
                       </td>
                       <td>

@@ -2,6 +2,7 @@
 """Available Actions."""
 import logging
 import os
+from time import time
 
 from django.conf import settings
 from django.views.decorators.http import require_http_methods
@@ -13,9 +14,6 @@ from DynamicAnalyzer.views.operations import (
 )
 from DynamicAnalyzer.views.environment import (
     Environment,
-)
-from DynamicAnalyzer.views.tests_xposed import (
-    download_xposed_log,
 )
 from DynamicAnalyzer.tools.webproxy import stop_httptools
 from securityanalyzer.utils import (
@@ -31,7 +29,7 @@ logger = logging.getLogger(__name__)
 
 
 @require_http_methods(['POST'])
-def activity_tester(request, api=False):
+def activity_tester(request):
     """Exported & non exported activity Tester."""
     data = {}
     try:
@@ -39,7 +37,7 @@ def activity_tester(request, api=False):
         test = request.POST['test']
         md5_hash = request.POST['hash']
         if not is_md5(md5_hash):
-            return invalid_params(api)
+            return invalid_params()
         app_dir = os.path.join(settings.MEDIA_ROOT / 'upload', md5_hash + '/')
         screen_dir = os.path.join(app_dir, 'screenshots-apk/')
         if not os.path.exists(screen_dir):
@@ -61,7 +59,7 @@ def activity_tester(request, api=False):
             logger.info(msg)
             data = {'status': 'failed',
                     'message': msg}
-            return send_response(data, api)
+            return send_response(data)
         act_no = 0
         logger.info('Starting %sActivity Tester...', iden)
         logger.info('%s %sActivities Identified',
@@ -86,13 +84,13 @@ def activity_tester(request, api=False):
     except Exception as exp:
         logger.exception('%sActivity tester', iden)
         data = {'status': 'failed', 'message': str(exp)}
-    return send_response(data, api)
+    return send_response(data)
 
 # AJAX
 
 
 @require_http_methods(['POST'])
-def download_data(request, api=False):
+def download_data(request):
     """Download Application Data from Device."""
     logger.info('Downloading app data')
     data = {}
@@ -100,12 +98,12 @@ def download_data(request, api=False):
         env = Environment()
         md5_hash = request.POST['hash']
         if not is_md5(md5_hash):
-            return invalid_params(api)
+            return invalid_params()
         package = get_package_name(md5_hash)
         if not package:
             data = {'status': 'failed',
                     'message': 'App details not found in database'}
-            return send_response(data, api)
+            return send_response(data)
         apk_dir = os.path.join(settings.MEDIA_ROOT / 'upload', md5_hash + '/')
         httptools_url = get_http_tools_url(request)
         stop_httptools(httptools_url)
@@ -122,13 +120,13 @@ def download_data(request, api=False):
     except Exception as exp:
         logger.exception('Downloading application data')
         data = {'status': 'failed', 'message': str(exp)}
-    return send_response(data, api)
+    return send_response(data)
 
 # AJAX
 
 
 @require_http_methods(['POST'])
-def collect_logs(request, api=False):
+def collect_logs(request):
     """Collecting Data and Cleanup."""
     logger.info('Collecting Data and Cleaning Up')
     data = {}
@@ -136,12 +134,12 @@ def collect_logs(request, api=False):
         env = Environment()
         md5_hash = request.POST['hash']
         if not is_md5(md5_hash):
-            return invalid_params(api)
+            return invalid_params()
         package = get_package_name(md5_hash)
         if not package:
             data = {'status': 'failed',
                     'message': 'App details not found in database'}
-            return send_response(data, api)
+            return send_response(data)
         apk_dir = os.path.join(settings.MEDIA_ROOT / 'upload', md5_hash + '/')
         lout = os.path.join(apk_dir, 'logcat.txt')
         dout = os.path.join(apk_dir, 'dump.txt')
@@ -156,8 +154,6 @@ def collect_logs(request, api=False):
         dumpsys = env.adb_command(['dumpsys'], True)
         with open(dout, 'wb') as flip:
             flip.write(dumpsys)
-        if env.get_android_version() < 5:
-            download_xposed_log(apk_dir)
         env.adb_command(['am', 'force-stop', package], True)
         logger.info('Stopping app')
         # Unset Global Proxy
@@ -166,4 +162,4 @@ def collect_logs(request, api=False):
     except Exception as exp:
         logger.exception('Data Collection & Clean Up failed')
         data = {'status': 'failed', 'message': str(exp)}
-    return send_response(data, api)
+    return send_response(data)

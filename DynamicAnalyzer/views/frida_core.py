@@ -38,8 +38,8 @@ class Frida:
         self.frida_dir = os.path.join(settings.TOOLS_DIR,
                                       'frida_scripts')
         self.apk_dir = os.path.join(settings.MEDIA_ROOT/'upload', self.hash + '/')
-        self.api_mon = os.path.join(self.apk_dir, 'mobsf_api_monitor.txt')
-        self.frida_log = os.path.join(self.apk_dir, 'mobsf_frida_out.txt')
+        self.api_mon = os.path.join(self.apk_dir, 'api_monitor.txt')
+        self.frida_log = os.path.join(self.apk_dir, 'frida_out.txt')
 
     def get_default_scripts(self):
         """Get default Frida Scripts."""

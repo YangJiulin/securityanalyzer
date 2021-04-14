@@ -324,7 +324,7 @@ class Environment:
                          True)
         self.adb_command(['pull',
                           '/data/local/stream.png',
-                          '{}screen.png'.format(settings.SCREEN_DIR)])
+                          str(settings.SCREEN_DIR / 'screen.png')])
 
     def android_component(self, bin_hash, comp):
         """获取apk组件信息"""
@@ -386,12 +386,12 @@ class Environment:
         return True
 
     def launch_n_capture(self, package, activity, outfile):
-        """启动并捕获Activity"""
+        """启动并捕获Activity图片"""
         self.adb_command(['am',
                           'start',
                           '-n',
                           package + '/' + activity], True)
-        self.wait(3)
+        self.wait(5)
         self.screen_shot(outfile)
         logger.info('Activity截屏已保存')
         logger.info('停止APP')

@@ -19,9 +19,6 @@ from DynamicAnalyzer.views.operations import (
     get_package_name,
     is_path_traversal,
 )
-from DynamicAnalyzer.views.tests_xposed import (
-    droidmon_api_analysis,
-)
 from DynamicAnalyzer.views.tests_frida import (
     apimon_analysis,
 )
@@ -43,7 +40,7 @@ def key(d, key_name):
     return d.get(key_name)
 
 
-def view_report(request, checksum, api=False):
+def view_report(request, checksum):
     """Dynamic Analysis Report Generation."""
     logger.info('Dynamic Analysis Report Generation')
     try:
@@ -51,26 +48,24 @@ def view_report(request, checksum, api=False):
         apimon = {}
         if not is_md5(checksum):
             # We need this check since checksum is not validated
-            # in REST API
             return print_n_send_error_response(
                 request,
-                'Invalid Parameters',
-                api)
+                'Invalid Parameters',)
         package = get_package_name(checksum)
         if not package:
             return print_n_send_error_response(
                 request,
-                'Invalid Parameters',
-                api)
+                'Invalid Parameters')
         app_dir = os.path.join(settings.MEDIA_ROOT / 'upload', checksum + '/')
         download_dir = settings.DWD_DIR
         if not is_file_exists(os.path.join(app_dir, 'logcat.txt')):
             msg = ('Dynamic Analysis report is not available '
                    'for this app. Perform Dynamic Analysis '
                    'and generate the report.')
-            return print_n_send_error_response(request, msg, api)
+            return print_n_send_error_response(request, msg)
         fd_log = os.path.join(app_dir, 'mobsf_frida_out.txt')
-        droidmon = droidmon_api_analysis(app_dir, package)
+        droidmon = []
+        # droidmon_api_analysis(app_dir, package)
         apimon = apimon_analysis(app_dir)
         analysis_result = run_analysis(app_dir, checksum, package)
         generate_download(app_dir, checksum, download_dir, package)
@@ -92,16 +87,14 @@ def view_report(request, checksum, api=False):
                    'package': package,
                    'title': 'Dynamic Analysis'}
         template = 'dynamic_analysis/android/dynamic_report.html'
-        if api:
-            return context
         return render(request, template, context)
     except Exception as exp:
         logger.exception('Dynamic Analysis Report Generation')
         err = 'Error Geneating Dynamic Analysis Report. ' + str(exp)
-        return print_n_send_error_response(request, err, api)
+        return print_n_send_error_response(request, err)
 
 
-def view_file(request, api=False):
+def view_file(request):
     """View File."""
     logger.info('Viewing File')
     try:
@@ -109,18 +102,13 @@ def view_file(request, api=False):
         rtyp = ''
         dat = ''
         sql_dump = {}
-        if api:
-            fil = request.POST['file']
-            md5_hash = request.POST['hash']
-            typ = request.POST['type']
-        else:
-            fil = request.GET['file']
-            md5_hash = request.GET['hash']
-            typ = request.GET['type']
+        fil = request.GET['file']
+        md5_hash = request.GET['hash']
+        typ = request.GET['type']
         if not is_md5(md5_hash):
             return print_n_send_error_response(request,
                                                'Invalid Parameters',
-                                               api)
+                                               )
         src = os.path.join(
             settings.MEDIA_ROOT / 'upload',
             md5_hash,
@@ -128,7 +116,7 @@ def view_file(request, api=False):
         sfile = os.path.join(src, fil)
         if not is_safe_path(src, sfile) or is_path_traversal(fil):
             err = 'Path Traversal Attack Detected'
-            return print_n_send_error_response(request, err, api)
+            return print_n_send_error_response(request, err)
         with io.open(sfile, mode='r', encoding='ISO-8859-1') as flip:
             dat = flip.read()
         if fil.endswith('.xml') and typ == 'xml':
@@ -141,7 +129,7 @@ def view_file(request, api=False):
             rtyp = 'asciidoc'
         else:
             err = 'File type not supported'
-            return print_n_send_error_response(request, err, api)
+            return print_n_send_error_response(request, err)
         fil = escape(ntpath.basename(fil))
         context = {
             'title': fil,
@@ -151,12 +139,9 @@ def view_file(request, api=False):
             'type': rtyp,
         }
         template = 'general/view.html'
-        if api:
-            return context
         return render(request, template, context)
     except Exception:
         logger.exception('Viewing File')
         return print_n_send_error_response(
             request,
-            'Error Viewing File',
-            api)
+            'Error Viewing File')

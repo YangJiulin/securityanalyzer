@@ -1,11 +1,10 @@
+""""生成mitm证书并启动代理服务"""
 import logging
 import os
 from pathlib import Path
 import subprocess
 import time
-
 import requests
-
 from securityanalyzer.utils import is_file_exists, upstream_proxy
 
 logger = logging.getLogger(__name__)
@@ -13,21 +12,21 @@ logger = logging.getLogger(__name__)
 
 def stop_httptools(url):
     """Kill httptools."""
-    # Invoke HTTPtools UI Kill Request
+    # HTTPtools UI Kill Request
     try:
         requests.get(f'{url}/kill', timeout=5)
-        logger.info('Killing httptools UI')
+        logger.info('中止 httptools UI')
     except Exception:
         pass
 
-    # Invoke HTTPtools Proxy Kill Request
+    # HTTPtools Proxy Kill Request
     try:
         http_proxy = url.replace('https://', 'http://')
         headers = {'httptools': 'kill'}
         url = 'http://127.0.0.1'
         requests.get(url, headers=headers, proxies={
                      'http': http_proxy})
-        logger.info('Killing httptools Proxy')
+        logger.info('中止 httptools Proxy')
     except Exception:
         pass
 

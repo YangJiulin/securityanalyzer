@@ -5,3 +5,6 @@
 __pycache__
 .DS_Store
 /logs/*
+/media/downloads/*
+!/media/downloads/frida*
+!/media/downloads/screen

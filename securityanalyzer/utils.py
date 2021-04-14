@@ -106,21 +106,16 @@ def run_process(args):
 
 def print_n_send_error_response(request,
                                 msg,
-                                api=False,
-                                exp='Description'):
+                                exp='描述'):
     """Print and log errors."""
     logger.error(msg)
-    if api:
-        api_response = {'error': msg}
-        return api_response
-    else:
-        context = {
+    context = {
             'title': 'Error',
             'exp': exp,
             'doc': msg,
         }
-        template = 'general/error.html'
-        return render(request, template, context, status=500)
+    template = 'general/error.html'
+    return render(request, template, context, status=500)
 
 
 def filename_from_path(path):
@@ -264,9 +259,9 @@ def get_adb():
         logger.exception('Getting ADB Location')
     finally:
         if ADB_PATH:
-            os.environ['MOBSF_ADB'] = ADB_PATH
+            os.environ['ADB'] = ADB_PATH
         else:
-            os.environ['MOBSF_ADB'] = 'adb'
+            os.environ['ADB'] = 'adb'
             logger.warning('Dynamic Analysis related '
                            'functions will not work. '
                            '\nMake sure a Genymotion Android VM/'
@@ -404,7 +399,7 @@ def get_config_loc():
 
 
 def get_http_tools_url(req):
-    """Get httptools URL from request."""
+    """从request中获取httptools URL."""
     scheme = req.scheme
     ip = req.get_host().split(':')[0]
     return f'{scheme}://{ip}:{str(settings.PROXY_PORT)}'

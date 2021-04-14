@@ -1,5 +1,5 @@
 # -*- coding: utf_8 -*-
-"""Dynamic Analyzer Operations."""
+"""动态分析时操作"""
 import json
 import logging
 import os
@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 # Helpers
 
 def get_package_name(checksum):
-    """Get Package NAme from DB."""
+    """从数据库中返回包名"""
     try:
         static_android_db = StaticAnalyzerAndroid.objects.get(
             MD5=checksum)
@@ -38,59 +38,53 @@ def get_package_name(checksum):
         return None
 
 
-def send_response(data, api=False):
-    """Return JSON Response."""
-    if api:
-        return data
+def send_response(data):
+    """返回JSON Response."""
     return HttpResponse(json.dumps(data),
                         content_type='application/json')
 
 
 def is_attack_pattern(user_input):
-    """Check for attacks."""
+    """检查攻击字段"""
     atk_pattern = re.compile(r';|\$\(|\|\||&&')
     stat = re.findall(atk_pattern, user_input)
     if stat:
-        logger.error('Possible RCE attack detected')
+        logger.error('检测到可能的RCE攻击')
     return stat
 
 
 def strict_package_check(user_input):
-    """Strict package name check."""
+    """包名检查"""
     pat = re.compile(r'^\w+\.*[\w\.\$]+$')
     resp = re.match(pat, user_input)
     if not resp:
-        logger.error('Invalid package/class name')
+        logger.error('请检查package或class名')
     return resp
 
 
 def is_path_traversal(user_input):
-    """Check for path traversal."""
+    """检查路径遍历"""
     if (('../' in user_input)
         or ('%2e%2e' in user_input)
         or ('..' in user_input)
             or ('%252e' in user_input)):
-        logger.error('Path traversal attack detected')
+        logger.error('检测到路径遍历攻击')
         return True
     return False
 
 
-def invalid_params(api=False):
-    """Standard response for invalid params."""
+def invalid_params():
+    """检查参数的标准返回样式"""
     msg = 'Invalid Parameters'
     logger.error(msg)
     data = {'status': 'failed', 'message': msg}
-    if api:
-        return data
     return send_response(data)
 
 # AJAX
-
-
 @require_http_methods(['POST'])
-def mobsfy(request, api=False):
-    """Configure Instance for Dynamic Analysis."""
-    logger.info('MobSFying Android instance')
+def mobsfy(request):
+    """初始Android动态分析"""
+    logger.info('初始Android设备动态分析环境')
     data = {}
     try:
         identifier = request.POST['identifier']
@@ -98,25 +92,23 @@ def mobsfy(request, api=False):
         if not create_env.connect_n_mount():
             msg = 'Connection failed'
             data = {'status': 'failed', 'message': msg}
-            return send_response(data, api)
-        version = create_env.mobsfy_init()
+            return send_response(data)
+        version = create_env.env_init()
         if not version:
             msg = 'Connection failed'
             data = {'status': 'failed', 'message': msg}
-            return send_response(data, api)
+            return send_response(data)
         else:
             data = {'status': 'ok', 'android_version': version}
     except Exception as exp:
-        logger.exception('MobSFying Android instance failed')
+        logger.exception('Android instance failed')
         data = {'status': 'failed', 'message': str(exp)}
-    return send_response(data, api)
+    return send_response(data)
 
 # AJAX
-
-
 @require_http_methods(['POST'])
-def execute_adb(request, api=False):
-    """Execute ADB Commands."""
+def execute_adb(request):
+    """执行ADB命令."""
     data = {'status': 'ok', 'message': ''}
     cmd = request.POST['cmd']
     if cmd:
@@ -136,14 +128,13 @@ def execute_adb(request, api=False):
         else:
             out = ''
         data = {'status': 'ok', 'message': out}
-    return send_response(data, api)
+    return send_response(data)
+
 
 # AJAX
-
-
 @require_http_methods(['POST'])
 def get_component(request):
-    """Get Android Component."""
+    """获取Android组件"""
     data = {}
     try:
         env = Environment()
@@ -158,11 +149,10 @@ def get_component(request):
         data = {'status': 'failed', 'message': str(exp)}
     return send_response(data)
 
+
 # AJAX
-
-
 @require_http_methods(['POST'])
-def take_screenshot(request, api=False):
+def take_screenshot(request):
     """Take Screenshot."""
     logger.info('Taking screenshot')
     data = {}
@@ -170,10 +160,10 @@ def take_screenshot(request, api=False):
         env = Environment()
         bin_hash = request.POST['hash']
         if not is_md5(bin_hash):
-            return invalid_params(api)
+            return invalid_params()
         data = {}
         rand_int = random.randint(1, 1000000)
-        screen_dir = os.path.join(settings.MEDIA_ROOT / 'upload',
+        screen_dir = os.path.join(settings.MEDIA_ROOT / 'downloads',
                                   bin_hash + '/screenshots-apk/')
         if not os.path.exists(screen_dir):
             os.makedirs(screen_dir)
@@ -186,10 +176,10 @@ def take_screenshot(request, api=False):
     except Exception as exp:
         logger.exception('Taking screenshot')
         data = {'status': 'failed', 'message': str(exp)}
-    return send_response(data, api)
+    return send_response(data)
+
+
 # AJAX
-
-
 @require_http_methods(['POST'])
 def screen_cast(request):
     """ScreenCast."""
@@ -205,9 +195,8 @@ def screen_cast(request):
         data = {'status': 'failed', 'message': str(exp)}
     return send_response(data)
 
+
 # AJAX
-
-
 @require_http_methods(['POST'])
 def touch(request):
     """Sending Touch Events."""
@@ -217,7 +206,7 @@ def touch(request):
         x_axis = request.POST['x']
         y_axis = request.POST['y']
         if not is_number(x_axis) and not is_number(y_axis):
-            logger.error('Axis parameters must be numbers')
+            logger.error('位置参数必须是数字')
             return invalid_params()
         args = ['input',
                 'tap',
@@ -234,12 +223,11 @@ def touch(request):
     return send_response(data)
 
 
+
 # AJAX
-
-
 @require_http_methods(['POST'])
-def mobsf_ca(request, api=False):
-    """Install and Remove MobSF Proxy RootCA."""
+def mobsf_ca(request):
+    """安装或移除mitm证书"""
     data = {}
     try:
         env = Environment()
@@ -254,6 +242,6 @@ def mobsf_ca(request, api=False):
             data = {'status': 'failed',
                     'message': 'Action not supported'}
     except Exception as exp:
-        logger.exception('MobSF RootCA Handler')
+        logger.exception('mitm RootCA Handler')
         data = {'status': 'failed', 'message': str(exp)}
-    return send_response(data, api)
+    return send_response(data)

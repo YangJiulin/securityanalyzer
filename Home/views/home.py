@@ -186,30 +186,30 @@ def recent_scans(request):
     return render(request, template, context)
 
 
-# def search(request):
-#     """Search Scan by MD5 Route."""
-#     md5 = request.GET['md5']
-#     if re.match('[0-9a-f]{32}', md5):
-#         db_obj = RecentScansDB.objects.filter(MD5=md5)
-#         if db_obj.exists():
-#             e = db_obj[0]
-#             url = (f'/{e.ANALYZER }/?name={e.FILE_NAME}&'
-#                    f'checksum={e.MD5}&type={e.SCAN_TYPE}')
-#             return HttpResponseRedirect(url)
-#         else:
-#             return HttpResponseRedirect('/not_found/')
-#     return print_n_send_error_response(request, 'Invalid Scan Hash')
+def search(request):
+    """Search Scan by MD5 Route."""
+    md5 = request.GET['md5']
+    if re.match('[0-9a-f]{32}', md5):
+        db_obj = RecentScansDB.objects.filter(MD5=md5)
+        if db_obj.exists():
+            e = db_obj[0]
+            url = (f'/{e.ANALYZER }/?name={e.FILE_NAME}&'
+                   f'checksum={e.MD5}&type={e.SCAN_TYPE}')
+            return HttpResponseRedirect(url)
+        else:
+            return HttpResponseRedirect('/not_found/')
+    return print_n_send_error_response(request, '检查 Scan Hash')
 
 
 def download(request):
-    """Download from mobsf.MobSF Route."""
+    """Download Handler"""
     msg = 'Error Downloading File '
     if request.method == 'GET':
         allowed_exts = settings.ALLOWED_EXTENSIONS
         filename = request.path.replace('/download/', '', 1)
         # Security Checks
         if '../' in filename:
-            msg = 'Path Traversal Attack Detected'
+            msg = '发现路径遍历攻击'
             return print_n_send_error_response(request, msg)
         ext = os.path.splitext(filename)[1]
         if ext in allowed_exts:
