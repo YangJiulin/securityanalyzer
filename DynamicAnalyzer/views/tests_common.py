@@ -50,9 +50,6 @@ def activity_tester(request):
             iden = 'Exported '
             logger.info('Exported activity tester')
             activities = python_list(static_android_db.EXPORTED_ACTIVITIES)
-        else:
-            logger.info('Activity tester')
-            activities = python_list(static_android_db.ACTIVITIES)
         logger.info('Fetching %sactivities for %s', iden, package)
         if not activities:
             msg = 'No {}Activites found'.format(iden)
@@ -73,8 +70,6 @@ def activity_tester(request):
                 activity)
             if test == 'exported':
                 file_iden = 'expact'
-            else:
-                file_iden = 'act'
             outfile = ('{}{}-{}.png'.format(
                 screen_dir,
                 file_iden,

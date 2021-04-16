@@ -31,6 +31,10 @@ urlpatterns = [
     re_path(r'^upload/$', home.Upload.as_view),
     re_path(r'^download/', home.download),
     re_path(r'^recent_scans/$', home.recent_scans, name='recent'),
+    re_path(r'^delete_scan/$', home.delete_scan),
+    re_path(r'^search$', home.search),
+    re_path(r'^error/$', home.error, name='error'),
+    re_path(r'^not_found/$', home.not_found),
     # Static Analysis
     # Android
     re_path(r'^static_analyzer/$',static_analyzer.static_analyzer),
@@ -46,7 +50,6 @@ urlpatterns = [
     re_path(r'^httptools$',
             dz.httptools_start,
             name='httptools'),
-    re_path(r'^logcat/$', dz.logcat),
 
      # Android Operations
     re_path(r'^mobsfy/$', operations.mobsfy),
