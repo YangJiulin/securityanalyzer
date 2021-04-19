@@ -43,7 +43,7 @@ class Environment:
         else:
             self.identifier = get_device()
         self.tools_dir = settings.TOOLS_DIR.as_posix()
-        self.frida_str = f'MobSF-Frida-{FRIDA_VERSION}'.encode('utf-8')
+        self.frida_str = f'Frida-{FRIDA_VERSION}'.encode('utf-8')
 
     def wait(self, sec):
         """Wait in Seconds."""
@@ -209,7 +209,7 @@ class Environment:
                               ca_file], True)
         # with a high timeout afterwards
 
-    def set_global_proxy(self, version):
+    def set_global_proxy(self):
         """给设备设置全局代理"""
         # Android 4.4+ supported
         proxy_ip = None

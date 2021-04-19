@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataFlowResults FileFormatVersion="102" TerminationState="DataFlowOutOfMemory">
+    <Results>
+        <Result>
+            <Sink Statement="virtualinvoke $r1.&lt;android.os.Bundle: void putBundle(java.lang.String,android.os.Bundle)&gt;(&quot;androidx.lifecycle.BundlableSavedStateRegistry.key&quot;, r2)" Method="&lt;androidx.savedstate.SavedStateRegistry: void performSave(android.os.Bundle)&gt;">
+                <AccessPath Value="r2" Type="android.os.Bundle" TaintSubFields="true"></AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$d1 = virtualinvoke $r1.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                    <AccessPath Value="$d1" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$d1 = virtualinvoke $r1.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                    <AccessPath Value="$d1" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$d0 = virtualinvoke $r1.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                    <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$d0 = virtualinvoke $r1.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                    <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$d1 = virtualinvoke $r1.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                    <AccessPath Value="$d1" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$d0 = virtualinvoke $r1.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                    <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="virtualinvoke $r0.&lt;android.content.Context: android.content.ComponentName startService(android.content.Intent)&gt;($r1)" Method="&lt;androidx.media.session.MediaButtonReceiver: void startForegroundService(android.content.Context,android.content.Intent)&gt;">
+                <AccessPath Value="$r1" Type="android.content.Intent" TaintSubFields="true">
+                    <Fields>
+                        <Field Value="&lt;android.content.Intent: android.content.ComponentName componentName&gt;" Type="android.content.ComponentName"></Field>
+                    </Fields>
+                </AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r5 = virtualinvoke $r3.&lt;android.content.pm.PackageManager: java.util.List queryIntentServices(android.content.Intent,int)&gt;(r2, 0)" Method="&lt;androidx.media.session.MediaButtonReceiver: android.content.ComponentName getServiceComponentByAction(android.content.Context,java.lang.String)&gt;">
+                    <AccessPath Value="$r5" Type="java.util.List" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="virtualinvoke $r1.&lt;android.os.Bundle: void putParcelable(java.lang.String,android.os.Parcelable)&gt;(&quot;android:support:fragments&quot;, $r5)" Method="&lt;androidx.fragment.app.FragmentActivity: void onSaveInstanceState(android.os.Bundle)&gt;">
+                <AccessPath Value="$r1" Type="android.os.Bundle" TaintSubFields="true"></AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$d1 = virtualinvoke $r1.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                    <AccessPath Value="$d1" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$d0 = virtualinvoke $r1.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                    <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$d0 = virtualinvoke $r1.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                    <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$d1 = virtualinvoke $r1.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                    <AccessPath Value="$d1" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="staticinvoke &lt;android.util.Log: int d(java.lang.String,java.lang.String)&gt;(&quot;MediaButtonReceiver&quot;, $r5)" Method="&lt;androidx.media.session.MediaButtonReceiver: void onReceive(android.content.Context,android.content.Intent)&gt;">
+                <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r5 = virtualinvoke $r3.&lt;android.content.pm.PackageManager: java.util.List queryIntentServices(android.content.Intent,int)&gt;(r2, 0)" Method="&lt;androidx.media.session.MediaButtonReceiver: android.content.ComponentName getServiceComponentByAction(android.content.Context,java.lang.String)&gt;">
+                    <AccessPath Value="$r5" Type="java.util.List" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="virtualinvoke $r2.&lt;android.content.Intent: android.content.Intent setComponent(android.content.ComponentName)&gt;($r7)" Method="&lt;androidx.media.session.MediaButtonReceiver: void onReceive(android.content.Context,android.content.Intent)&gt;">
+                <AccessPath Value="$r2" Type="android.content.Intent" TaintSubFields="true">
+                    <Fields>
+                        <Field Value="&lt;android.content.Intent: android.content.ComponentName componentName&gt;" Type="android.content.ComponentName"></Field>
+                    </Fields>
+                </AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r5 = virtualinvoke $r3.&lt;android.content.pm.PackageManager: java.util.List queryIntentServices(android.content.Intent,int)&gt;(r2, 0)" Method="&lt;androidx.media.session.MediaButtonReceiver: android.content.ComponentName getServiceComponentByAction(android.content.Context,java.lang.String)&gt;">
+                    <AccessPath Value="$r5" Type="java.util.List" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="virtualinvoke r2.&lt;android.os.Bundle: void putBundle(java.lang.String,android.os.Bundle)&gt;($r8, r3)" Method="&lt;androidx.savedstate.SavedStateRegistry: void performSave(android.os.Bundle)&gt;">
+                <AccessPath Value="r2" Type="android.os.Bundle" TaintSubFields="true"></AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$d1 = virtualinvoke $r1.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                    <AccessPath Value="$d1" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$d0 = virtualinvoke $r1.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                    <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$d0 = virtualinvoke $r1.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                    <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$d1 = virtualinvoke $r1.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                    <AccessPath Value="$d1" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+    </Results>
+    <PerformanceData>
+        <PerformanceEntry Name="CallgraphConstructionSeconds" Value="45"></PerformanceEntry>
+        <PerformanceEntry Name="TaintPropagationSeconds" Value="106"></PerformanceEntry>
+        <PerformanceEntry Name="PathReconstructionSeconds" Value="5"></PerformanceEntry>
+        <PerformanceEntry Name="TotalRuntimeSeconds" Value="213"></PerformanceEntry>
+        <PerformanceEntry Name="MaxMemoryConsumption" Value="1928"></PerformanceEntry>
+        <PerformanceEntry Name="SourceCount" Value="11"></PerformanceEntry>
+        <PerformanceEntry Name="SinkCount" Value="195"></PerformanceEntry>
+    </PerformanceData>
+</DataFlowResults>

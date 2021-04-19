@@ -1,3 +1,4 @@
+from ntpath import join
 import os
 
 from django.conf import settings
@@ -11,7 +12,6 @@ def get_content(file_name):
                           'frida_scripts',
                           'auxiliary',
                           file_name)
-
     with open(script, 'r',
               encoding='utf8',
               errors='ignore') as scp:

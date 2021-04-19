@@ -114,7 +114,7 @@ def dynamic_analyzer(request, checksum):
         # Supported in Android 5+
         env.enable_adb_reverse_tcp(version)
         # 设置代理
-        env.set_global_proxy(version)
+        env.set_global_proxy()
         # 开启剪贴板监听
         env.start_clipmon()
         # 获取屏幕分辨率

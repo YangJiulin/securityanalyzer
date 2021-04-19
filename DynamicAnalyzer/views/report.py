@@ -63,7 +63,7 @@ def view_report(request, checksum):
                    'for this app. Perform Dynamic Analysis '
                    'and generate the report.')
             return print_n_send_error_response(request, msg)
-        fd_log = os.path.join(app_dir, 'mobsf_frida_out.txt')
+        fd_log = os.path.join(app_dir, 'frida_out.txt')
         droidmon = []
         # droidmon_api_analysis(app_dir, package)
         apimon = apimon_analysis(app_dir)

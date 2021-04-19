@@ -158,7 +158,7 @@ def frida_logs(request):
             return invalid_params()
         if stream:
             apk_dir = os.path.join(settings.MEDIA_ROOT / 'upload', apphash + '/')
-            frida_logs = os.path.join(apk_dir, 'mobsf_frida_out.txt')
+            frida_logs = os.path.join(apk_dir, 'frida_out.txt')
             data = {}
             if not is_file_exists(frida_logs):
                 data = {

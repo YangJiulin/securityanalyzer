@@ -72,7 +72,6 @@
                   <a href="#" id="screen" class="btn btn-primary" role="button">实时画面</a>
                   <a href="#" id="rootca" class="btn btn-primary" role="button">移除mitm证书</a>
                   <a href="#" id="expactt" class="btn btn-primary" role="button">开始Exported Activity测试</a>
-                  <a href="#" id="actt" class="btn btn-primary" role="button" >开始Activity测试</a>
                   <a href="#" id="ss" class="btn btn-primary" role="button">截图</a>
                   <a href="#" id="logstream" class="btn btn-primary">日志</a>
                   <a href="../../live_api/?hash={{ hash }}&amp;package={{ package }}" id="apimon" target="_blank" class="btn btn-primary" style='display: none'>实时api监控</a>
@@ -640,8 +639,7 @@ $("#ss").click(function() {
   return false;  
 });
 
-//MobSF CA
-
+//mitm CA
 $("#rootca").click(function() {
   var stext = $("#rootca").text();
   var act;
@@ -663,13 +661,12 @@ $("#rootca").click(function() {
     return false;  
 }); 
  
+
 function activity_tester(test){
   action(document.location.origin + '/activity_tester/', {hash: '{{ hash }}', 'test': test}, function(json) {
     if (json.status === "ok")
       if (test === 'exported')
         print_status("Exported Activity测试成功。");
-      else
-        print_status("Activity测试成功。");
     else
       print_status(json.message);
   });
@@ -680,13 +677,6 @@ $("#expactt").click(function()  {
   activity_tester('exported')
   return false;  
 });
-
-//Start Activity Tester
-$("#actt").click(function()  {
-  print_status("开始Activity测试...")
-  activity_tester('all_activities')
-  return false;  
-}); 
 
 // Logcat Stream
 $("#logstream").click(function() {

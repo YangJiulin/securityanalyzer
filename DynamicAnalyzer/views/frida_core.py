@@ -86,7 +86,7 @@ class Frida:
         """Function to handle frida responses."""
         if 'payload' in message:
             msg = message['payload']
-            api_mon = 'MobSF-API-Monitor: '
+            api_mon = 'API-Monitor: '
             aux = '[AUXILIARY] '
             if not isinstance(msg, str):
                 msg = str(msg)

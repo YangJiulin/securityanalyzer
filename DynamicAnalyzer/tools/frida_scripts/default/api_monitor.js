@@ -1,4 +1,4 @@
-// MobSF Android API Monitor
+// Android API Monitor
 // Inspired from: https://github.com/realgam3/ReversingAutomation/blob/master/Frida/Android-DynamicHooks/DynamicHooks.js
 var apis = [{
     class: 'android.os.Process',
@@ -101,66 +101,6 @@ var apis = [{
     method: 'deleteFile',
     name: 'File IO'
 },
-/*
-// crashes app on android 7
-{
-    class: 'android.app.SharedPreferencesImpl',
-    method: 'getString',
-    name: 'File IO - Shared Preferences'
-}, {
-    class: 'android.app.SharedPreferencesImpl',
-    method: 'contains',
-    name: 'File IO - Shared Preferences'
-}, {
-    class: 'android.app.SharedPreferencesImpl',
-    method: 'getInt',
-    name: 'File IO - Shared Preferences'
-}, {
-    class: 'android.app.SharedPreferencesImpl',
-    method: 'getFloat',
-    name: 'File IO - Shared Preferences'
-}, {
-    class: 'android.app.SharedPreferencesImpl',
-    method: 'getLong',
-    name: 'File IO - Shared Preferences'
-}, {
-    class: 'android.app.SharedPreferencesImpl',
-    method: 'getBoolean',
-    name: 'File IO - Shared Preferences'
-}, {
-    class: 'android.app.SharedPreferencesImpl',
-    method: 'getStringSet',
-    name: 'File IO - Shared Preferences'
-}, {
-    class: 'android.app.SharedPreferencesImpl$EditorImpl',
-    method: 'putString',
-    name: 'File IO - Shared Preferences'
-}, {
-    class: 'android.app.SharedPreferencesImpl$EditorImpl',
-    method: 'putStringSet',
-    name: 'File IO - Shared Preferences'
-}, {
-    class: 'android.app.SharedPreferencesImpl$EditorImpl',
-    method: 'putInt',
-    name: 'File IO - Shared Preferences'
-}, {
-    class: 'android.app.SharedPreferencesImpl$EditorImpl',
-    method: 'putFloat',
-    name: 'File IO - Shared Preferences'
-}, {
-    class: 'android.app.SharedPreferencesImpl$EditorImpl',
-    method: 'putBoolean',
-    name: 'File IO - Shared Preferences'
-}, {
-    class: 'android.app.SharedPreferencesImpl$EditorImpl',
-    method: 'putLong',
-    name: 'File IO - Shared Preferences'
-}, {
-    class: 'android.app.SharedPreferencesImpl$EditorImpl',
-    method: 'remove',
-    name: 'File IO - Shared Preferences'
-},
-*/
 {
     class: 'android.content.ContextWrapper',
     method: 'openOrCreateDatabase',
@@ -564,7 +504,7 @@ Java.performNow(function () {
                 message.result = undefined
             if (!message.returnValue)
                 message.returnValue = undefined
-            var msg = 'MobSF-API-Monitor: ' + JSON.stringify(message);
+            var msg = 'API-Monitor: ' + JSON.stringify(message);
             send(msg + ',');
             return originalResult;
         });

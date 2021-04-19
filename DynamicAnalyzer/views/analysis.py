@@ -22,7 +22,6 @@ def run_analysis(apk_dir, md5_hash, package):
     """动态分析日志分析"""
     analysis_result = {}
     logger.info('动态文件分析')
-    domains = {}
     clipboard = []
     # Collect Log data
     datas = get_log_data(apk_dir, package)
@@ -47,7 +46,6 @@ def run_analysis(apk_dir, md5_hash, package):
         urls = []
     # Domain提取和恶意检查
     logger.info('对提取出的链接进行检查')
-    domains = []
 
     # Email Etraction Regex
     emails = []
@@ -215,20 +213,20 @@ def generate_download(apk_dir, md5_hash, download_dir, package):
         logcat = os.path.join(apk_dir, 'logcat.txt')
         xlogcat = os.path.join(apk_dir, 'x_logcat.txt')
         apimon = os.path.join(apk_dir, 'api_monitor.txt')
-        fd_logs = os.path.join(apk_dir, 'mobsf_frida_out.txt')
+        fd_logs = os.path.join(apk_dir, 'frida_out.txt')
         dumpsys = os.path.join(apk_dir, 'dump.txt')
         sshot = os.path.join(apk_dir, 'screenshots-apk/')
         web = os.path.join(httptools, 'flows', package + '.flow.txt')
         star = os.path.join(apk_dir, package + '.tar')
 
-        dlogcat = os.path.join(download_dir, md5_hash + '-logcat.txt')
-        dxlogcat = os.path.join(download_dir, md5_hash + '-x_logcat.txt')
-        dapimon = os.path.join(download_dir, md5_hash + '-api_monitor.txt')
-        dfd_logs = os.path.join(download_dir, md5_hash + '-frida_out.txt')
-        ddumpsys = os.path.join(download_dir, md5_hash + '-dump.txt')
-        dsshot = os.path.join(download_dir, md5_hash + '-screenshots-apk/')
-        dweb = os.path.join(download_dir, md5_hash + '-web_traffic.txt')
-        dstar = os.path.join(download_dir, md5_hash + '-app_data.tar')
+        dlogcat = os.path.join(download_dir,md5_hash, md5_hash + '-logcat.txt')
+        dxlogcat = os.path.join(download_dir,md5_hash, md5_hash + '-x_logcat.txt')
+        dapimon = os.path.join(download_dir,md5_hash, md5_hash + '-api_monitor.txt')
+        dfd_logs = os.path.join(download_dir,md5_hash, md5_hash + '-frida_out.txt')
+        ddumpsys = os.path.join(download_dir, md5_hash,md5_hash + '-dump.txt')
+        dsshot = os.path.join(download_dir,md5_hash, 'screenshots-apk/')
+        dweb = os.path.join(download_dir, md5_hash,md5_hash + '-web_traffic.txt')
+        dstar = os.path.join(download_dir, md5_hash,md5_hash + '-app_data.tar')
 
         # Delete existing data
         dellist = [dlogcat, dxlogcat, dapimon,

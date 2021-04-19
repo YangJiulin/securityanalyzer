@@ -6,7 +6,7 @@ import logging
 import os
 import platform
 import re
-from securityanalyzer.utils import print_n_send_error_response
+from securityanalyzer.utils import is_dir_exists, is_file_exists, print_n_send_error_response
 import shutil
 from wsgiref.util import FileWrapper
 
@@ -227,51 +227,40 @@ def download(request):
     return HttpResponse('')
 
 
-# def delete_scan(request, api=False):
-#     """Delete Scan from DB and remove the scan related files."""
-#     try:
-#         if request.method == 'POST':
-#             if api:
-#                 md5_hash = request.POST['hash']
-#             else:
-#                 md5_hash = request.POST['md5']
-#             data = {'deleted': 'scan hash not found'}
-#             if re.match('[0-9a-f]{32}', md5_hash):
-#                 # Delete DB Entries
-#                 scan = RecentScansDB.objects.filter(MD5=md5_hash)
-#                 if scan.exists():
-#                     RecentScansDB.objects.filter(MD5=md5_hash).delete()
-#                     StaticAnalyzerAndroid.objects.filter(MD5=md5_hash).delete()
-#                     StaticAnalyzerIOS.objects.filter(MD5=md5_hash).delete()
-#                     StaticAnalyzerWindows.objects.filter(MD5=md5_hash).delete()
-#                     # Delete Upload Dir Contents
-#                     app_upload_dir = os.path.join(settings.MEDIA_ROOT / 'upload', md5_hash)
-#                     if is_dir_exists(app_upload_dir):
-#                         shutil.rmtree(app_upload_dir)
-#                     # Delete Download Dir Contents
-#                     dw_dir = settings.DWD_DIR
-#                     for item in os.listdir(dw_dir):
-#                         item_path = os.path.join(dw_dir, item)
-#                         valid_item = item.startswith(md5_hash + '-')
-#                         # Delete all related files
-#                         if is_file_exists(item_path) and valid_item:
-#                             os.remove(item_path)
-#                         # Delete related directories
-#                         if is_dir_exists(item_path) and valid_item:
-#                             shutil.rmtree(item_path)
-#                     data = {'deleted': 'yes'}
-#             if api:
-#                 return data
-#             else:
-#                 ctype = 'application/json; charset=utf-8'
-#                 return HttpResponse(json.dumps(data), content_type=ctype)
-#     except Exception as exp:
-#         msg = str(exp)
-#         exp_doc = exp.__doc__
-#         if api:
-#             return print_n_send_error_response(request, msg, True, exp_doc)
-#         else:
-#             return print_n_send_error_response(request, msg, False, exp_doc)
+def delete_scan(request):
+    """Delete Scan from DB and remove the scan related files."""
+    try:
+        if request.method == 'POST':
+            md5_hash = request.POST['md5']
+            data = {'deleted': 'scan hash not found'}
+            if re.match('[0-9a-f]{32}', md5_hash):
+                # Delete DB Entries
+                scan = RecentScansDB.objects.filter(MD5=md5_hash)
+                if scan.exists():
+                    RecentScansDB.objects.filter(MD5=md5_hash).delete()
+                    StaticAnalyzerAndroid.objects.filter(MD5=md5_hash).delete()
+                    # Delete Upload Dir Contents
+                    app_upload_dir = os.path.join(settings.MEDIA_ROOT / 'upload', md5_hash)
+                    if is_dir_exists(app_upload_dir):
+                        shutil.rmtree(app_upload_dir)
+                    # Delete Download Dir Contents
+                    dw_dir = settings.DWD_DIR
+                    for item in os.listdir(dw_dir):
+                        item_path = os.path.join(dw_dir, item)
+                        valid_item = item.startswith(md5_hash + '-')
+                        # Delete all related files
+                        if is_file_exists(item_path) and valid_item:
+                            os.remove(item_path)
+                        # Delete related directories
+                        if is_dir_exists(item_path) and valid_item:
+                            shutil.rmtree(item_path)
+                    data = {'deleted': 'yes'}
+            ctype = 'application/json; charset=utf-8'
+            return HttpResponse(json.dumps(data), content_type=ctype)
+    except Exception as exp:
+        msg = str(exp)
+        exp_doc = exp.__doc__
+        return print_n_send_error_response(request, msg, False, exp_doc)
 
 
 class RecentScans(object):

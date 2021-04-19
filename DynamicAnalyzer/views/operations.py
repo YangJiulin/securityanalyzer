@@ -234,9 +234,11 @@ def mobsf_ca(request):
         action = request.POST['action']
         if action == 'install':
             env.install_mitm_ca(action)
+            env.set_global_proxy()
             data = {'status': 'ok', 'message': 'installed'}
         elif action == 'remove':
             env.install_mitm_ca(action)
+            env.unset_global_proxy()
             data = {'status': 'ok', 'message': 'removed'}
         else:
             data = {'status': 'failed',
