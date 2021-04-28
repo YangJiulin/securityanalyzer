@@ -56,7 +56,6 @@ def run_analysis(apk_dir, md5_hash, package):
     # Tar dump and fetch files
     all_files = get_app_files(apk_dir, md5_hash, package)
     analysis_result['urls'] = urls
-    analysis_result['domains'] = domains
     analysis_result['emails'] = emails
     analysis_result['clipboard'] = clipboard
     analysis_result['xml'] = all_files['xml']
