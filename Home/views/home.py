@@ -4,7 +4,6 @@ from StaticAnalyzer.models import RecentScansDB, StaticAnalyzerAndroid
 import json
 import logging
 import os
-import platform
 import re
 from securityanalyzer.utils import is_dir_exists, is_file_exists, print_n_send_error_response
 import shutil
@@ -19,19 +18,6 @@ from django.template.defaulttags import register
 from Home.forms import UploadFileForm,FormUtil
 from Home.views.helpers import FileType
 from Home.views.scanning import Scanning
-# # from mobsf.MobSF.utils import (
-# #     api_key,
-# #     is_dir_exists,
-# #     is_file_exists,
-# #     print_n_send_error_response,
-# # )
-# # from mobsf.MobSF.views.helpers import FileType
-# # from mobsf.StaticAnalyzer.models import (
-# #     RecentScansDB,
-# #     StaticAnalyzerAndroid,
-# #     StaticAnalyzerIOS,
-# #     StaticAnalyzerWindows,
-# # )
 
 LINUX_PLATFORM = ['Darwin', 'Linux']
 HTTP_BAD_REQUEST = 400
@@ -51,9 +37,29 @@ def index(request):
     context = {
         'mimes': mimes,
     }
+    logger.info('进入主页')
     template = 'general/home.html'
     return render(request, template, context)
 
+
+def live_log(request):
+    try:
+        log_file = settings.BASE_DIR/'logs'/'debug.log'
+        data = {}
+        if not is_file_exists(log_file):
+            data = {
+                'status': 'failed',
+                'message': 'Data does not exist.'}
+            return HttpResponse(json.dumps(data),
+                            content_type='application/json; charset=utf-8')
+        with open(log_file, 'r',encoding='utf8',errors='ignore') as flip:
+            data = {'data': flip.read()}
+        return HttpResponse(json.dumps(data),
+                            content_type='application/json; charset=utf-8')
+    except Exception:
+        logger.exception('log实时监控')
+        err = 'Error in log streaming'
+        return print_n_send_error_response(request, err)
 
 class Upload(object):
     """根据上传文件的不同类型处理文件"""
@@ -116,26 +122,6 @@ class Upload(object):
             return scanning.scan_zip()
 
 
-# def api_docs(request):
-#     """Api Docs Route."""
-#     context = {
-#         'title': 'REST API Docs',
-#         'api_key': api_key(),
-#         'version': settings.MOBSF_VER,
-#     }
-#     template = 'general/apidocs.html'
-#     return render(request, template, context)
-
-
-# def about(request):
-#     """About Route."""
-#     context = {
-#         'title': 'About',
-#         'version': settings.MOBSF_VER,
-#     }
-#     template = 'general/about.html'
-#     return render(request, template, context)
-
 
 def error(request):
     """Error Route."""
@@ -166,25 +152,13 @@ def not_found(request):
 
 def recent_scans(request):
     """Show Recent Scans Route."""
-    entries = []
-    db_obj = RecentScansDB.objects.all().order_by('-TIMESTAMP').values()
-    android = StaticAnalyzerAndroid.objects.all()
-    package_mapping = {}
-    for item in android:
-        package_mapping[item.MD5] = item.PACKAGE_NAME
-    for entry in db_obj:
-        if entry['MD5'] in package_mapping.keys():
-            entry['PACKAGE'] = package_mapping[entry['MD5']]
-        else:
-            entry['PACKAGE'] = ''
-        entries.append(entry)
+    entries = RecentScansDB.objects.all().order_by('-TIMESTAMP').values()
     context = {
         'title': 'Recent Scans',
         'entries': entries,
     }
     template = 'general/recent.html'
     return render(request, template, context)
-
 
 def search(request):
     """Search Scan by MD5 Route."""
@@ -198,7 +172,7 @@ def search(request):
             return HttpResponseRedirect(url)
         else:
             return HttpResponseRedirect('/not_found/')
-    return print_n_send_error_response(request, '检查 Scan Hash')
+    return print_n_send_error_response(request, '检查输入hash值')
 
 
 def download(request):
@@ -220,8 +194,7 @@ def download(request):
                     wrapper, content_type=allowed_exts[ext])
                 response['Content-Length'] = os.path.getsize(dwd_file)
                 return response
-    if ('screen/screen.png' not in filename
-            and '-icon.png' not in filename):
+    if ('screen/screen.png' not in filename):
         msg += filename
         return print_n_send_error_response(request, msg)
     return HttpResponse('')
@@ -247,7 +220,7 @@ def delete_scan(request):
                     dw_dir = settings.DWD_DIR
                     for item in os.listdir(dw_dir):
                         item_path = os.path.join(dw_dir, item)
-                        valid_item = item.startswith(md5_hash + '-')
+                        valid_item = item.startswith(md5_hash)
                         # Delete all related files
                         if is_file_exists(item_path) and valid_item:
                             os.remove(item_path)
@@ -262,24 +235,3 @@ def delete_scan(request):
         exp_doc = exp.__doc__
         return print_n_send_error_response(request, msg, False, exp_doc)
 
-
-class RecentScans(object):
-
-    def __init__(self, request):
-        self.request = request
-
-    def recent_scans(self):
-        page = self.request.GET.get('page', 1)
-        page_size = self.request.GET.get('page_size', 10)
-        result = RecentScansDB.objects.all().values().order_by('-TIMESTAMP')
-        try:
-            paginator = Paginator(result, page_size)
-            content = paginator.page(page)
-            data = {
-                'content': list(content),
-                'count': paginator.count,
-                'num_pages': paginator.num_pages,
-            }
-        except Exception as exp:
-            data = {'error': str(exp)}
-        return data

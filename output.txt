@@ -1,0 +1,941 @@
+{
+  "score": 712.2999877929688,
+  "md5hash": "e6390766ee87f8151e596c63a63b6b9c",
+  "results": [{
+    "desc": "webview addjsinterface code exec",
+    "sourceStmt": "virtualinvoke $r7.<android.webkit.WebView: void addJavascriptInterface(java.lang.Object,java.lang.String)>($r8, \"JSAndroidInterface\")",
+    "custom": "naive check, may false positive",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.i00: void c(java.lang.String)>"
+  }, {
+    "desc": "webview addjsinterface code exec",
+    "sourceStmt": "virtualinvoke $r5.<android.webkit.WebView: void addJavascriptInterface(java.lang.Object,java.lang.String)>($r6, \"JSAndroidInterface\")",
+    "custom": "naive check, may false positive",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.l80: void a(java.lang.String)>"
+  }, {
+    "desc": "implements custom verifier that always return true",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<anet.channel.strategy.dispatch.d: boolean verify(java.lang.String,javax.net.ssl.SSLSession)>"
+  }, {
+    "desc": "implements custom verifier that always return true",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<anet.channel.util.b$a: boolean verify(java.lang.String,javax.net.ssl.SSLSession)>"
+  }, {
+    "desc": "implements custom verifier that always return true",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.alibaba.sdk.android.httpdns.l$1: boolean verify(java.lang.String,javax.net.ssl.SSLSession)>"
+  }, {
+    "desc": "implements custom verifier that always return true",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.wn0$c: boolean verify(java.lang.String,javax.net.ssl.SSLSession)>"
+  }, {
+    "desc": "implements custom verifier that always return true",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.mn0$c: boolean verify(java.lang.String,javax.net.ssl.SSLSession)>"
+  }, {
+    "desc": "implements custom verifier that always return true",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.alibaba.sdk.android.httpdns.m$1: boolean verify(java.lang.String,javax.net.ssl.SSLSession)>"
+  }, {
+    "desc": "implements custom verifier that always return true",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<anet.channel.session.c: boolean verify(java.lang.String,javax.net.ssl.SSLSession)>"
+  }, {
+    "desc": "Webview ssl handler impl onReceivedSslError, lead to SSL vulnerability",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.ic0: void onReceivedSslError(android.webkit.WebView,android.webkit.SslErrorHandler,android.net.http.SslError)>"
+  }, {
+    "desc": "X509TrustManager empty impl, lead to SSL vulnerability",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.provider.a.d.a.c.a: void checkServerTrusted(java.security.cert.X509Certificate[],java.lang.String)>"
+  }, {
+    "desc": "X509TrustManager empty impl, lead to SSL vulnerability",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.kuyun.androidtv.lib.core.ad.util.k$a: void checkServerTrusted(java.security.cert.X509Certificate[],java.lang.String)>"
+  }, {
+    "desc": "X509TrustManager empty impl, lead to SSL vulnerability",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.kuyun.device.utils.HttpsUtil$DefaultTrustManager: void checkServerTrusted(java.security.cert.X509Certificate[],java.lang.String)>"
+  }, {
+    "desc": "X509TrustManager empty impl, lead to SSL vulnerability",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.mn0$b: void checkServerTrusted(java.security.cert.X509Certificate[],java.lang.String)>"
+  }, {
+    "desc": "X509TrustManager empty impl, lead to SSL vulnerability",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.wn0$b: void checkServerTrusted(java.security.cert.X509Certificate[],java.lang.String)>"
+  }, {
+    "desc": "X509TrustManager empty impl, lead to SSL vulnerability",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.kuyun.localserver.logchecker.HttpClient$DefaultTrustManager: void checkServerTrusted(java.security.cert.X509Certificate[],java.lang.String)>"
+  }, {
+    "desc": "X509TrustManager empty impl, lead to SSL vulnerability",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<anet.channel.util.b$b$a: void checkServerTrusted(java.security.cert.X509Certificate[],java.lang.String)>"
+  }, {
+    "desc": "Check webview save password disabled or not",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.kc0: void a(android.content.Context,android.webkit.WebView)>"
+  }, {
+    "desc": "Check webview save password disabled or not",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.ui.style.h5.H5Activity: void d()>"
+  }, {
+    "desc": "Scan for ZipEntry vulnerable to unzip directory traversal vulnerability",
+    "sourceStmt": "",
+    "custom": "ZipEntry usage",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.wk0: void a(java.lang.String,ˆ.il0)>"
+  }, {
+    "desc": "Scan for ZipEntry vulnerable to unzip directory traversal vulnerability",
+    "sourceStmt": "",
+    "custom": "ZipEntry usage",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.wk0: void d()>"
+  }, {
+    "desc": "Scan for ZipEntry vulnerable to unzip directory traversal vulnerability",
+    "sourceStmt": "",
+    "custom": "ZipEntry usage",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.util.v: void a(java.lang.String,java.lang.String,java.lang.String)>"
+  }, {
+    "desc": "Scan for ZipEntry vulnerable to unzip directory traversal vulnerability",
+    "sourceStmt": "",
+    "custom": "ZipEntry usage",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.go0: java.util.List a(java.io.File,java.io.File,java.lang.String)>"
+  }, {
+    "desc": "Scan for ZipEntry vulnerable to unzip directory traversal vulnerability",
+    "sourceStmt": "",
+    "custom": "ZipEntry usage",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.go0: boolean a(java.io.File,java.util.List,java.util.zip.ZipFile,java.util.zip.ZipEntry,java.lang.String)>"
+  }, {
+    "desc": "Scan for ZipEntry vulnerable to unzip directory traversal vulnerability",
+    "sourceStmt": "",
+    "custom": "ZipEntry usage",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.ob0: void a(java.io.File,java.io.File[])>"
+  }, {
+    "desc": "Scan for ZipEntry vulnerable to unzip directory traversal vulnerability",
+    "sourceStmt": "",
+    "custom": "ZipEntry usage",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.rm0: java.util.zip.ZipEntry a(java.util.zip.ZipFile,java.lang.String)>"
+  }, {
+    "desc": "Scan for ZipEntry vulnerable to unzip directory traversal vulnerability",
+    "sourceStmt": "",
+    "custom": "ZipEntry usage",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.m9: void a(java.util.zip.ZipFile,java.util.zip.ZipEntry,java.io.File,java.lang.String)>"
+  }, {
+    "desc": "Scan for ZipEntry vulnerable to unzip directory traversal vulnerability",
+    "sourceStmt": "",
+    "custom": "ZipEntry usage",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.m9: java.util.List b()>"
+  }, {
+    "desc": "NPE_CRASH",
+    "sourceStmt": "virtualinvoke $r3.<android.os.Bundle: void putString(java.lang.String,java.lang.String)>(\"ad_channel_id\", $r1)",
+    "custom": "",
+    "vulnKind": 1,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dianshijia.newlive.entry.SplashActivity: android.os.Bundle e(java.lang.String)>"
+  }, {
+    "desc": "com.umeng.message.UmengIntentService FragmentInjection exist! (before API 17)",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 3,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": ""
+  }, {
+    "desc": "com.wukongtv.sdk.impl.SDKService FragmentInjection exist! (before API 17)",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 3,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": ""
+  }, {
+    "desc": "com.taobao.accs.ServiceReceiver FragmentInjection exist! (before API 17)",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 3,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": ""
+  }, {
+    "desc": "com.wukongtv.sdk.receivers.PackageAddedReceiver FragmentInjection exist! (before API 17)",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 3,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": ""
+  }, {
+    "desc": "com.taobao.accs.data.MsgDistributeService FragmentInjection exist! (before API 17)",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 3,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": ""
+  }, {
+    "desc": "com.taobao.accs.EventReceiver FragmentInjection exist! (before API 17)",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 3,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": ""
+  }, {
+    "desc": "com.taobao.accs.ChannelService FragmentInjection exist! (before API 17)",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 3,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": ""
+  }, {
+    "desc": "com.taobao.agoo.AgooCommondReceiver FragmentInjection exist! (before API 17)",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 3,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": ""
+  }, {
+    "desc": "org.android.agoo.accs.AgooService FragmentInjection exist! (before API 17)",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 3,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": ""
+  }, {
+    "desc": "com.umeng.message.XiaomiIntentService FragmentInjection exist! (before API 17)",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 3,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": ""
+  }, {
+    "desc": "com.umeng.message.UmengMessageIntentReceiverService FragmentInjection exist! (before API 17)",
+    "sourceStmt": "",
+    "custom": "",
+    "vulnKind": 3,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": ""
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r4.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r1, $r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.ui.style.c.h: void a(com.dangbei.euthenia.ui.style.c.h$a)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r5.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r1, $r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.h$l: void e()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r2.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r3, $r1)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<anet.channel.status.b: void a()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.content.Context: void startActivity(android.content.Intent)>($r4)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.ib0: void a(android.content.Context,java.lang.String,android.os.Bundle)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r1.<android.content.Context: void startActivity(android.content.Intent)>($r0)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.ib0: boolean a(android.content.Context,java.io.File)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r2.<android.content.Context: void startActivity(android.content.Intent)>($r0)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.ib0: boolean c(android.content.Context,java.io.File)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.content.Context: void startActivity(android.content.Intent)>($r3)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.ib0: void d(android.content.Context,java.lang.String)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r3.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r1, $r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.j70: void b()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r1, $r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.alibaba.sdk.android.httpdns.k: void setContext(android.content.Context)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.app.Service: void startActivity(android.content.Intent)>($r3)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.hi3w.hisdk.service.HiService: void installAPk()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.app.Service: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r2, $r3)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.hi3w.hisdk.service.HiService: void onCreate()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.app.Service: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r5, $r3)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.hi3w.hisdk.service.HiService: void onCreate()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r4.<android.content.Context: void startActivity(android.content.Intent)>($r3)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<androidx.appcompat.widget.SearchView: void a(int,java.lang.String,java.lang.String)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r3.<android.content.Context: void startActivity(android.content.Intent)>($r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<androidx.appcompat.widget.SearchView: void v()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r3.<android.content.Context: void startActivity(android.content.Intent)>($r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<androidx.appcompat.widget.SearchView: void v()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r10.<android.content.Context: void sendBroadcast(android.content.Intent)>($r7)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.kuyun.localserver.Pirlo$b$1: void handleMessage(android.os.Message)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r10.<android.content.Context: void sendBroadcast(android.content.Intent)>($r7)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.kuyun.localserver.Pirlo$b$1: void handleMessage(android.os.Message)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r10.<android.content.Context: void sendBroadcast(android.content.Intent)>($r7)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.kuyun.localserver.Pirlo$b$1: void handleMessage(android.os.Message)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r4.<android.content.Context: void startActivity(android.content.Intent)>($r7)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.ui.style.c.a.d: void onClick(android.view.View)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.content.Context: void startActivity(android.content.Intent)>($r5)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dianshijia.tvcore.boot.BootReceiver: void a(android.content.Context,java.lang.String)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.app.Service: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r2, $r1)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dianshijia.newlive.core.service.LogService: void e()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.content.Context: void startActivity(android.content.Intent)>($r4)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.util.b.a.q: boolean d(android.content.Context,java.lang.String)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r13.<android.content.Context: void sendBroadcast(android.content.Intent)>($r12)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.hi3w.hisdk.AdFrameLayout: void skipViewClick()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r16.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r13, $r15)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.kuyun.localserver.Pirlo$b: void a(java.lang.Boolean)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r3.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r1, $r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.b00: void i()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r1.<android.app.Service: void startActivity(android.content.Intent)>($r5)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dianshijia.tvcore.ifly.TalkService$b: void onOpen(int)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r3.<android.content.Context: void startActivity(android.content.Intent)>($r6)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.receiver.a: void b()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r6.<android.content.Context: void startActivity(android.content.Intent)>($r1)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.receiver.a: void b(java.io.File)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r8.<android.content.Context: void startActivity(android.content.Intent)>($r6)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.receiver.a: void a(java.io.File)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r4.<android.content.Context: void sendBroadcast(android.content.Intent)>($r8)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.receiver.a: void a(java.lang.String,java.lang.String)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r4.<android.content.Context: void sendBroadcast(android.content.Intent)>($r8)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.receiver.a: void a(java.lang.String,java.lang.String)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r3.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r2, $r1)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.receiver.b: void a()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r1.<android.app.Activity: void startActivity(android.content.Intent)>($r4)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.r70: void a(android.app.Activity,int)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r2.<android.app.Activity: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r3, $r1)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.u90: void E()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r1.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r2, $r3)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.bumptech.glide.manager.DefaultConnectivityMonitor: void register()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r7.<android.content.Context: void startActivity(android.content.Intent)>($r6)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.ui.style.h5.b: void a(java.io.File)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r6.<android.app.Activity: void startActivity(android.content.Intent)>($r8)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.ui.style.h5.H5Activity$3: void onDownloadStart(java.lang.String,java.lang.String,java.lang.String,java.lang.String,long)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.content.Context: void startActivity(android.content.Intent)>($r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.util.a.b: void a(android.content.Context,com.dangbei.euthenia.util.a.a)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.content.Context: void sendBroadcast(android.content.Intent)>($r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.util.a.b: void a(android.content.Context,com.dangbei.euthenia.util.a.a)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.content.Context: void startActivity(android.content.Intent)>($r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.util.a.b: void a(android.content.Context,com.dangbei.euthenia.util.a.a)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<androidx.fragment.app.Fragment: void startActivity(android.content.Intent)>($r1)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.is: boolean a(java.lang.String)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r2.<android.content.Context: void startActivity(android.content.Intent)>($r1)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.ix: void d()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "$r10 = virtualinvoke $r1.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>(null, $r9)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.hm: void a(android.content.Context,org.json.JSONObject,ˆ.ok)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "$r10 = virtualinvoke $r1.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>(null, $r9)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.hm: void a(android.content.Context,org.json.JSONObject,ˆ.ok)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r2.<android.app.Activity: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r3, $r1)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.mx: void onStart()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r5.<android.content.Context: void startActivity(android.content.Intent)>($r1)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.aq: void a()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r6.<android.content.Context: void sendBroadcast(android.content.Intent)>($r4)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.kuyun.localserver.Pirlo: void checkState(android.os.Bundle)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r3.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r6, $r7)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.kuyun.localserver.Pirlo: void init(boolean,com.kuyun.localserver.listener.AppListener,int)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r1.<android.content.Context: void sendBroadcast(android.content.Intent)>($r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.kuyun.localserver.Pirlo: void sendInitDeviceIdBroadcast(android.content.Context,int,long,long,boolean)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r1.<android.content.Context: void sendStickyBroadcast(android.content.Intent)>($r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.kuyun.localserver.Pirlo: void sendInitDeviceIdBroadcast(android.content.Context,int,long,long,boolean)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r5.<android.content.Context: void startActivity(android.content.Intent)>($r1)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.eq: void a()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r7.<android.content.Context: void startActivity(android.content.Intent)>($r6)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.h3: void a(android.os.Bundle)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r5.<android.content.Context: void startActivity(android.content.Intent)>($r1)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.dq: void a()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r8.<android.content.Context: void startActivity(android.content.Intent)>($r7)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<androidx.appcompat.widget.ActivityChooserView$g: void onClick(android.view.View)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r9.<android.content.Context: void startActivity(android.content.Intent)>($r8)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<androidx.appcompat.widget.ActivityChooserView$g: void onItemClick(android.widget.AdapterView,android.view.View,int,long)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r3.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r2, $r1)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.ud0: void a()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r3.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r4, $r1)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.ud0: void a()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r3.<android.content.Context: void sendBroadcast(android.content.Intent)>($r4)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.ud0: void d(java.lang.String)>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r2.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r1, $r3)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.e50: void E()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.app.Activity: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r1, $r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dianshijia.newlive.home.LiveVideoActivity: void H0()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.app.Activity: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r3, $r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dianshijia.newlive.home.LiveVideoActivity: void H0()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r0.<android.app.Activity: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r12, $r2)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dianshijia.newlive.home.LiveVideoActivity: void H0()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r3.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r2, $r1)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<ˆ.td0: void e()>"
+  }, {
+    "desc": "implicit intent or receiver",
+    "sourceStmt": "virtualinvoke $r4.<android.content.Context: void sendBroadcast(android.content.Intent)>($r3)",
+    "custom": "",
+    "vulnKind": 0,
+    "destMethod": "",
+    "paths": [],
+    "destStmt": "",
+    "sourceMethod": "<com.dangbei.euthenia.ui.f.c: void f()>"
+  }]
+}

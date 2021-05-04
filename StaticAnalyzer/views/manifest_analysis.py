@@ -3,8 +3,6 @@
 """Module for android manifest analysis."""
 import logging
 import os
-import subprocess
-import tempfile
 from pathlib import Path
 from xml.dom import minidom
 from androguard.core.bytecodes import apk
@@ -19,13 +17,12 @@ logger = logging.getLogger(__name__)
 
 
 def get_manifest(app_dir, typ,is_apk):
-    """获取 manifest file."""
+    """
+    获取 manifest file.
+    @return(filePath,readText)
+    """
     try:
-        manifest_file = get_manifest_file(
-            app_dir,
-            typ,
-            is_apk
-            )
+        manifest_file = get_manifest_file(app_dir,typ,is_apk)
         mfile = Path(manifest_file)
         if mfile.exists():
             manifest = mfile.read_text('utf-8', 'ignore')
@@ -91,7 +88,10 @@ def get_manifest_data(app_path):
 
 
 def get_browsable_activities(node):
-    """能被浏览器调用 Activities."""
+    """
+    node:activity结点
+    能被浏览器调用 Activities.
+    """
     try:
         browse_dic = {}
         schemes = []
@@ -145,6 +145,7 @@ def manifest_analysis(mfxml, man_data_dic, src_type, app_dir):
     """分析 manifest file."""
     try:
         logger.info('开始分析 Manifest')
+        #四大组件导出个数
         exp_count = dict.fromkeys(['act', 'ser', 'bro', 'cnt'], 0)
         applications = mfxml.getElementsByTagName('application')
         datas = mfxml.getElementsByTagName('data')
@@ -172,8 +173,6 @@ def manifest_analysis(mfxml, man_data_dic, src_type, app_dir):
             if permission.getAttribute('android:protectionLevel'):
                 protectionlevel = permission.getAttribute(
                     'android:protectionLevel')
-                logger.info(permission.getAttribute(
-                    'android:name'))
                 logging.info(protectionlevel)
                 if protectionlevel == '0x00000000':
                     protectionlevel = 'normal'

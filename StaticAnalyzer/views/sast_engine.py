@@ -49,6 +49,7 @@ def format_findings(findings, root):
     for details in findings.values():
         tmp_dict = {}
         for file_meta in details['files']:
+            #将绝对路径替换为相对路径
             file_meta['file_path'] = file_meta[
                 'file_path'].replace(root, '', 1)
             file_path = file_meta['file_path']

@@ -1,0 +1,1233 @@
+{
+    "DataFlowResults": {
+        "@FileFormatVersion": "102",
+        "@TerminationState": "DataFlowOutOfMemory",
+        "Results": {
+            "Result": [
+                {
+                    "Sink": {
+                        "@Statement": "staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>($r2, $r4)",
+                        "@Method": "<com.dangbei.euthenia.ui.f.b.a: android.graphics.Bitmap n()>",
+                        "AccessPath": {
+                            "@Value": "$r4",
+                            "@Type": "java.lang.String",
+                            "@TaintSubFields": "true"
+                        }
+                    },
+                    "Sources": {
+                        "Source": {
+                            "@Statement": "$r3 = virtualinvoke $r1.<java.net.URL: java.io.InputStream openStream()>()",
+                            "@Method": "<com.dangbei.euthenia.ui.style.d.a: byte[] a(java.lang.String)>",
+                            "AccessPath": {
+                                "@Value": "$r3",
+                                "@Type": "java.io.InputStream",
+                                "@TaintSubFields": "true"
+                            }
+                        }
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "virtualinvoke $r0.<java.io.BufferedWriter: void write(java.lang.String)>($r3)",
+                        "@Method": "<\u02c6.un0: boolean a(java.io.File,java.lang.String,boolean)>",
+                        "AccessPath": {
+                            "@Value": "$r3",
+                            "@Type": "java.lang.String",
+                            "@TaintSubFields": "true"
+                        }
+                    },
+                    "Sources": {
+                        "Source": [
+                            {
+                                "@Statement": "$r5 = virtualinvoke $r4.<android.net.wifi.WifiInfo: java.lang.String getMacAddress()>()",
+                                "@Method": "<\u02c6.rn0: java.lang.String x()>",
+                                "AccessPath": {
+                                    "@Value": "$r5",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$d0 = virtualinvoke $r4.<android.location.Location: double getLatitude()>()",
+                                "@Method": "<\u02c6.rn0: double[] u()>",
+                                "AccessPath": {
+                                    "@Value": "$d0",
+                                    "@Type": "double",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$d0 = virtualinvoke $r4.<android.location.Location: double getLongitude()>()",
+                                "@Method": "<\u02c6.rn0: double[] u()>",
+                                "AccessPath": {
+                                    "@Value": "$d0",
+                                    "@Type": "double",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r4 = virtualinvoke $r3.<android.telephony.TelephonyManager: java.lang.String getSubscriberId()>()",
+                                "@Method": "<\u02c6.zn0: java.lang.String e()>",
+                                "AccessPath": {
+                                    "@Value": "$r4",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "virtualinvoke $r4.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r5, 0, $i0)",
+                        "@Method": "<com.dangbei.euthenia.ui.style.d.a: byte[] a(java.lang.String)>",
+                        "AccessPath": {
+                            "@Value": "$r5",
+                            "@Type": "byte[]",
+                            "@TaintSubFields": "true"
+                        }
+                    },
+                    "Sources": {
+                        "Source": {
+                            "@Statement": "$r3 = virtualinvoke $r1.<java.net.URL: java.io.InputStream openStream()>()",
+                            "@Method": "<com.dangbei.euthenia.ui.style.d.a: byte[] a(java.lang.String)>",
+                            "AccessPath": {
+                                "@Value": "$r3",
+                                "@Type": "java.io.InputStream",
+                                "@TaintSubFields": "true"
+                            }
+                        }
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "virtualinvoke $r6.<java.io.OutputStream: void write(byte[])>($r7)",
+                        "@Method": "<\u02c6.hn0$b: void run()>",
+                        "AccessPath": {
+                            "@Value": "$r6",
+                            "@Type": "java.io.OutputStream",
+                            "@TaintSubFields": "true",
+                            "Fields": {
+                                "Field": {
+                                    "@Value": "<java.io.OutputStream: byte[] innerArray>",
+                                    "@Type": "byte[]"
+                                }
+                            }
+                        }
+                    },
+                    "Sources": {
+                        "Source": [
+                            {
+                                "@Statement": "$r4 = virtualinvoke $r3.<android.telephony.TelephonyManager: java.lang.String getDeviceId()>()",
+                                "@Method": "<\u02c6.zn0: java.lang.String d()>",
+                                "AccessPath": {
+                                    "@Value": "$r4",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r5 = virtualinvoke $r4.<android.net.wifi.WifiInfo: java.lang.String getMacAddress()>()",
+                                "@Method": "<\u02c6.rn0: java.lang.String x()>",
+                                "AccessPath": {
+                                    "@Value": "$r5",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r4 = virtualinvoke $r3.<android.telephony.TelephonyManager: java.lang.String getSubscriberId()>()",
+                                "@Method": "<\u02c6.zn0: java.lang.String e()>",
+                                "AccessPath": {
+                                    "@Value": "$r4",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "virtualinvoke $r9.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r10, 0, $i1)",
+                        "@Method": "<\u02c6.ae0: byte[] a(java.lang.String)>",
+                        "AccessPath": {
+                            "@Value": "$r9",
+                            "@Type": "java.io.BufferedOutputStream",
+                            "@TaintSubFields": "true",
+                            "Fields": {
+                                "Field": {
+                                    "@Value": "<java.io.BufferedOutputStream: java.io.OutputStream innerStream>",
+                                    "@Type": "java.io.OutputStream"
+                                }
+                            }
+                        }
+                    },
+                    "Sources": {
+                        "Source": {
+                            "@Statement": "$r6 = virtualinvoke $r3.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>()",
+                            "@Method": "<\u02c6.ae0: byte[] a(java.lang.String)>",
+                            "AccessPath": {
+                                "@Value": "$r6",
+                                "@Type": "java.io.InputStream",
+                                "@TaintSubFields": "true"
+                            }
+                        }
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "$r4 = virtualinvoke $r3.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(\" \", \"\")",
+                        "@Method": "<com.dangbei.euthenia.util.z: java.lang.String f(android.content.Context)>",
+                        "AccessPath": {
+                            "@Value": "$r3",
+                            "@Type": "java.lang.String",
+                            "@TaintSubFields": "true"
+                        }
+                    },
+                    "Sources": {
+                        "Source": {
+                            "@Statement": "$r3 = virtualinvoke $r2.<android.telephony.TelephonyManager: java.lang.String getDeviceId()>()",
+                            "@Method": "<com.dangbei.euthenia.util.z: java.lang.String f(android.content.Context)>",
+                            "AccessPath": {
+                                "@Value": "$r3",
+                                "@Type": "java.lang.String",
+                                "@TaintSubFields": "true"
+                            }
+                        }
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "virtualinvoke $r9.<java.io.OutputStream: void write(byte[])>($r10)",
+                        "@Method": "<\u02c6.wn0$a: void run()>",
+                        "AccessPath": {
+                            "@Value": "$r9",
+                            "@Type": "java.io.OutputStream",
+                            "@TaintSubFields": "true",
+                            "Fields": {
+                                "Field": {
+                                    "@Value": "<java.io.OutputStream: byte[] innerArray>",
+                                    "@Type": "byte[]"
+                                }
+                            }
+                        }
+                    },
+                    "Sources": {
+                        "Source": [
+                            {
+                                "@Statement": "$r5 = virtualinvoke $r4.<android.net.wifi.WifiInfo: java.lang.String getMacAddress()>()",
+                                "@Method": "<\u02c6.rn0: java.lang.String x()>",
+                                "AccessPath": {
+                                    "@Value": "$r5",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$d0 = virtualinvoke $r4.<android.location.Location: double getLatitude()>()",
+                                "@Method": "<\u02c6.rn0: double[] u()>",
+                                "AccessPath": {
+                                    "@Value": "$d0",
+                                    "@Type": "double",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$d0 = virtualinvoke $r4.<android.location.Location: double getLongitude()>()",
+                                "@Method": "<\u02c6.rn0: double[] u()>",
+                                "AccessPath": {
+                                    "@Value": "$d0",
+                                    "@Type": "double",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r4 = virtualinvoke $r3.<android.telephony.TelephonyManager: java.lang.String getSubscriberId()>()",
+                                "@Method": "<\u02c6.zn0: java.lang.String e()>",
+                                "AccessPath": {
+                                    "@Value": "$r4",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "$r3 = virtualinvoke $r0.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>()",
+                        "@Method": "<\u02c6.sc0: byte[] a(java.net.HttpURLConnection)>",
+                        "AccessPath": {
+                            "@Value": "$r0",
+                            "@Type": "java.net.HttpURLConnection",
+                            "@TaintSubFields": "true",
+                            "Fields": {
+                                "Field": {
+                                    "@Value": "<java.net.URLConnection: java.lang.String[] requestValues>",
+                                    "@Type": "java.lang.String"
+                                }
+                            }
+                        }
+                    },
+                    "Sources": {
+                        "Source": {
+                            "@Statement": "$r5 = virtualinvoke $r4.<android.net.wifi.WifiInfo: java.lang.String getMacAddress()>()",
+                            "@Method": "<\u02c6.wb0: java.lang.String c(android.content.Context)>",
+                            "AccessPath": {
+                                "@Value": "$r5",
+                                "@Type": "java.lang.String",
+                                "@TaintSubFields": "true"
+                            }
+                        }
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "virtualinvoke $r7.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r1, 0, $i0)",
+                        "@Method": "<\u02c6.vd0: boolean a(java.lang.String,byte[])>",
+                        "AccessPath": {
+                            "@Value": "$r7",
+                            "@Type": "java.io.BufferedOutputStream",
+                            "@TaintSubFields": "true",
+                            "Fields": {
+                                "Field": {
+                                    "@Value": "<java.io.BufferedOutputStream: java.io.OutputStream innerStream>",
+                                    "@Type": "java.io.FileOutputStream"
+                                }
+                            }
+                        }
+                    },
+                    "Sources": {
+                        "Source": {
+                            "@Statement": "$r6 = virtualinvoke $r3.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>()",
+                            "@Method": "<\u02c6.ae0: byte[] a(java.lang.String)>",
+                            "AccessPath": {
+                                "@Value": "$r6",
+                                "@Type": "java.io.InputStream",
+                                "@TaintSubFields": "true"
+                            }
+                        }
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "$r0 = virtualinvoke $r0.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(\":\", \"\")",
+                        "@Method": "<\u02c6.wb0: java.lang.String a(java.lang.String)>",
+                        "AccessPath": {
+                            "@Value": "$r0",
+                            "@Type": "java.lang.String",
+                            "@TaintSubFields": "true"
+                        }
+                    },
+                    "Sources": {
+                        "Source": {
+                            "@Statement": "$r5 = virtualinvoke $r4.<android.net.wifi.WifiInfo: java.lang.String getMacAddress()>()",
+                            "@Method": "<\u02c6.wb0: java.lang.String c(android.content.Context)>",
+                            "AccessPath": {
+                                "@Value": "$r5",
+                                "@Type": "java.lang.String",
+                                "@TaintSubFields": "true"
+                            }
+                        }
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "virtualinvoke $r10.<android.os.Handler: boolean sendMessage(android.os.Message)>($r9)",
+                        "@Method": "<com.hi3w.hisdk.HiAdView$c: void onResponse(java.lang.String)>",
+                        "AccessPath": {
+                            "@Value": "$r10",
+                            "@Type": "android.os.Handler",
+                            "@TaintSubFields": "true"
+                        }
+                    },
+                    "Sources": {
+                        "Source": [
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.j f(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r1.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<\u02c6.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.k g(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r5 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.e c(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r5",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.g i(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.k g(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r4 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.l k(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r4",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r1.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<\u02c6.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.j f(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.g i(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r4 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.l k(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r4",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.k g(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r5 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.e c(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r5",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.h e(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r1.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<\u02c6.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.j f(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.g i(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r5 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.e c(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r5",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r1.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<\u02c6.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = virtualinvoke $r1.<java.net.URL: java.io.InputStream openStream()>()",
+                                "@Method": "<com.dangbei.euthenia.ui.style.d.a: byte[] a(java.lang.String)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.io.InputStream",
+                                    "@TaintSubFields": "true"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "$r4 = virtualinvoke $r0.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>()",
+                        "@Method": "<\u02c6.sc0: byte[] a(java.net.HttpURLConnection)>",
+                        "AccessPath": {
+                            "@Value": "$r0",
+                            "@Type": "java.net.HttpURLConnection",
+                            "@TaintSubFields": "true",
+                            "Fields": {
+                                "Field": {
+                                    "@Value": "<java.net.URLConnection: java.lang.String[] requestValues>",
+                                    "@Type": "java.lang.String"
+                                }
+                            }
+                        }
+                    },
+                    "Sources": {
+                        "Source": {
+                            "@Statement": "$r5 = virtualinvoke $r4.<android.net.wifi.WifiInfo: java.lang.String getMacAddress()>()",
+                            "@Method": "<\u02c6.wb0: java.lang.String c(android.content.Context)>",
+                            "AccessPath": {
+                                "@Value": "$r5",
+                                "@Type": "java.lang.String",
+                                "@TaintSubFields": "true"
+                            }
+                        }
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "virtualinvoke $r5.<java.io.FileOutputStream: void write(byte[],int,int)>($r6, 0, $i3)",
+                        "@Method": "<com.dangbei.euthenia.ui.style.h5.b: java.io.File a(java.lang.String,java.io.InputStream)>",
+                        "AccessPath": {
+                            "@Value": "$r5",
+                            "@Type": "java.io.FileOutputStream",
+                            "@TaintSubFields": "true",
+                            "Fields": {
+                                "Field": {
+                                    "@Value": "<java.io.OutputStream: byte[] innerArray>",
+                                    "@Type": "byte[]"
+                                }
+                            }
+                        }
+                    },
+                    "Sources": {
+                        "Source": {
+                            "@Statement": "$r13 = virtualinvoke $r10.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>()",
+                            "@Method": "<com.dangbei.euthenia.ui.style.h5.b$a: java.io.File a(java.lang.String[])>",
+                            "AccessPath": {
+                                "@Value": "$r13",
+                                "@Type": "java.io.InputStream",
+                                "@TaintSubFields": "true"
+                            }
+                        }
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "virtualinvoke $r4.<java.io.OutputStream: void write(byte[],int,int)>($r2, 0, $i1)",
+                        "@Method": "<\u02c6.dn$a: \u02c6.dn b()>",
+                        "AccessPath": {
+                            "@Value": "$r4",
+                            "@Type": "java.io.OutputStream",
+                            "@TaintSubFields": "true",
+                            "Fields": {
+                                "Field": {
+                                    "@Value": "<java.io.OutputStream: byte[] innerArray>",
+                                    "@Type": "byte[]"
+                                }
+                            }
+                        }
+                    },
+                    "Sources": {
+                        "Source": [
+                            {
+                                "@Statement": "$r3 = virtualinvoke $r2.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>()",
+                                "@Method": "<\u02c6.dn: java.io.InputStream o()>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.io.InputStream",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = virtualinvoke $r2.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>()",
+                                "@Method": "<\u02c6.dn: java.io.InputStream o()>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.io.InputStream",
+                                    "@TaintSubFields": "true"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "$r0 = virtualinvoke $r0.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(\":\", \"-\")",
+                        "@Method": "<\u02c6.rn0: java.lang.String v()>",
+                        "AccessPath": {
+                            "@Value": "$r0",
+                            "@Type": "java.lang.String",
+                            "@TaintSubFields": "true"
+                        }
+                    },
+                    "Sources": {
+                        "Source": {
+                            "@Statement": "$r5 = virtualinvoke $r4.<android.net.wifi.WifiInfo: java.lang.String getMacAddress()>()",
+                            "@Method": "<\u02c6.rn0: java.lang.String x()>",
+                            "AccessPath": {
+                                "@Value": "$r5",
+                                "@Type": "java.lang.String",
+                                "@TaintSubFields": "true"
+                            }
+                        }
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "staticinvoke <android.util.Log: int v(java.lang.String,java.lang.String)>(\"FragmentManager\", $r7)",
+                        "@Method": "<\u02c6.i7: int b(\u02c6.a7)>",
+                        "AccessPath": {
+                            "@Value": "$r7",
+                            "@Type": "java.lang.String",
+                            "@TaintSubFields": "true"
+                        }
+                    },
+                    "Sources": {
+                        "Source": [
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r3.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<\u02c6.j10: java.util.Map g()>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.j f(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.k g(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r1.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<\u02c6.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r5 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.e c(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r5",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.g i(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.k g(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r4 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.l k(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r4",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r1.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<\u02c6.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.j f(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.g i(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r4 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.l k(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r4",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.k g(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r5 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.e c(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r5",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.h e(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r1.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<\u02c6.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.j f(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r1 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.g i(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r1",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r5 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.e c(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r5",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r1.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<\u02c6.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            },
+                            {
+                                "@Statement": "$r3 = interfaceinvoke $r0.<android.database.Cursor: java.lang.String getString(int)>($i0)",
+                                "@Method": "<com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)>",
+                                "AccessPath": {
+                                    "@Value": "$r3",
+                                    "@Type": "java.lang.String",
+                                    "@TaintSubFields": "true"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "virtualinvoke $r0.<java.io.ByteArrayOutputStream: void write(byte[],int,int)>($r2, 0, $i0)",
+                        "@Method": "<\u02c6.sc0: byte[] a(java.io.InputStream)>",
+                        "AccessPath": {
+                            "@Value": "$r0",
+                            "@Type": "java.io.ByteArrayOutputStream",
+                            "@TaintSubFields": "true",
+                            "Fields": {
+                                "Field": {
+                                    "@Value": "<java.io.OutputStream: byte[] innerArray>",
+                                    "@Type": "byte[]"
+                                }
+                            }
+                        }
+                    },
+                    "Sources": {
+                        "Source": {
+                            "@Statement": "$r3 = virtualinvoke $r0.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>()",
+                            "@Method": "<\u02c6.sc0: byte[] a(java.net.HttpURLConnection)>",
+                            "AccessPath": {
+                                "@Value": "$r3",
+                                "@Type": "java.lang.Object",
+                                "@TaintSubFields": "true"
+                            }
+                        }
+                    }
+                },
+                {
+                    "Sink": {
+                        "@Statement": "$r0 = virtualinvoke $r0.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>(\":\", \"\")",
+                        "@Method": "<\u02c6.rn0: java.lang.String y()>",
+                        "AccessPath": {
+                            "@Value": "$r0",
+                            "@Type": "java.lang.String",
+                            "@TaintSubFields": "true"
+                        }
+                    },
+                    "Sources": {
+                        "Source": {
+                            "@Statement": "$r5 = virtualinvoke $r4.<android.net.wifi.WifiInfo: java.lang.String getMacAddress()>()",
+                            "@Method": "<\u02c6.rn0: java.lang.String x()>",
+                            "AccessPath": {
+                                "@Value": "$r5",
+                                "@Type": "java.lang.String",
+                                "@TaintSubFields": "true"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "PerformanceData": {
+            "PerformanceEntry": [
+                {
+                    "@Name": "CallgraphConstructionSeconds",
+                    "@Value": "37"
+                },
+                {
+                    "@Name": "TaintPropagationSeconds",
+                    "@Value": "76"
+                },
+                {
+                    "@Name": "PathReconstructionSeconds",
+                    "@Value": "3"
+                },
+                {
+                    "@Name": "TotalRuntimeSeconds",
+                    "@Value": "117"
+                },
+                {
+                    "@Name": "MaxMemoryConsumption",
+                    "@Value": "2813"
+                },
+                {
+                    "@Name": "SourceCount",
+                    "@Value": "90"
+                },
+                {
+                    "@Name": "SinkCount",
+                    "@Value": "574"
+                }
+            ]
+        }
+    }
+}

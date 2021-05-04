@@ -41,7 +41,7 @@ def get_info_from_db_entry(db_entry: QuerySet) -> dict:
             'manifest_analysis': python_list(db_entry[0].MANIFEST_ANALYSIS),
             'network_security': python_list(db_entry[0].NETWORK_SECURITY),
             'code_analysis': python_dict(db_entry[0].CODE_ANALYSIS),
-
+            'flow_analysis':python_list(db_entry[0].FLOW_REPORT),
             'urls': python_list(db_entry[0].URLS),
             'emails':python_list(db_entry[0].EMAILS),
             'exported_count': python_dict(db_entry[0].EXPORTED_COUNT),
@@ -54,7 +54,8 @@ def get_info_from_db_entry(db_entry: QuerySet) -> dict:
 def get_info_from_analysis(app_info,
                               man_data_dic,
                               man_an_dic,
-                              code_an_dic,) -> dict:
+                              code_an_dic,
+                              flow_an_dic) -> dict:
     """从分析结果中获取APK/ZIP信息"""
     try:
         # 原来是permissons man_an_dic
@@ -83,6 +84,7 @@ def get_info_from_analysis(app_info,
             'manifest_analysis': man_an_dic['manifest_anal'],
             'network_security': man_an_dic['network_security'],
             'code_analysis': code_an_dic['findings'],
+            'flow_analysis':flow_an_dic['results'],
             'urls': code_an_dic['urls'],
             'emails': code_an_dic['emails'],
             'exported_count': man_an_dic['exported_cnt'],
@@ -96,7 +98,8 @@ def save_or_update(update_type,
                    app_info,
                    man_data_dic,
                    man_an_dic,
-                   code_an_dic,) -> None:
+                   code_an_dic,
+                   flow_an_dic) -> None:
     """保存/更新APK/ZIP在数据库中的信息"""
     try:
         values = {
@@ -122,6 +125,7 @@ def save_or_update(update_type,
             'PERMISSIONS': man_data_dic['permissions'],
             'MANIFEST_ANALYSIS': man_an_dic['manifest_anal'],
             'CODE_ANALYSIS': code_an_dic['findings'],
+            'FLOW_REPORT':flow_an_dic['results'],
             'URLS': code_an_dic['urls'],
             'EMAILS':code_an_dic['emails'],
             'EXPORTED_COUNT': man_an_dic['exported_cnt'],

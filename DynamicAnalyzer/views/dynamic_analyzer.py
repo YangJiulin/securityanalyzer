@@ -22,7 +22,6 @@ from DynamicAnalyzer.tools.webproxy import (
     stop_httptools,
 )
 from securityanalyzer.utils import (
-    get_config_loc,
     get_device,
     get_http_tools_url,
     get_proxy_ip,

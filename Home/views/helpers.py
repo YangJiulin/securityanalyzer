@@ -2,7 +2,6 @@
 import functools
 
 from django.conf import settings
-from django.http import HttpRequest, HttpResponseNotAllowed
 
 ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE',
                  'PATCH', 'OPTIONS', 'HEAD', 'TRACE']

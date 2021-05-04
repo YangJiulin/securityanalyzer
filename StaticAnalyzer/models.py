@@ -44,10 +44,10 @@ class StaticAnalyzerAndroid(models.Model):
     FLOW_REPORT = models.TextField(default=[])
     DYNAMIC_REPORT = models.TextField(default={})
 
-    class JavaResource(models.Model):
-        ANALYZER = models.CharField(max_length=50, default='')
-        SCAN_TYPE = models.CharField(max_length=10, default='')
-        FILE_NAME = models.CharField(max_length=260, default='')
-        MD5 = models.CharField(max_length=32, default='')
-        TIMESTAMP = models.DateTimeField(default=datetime.now)
-        ANALYSIS_RESULT = models.TextField(default=[])
+class JavaResource(models.Model):
+    ANALYZER = models.CharField(max_length=50, default='')
+    SCAN_TYPE = models.CharField(max_length=10, default='')
+    FILE_NAME = models.CharField(max_length=260, default='')
+    MD5 = models.CharField(max_length=32, default='')
+    TIMESTAMP = models.DateTimeField(default=datetime.now)
+    ANALYSIS_RESULT = models.TextField(default=[])

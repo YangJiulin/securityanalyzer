@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import re_path
 from Home.views import home
-from StaticAnalyzer.views import manifest_view, static_analyzer,view_source
+from StaticAnalyzer.views import manifest_view, shared_func, static_analyzer,view_source
 from DynamicAnalyzer.views import dynamic_analyzer as dz
 from DynamicAnalyzer.views import (
     operations,
@@ -35,11 +35,13 @@ urlpatterns = [
     re_path(r'^search$', home.search),
     re_path(r'^error/$', home.error, name='error'),
     re_path(r'^not_found/$', home.not_found),
+    re_path(r'^logs', home.live_log),
     # Static Analysis
     # Android
     re_path(r'^static_analyzer/$',static_analyzer.static_analyzer),
     re_path(r'^manifest_view/$', manifest_view.run),
     re_path(r'^view_file/$', view_source.run, name='view_source'),
+    re_path(r'^generate_downloads/$', shared_func.run),
     # Dynamic Analysis
     re_path(r'^dynamic_analysis/$',
             dz.dynamic_analysis,

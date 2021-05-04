@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
+import logging.handlers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,30 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# =============ALLOWED DOWNLOAD EXTENSIONS=====
-ALLOWED_EXTENSIONS = {
-    '.txt': 'text/plain',
-    '.png': 'image/png',
-    '.zip': 'application/zip',
-    '.tar': 'application/x-tar',
-    '.apk': 'application/octet-stream',
-}
-
-# =============ALLOWED MIMETYPES=================
-
-APK_MIME = [
-    'application/octet-stream',
-    'application/vnd.android.package-archive',
-    'application/x-zip-compressed',
-    'binary/octet-stream',
-]
-
-ZIP_MIME = [
-    'application/zip',
-    'application/octet-stream',
-    'application/x-zip-compressed',
-    'binary/octet-stream',
-]
 # Application definition
 
 INSTALLED_APPS = [
@@ -64,7 +41,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'DynamicAnalyzer.apps.DynamicanalyzerConfig',
     'StaticAnalyzer.apps.StaticanalyzerConfig',
-    'Report.apps.ReportConfig',
     'Home.apps.HomeConfig'
 ]
 
@@ -150,32 +126,50 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-MEDIA_ROOT = BASE_DIR/'media'
+MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 STATIC_URL = '/static/'
+
 # STATIC_ROOT = BASE_DIR/'static'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
+# ===========================================CONFIG===========================================
+# =============ALLOWED DOWNLOAD EXTENSIONS=====
+ALLOWED_EXTENSIONS = {
+    '.txt': 'text/plain',
+    '.png': 'image/png',
+    '.zip': 'application/zip',
+    '.tar': 'application/x-tar',
+    '.apk': 'application/octet-stream',
+}
+# =============ALLOWED MIMETYPES=================
 
-# -------------------------
-    # DYNAMIC ANALYZER SETTINGS
-    # -------------------------
+APK_MIME = [
+    'application/octet-stream',
+    'application/vnd.android.package-archive',
+    'application/x-zip-compressed',
+    'binary/octet-stream',
+]
 
-    # =======ANDROID DYNAMIC ANALYSIS SETTINGS===========
+ZIP_MIME = [
+    'application/zip',
+    'application/octet-stream',
+    'application/x-zip-compressed',
+    'binary/octet-stream',
+]
+# =======ANDROID DYNAMIC ANALYSIS SETTINGS===========
 ANALYZER_IDENTIFIER = ''
 FRIDA_TIMEOUT = 4
-    # ==============================================
 
-    # ================HTTPS PROXY ===============
+# ================HTTPS PROXY ===============
 PROXY_IP = '127.0.0.1'
 PROXY_PORT = 1337  # Proxy Port
-    # ===================================================
 
-    # ========UPSTREAM PROXY SETTINGS ==============
-    # If you are behind a Proxy
+# ========UPSTREAM PROXY SETTINGS ==============
+# If you are behind a Proxy
 UPSTREAM_PROXY_ENABLED = False
 UPSTREAM_PROXY_SSL_VERIFY = True
 UPSTREAM_PROXY_TYPE = 'http'
@@ -183,20 +177,20 @@ UPSTREAM_PROXY_IP = '127.0.0.1'
 UPSTREAM_PROXY_PORT = 3128
 UPSTREAM_PROXY_USERNAME = ''
 UPSTREAM_PROXY_PASSWORD = ''
-    # ==============================================
 
-
-# Download Directory
+# =============Download Directory================
 DWD_DIR = MEDIA_ROOT / 'downloads/'
 FRIDA_SERVER = 'https://api.github.com/repos/frida/frida/releases/tags/'
 
 TOOLS_DIR = BASE_DIR / 'DynamicAnalyzer/tools/'
 # Screenshot Directory
 SCREEN_DIR = MEDIA_ROOT / 'downloads/screen/'
-
- # ==========ANDROID SKIP CLASSES==========================
-    # Common third party classes/paths that will be skipped
-    # during static analysis
+JAVA_DIRECTORY = ''
+ADB_BINARY = ''
+SCALA_DIRECTORY = ''
+# ==========ANDROID SKIP CLASSES==========================
+# Common third party classes/paths that will be skipped
+# during static analysis
 SKIP_CLASS_PATH = {
         'com/google/', 'androidx', 'okhttp2/', 'okhttp3/',
         'com/android/', 'com/squareup', 'okhttp/'
@@ -214,13 +208,13 @@ LOGGING = {
     'formatters': {
         'standard': {
             'format': '[%(levelname)s] %(asctime)-15s - %(message)s',
-            'datefmt': '%d/%b/%Y %H:%M:%S',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
         },
         'color': {
             '()': 'colorlog.ColoredFormatter',
             'format':
-                '%(log_color)s[%(levelname)s] %(asctime)-15s -- %(pathname)s --> %(message)s',
-            'datefmt': '%d/%b/%Y %H:%M:%S',
+                '%(log_color)s[%(levelname)s] %(asctime)-15s : %(pathname)s --> %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
             'log_colors': {
                 'DEBUG': 'cyan',
                 'INFO': 'green',

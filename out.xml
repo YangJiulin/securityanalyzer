@@ -2,114 +2,472 @@
 <DataFlowResults FileFormatVersion="102" TerminationState="DataFlowOutOfMemory">
     <Results>
         <Result>
-            <Sink Statement="virtualinvoke $r1.&lt;android.os.Bundle: void putBundle(java.lang.String,android.os.Bundle)&gt;(&quot;androidx.lifecycle.BundlableSavedStateRegistry.key&quot;, r2)" Method="&lt;androidx.savedstate.SavedStateRegistry: void performSave(android.os.Bundle)&gt;">
-                <AccessPath Value="r2" Type="android.os.Bundle" TaintSubFields="true"></AccessPath>
+            <Sink Statement="staticinvoke &lt;android.util.Log: int d(java.lang.String,java.lang.String)&gt;($r2, $r4)" Method="&lt;com.dangbei.euthenia.ui.f.b.a: android.graphics.Bitmap n()&gt;">
+                <AccessPath Value="$r4" Type="java.lang.String" TaintSubFields="true"></AccessPath>
             </Sink>
             <Sources>
-                <Source Statement="$d1 = virtualinvoke $r1.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
-                    <AccessPath Value="$d1" Type="double" TaintSubFields="true"></AccessPath>
-                </Source>
-                <Source Statement="$d1 = virtualinvoke $r1.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
-                    <AccessPath Value="$d1" Type="double" TaintSubFields="true"></AccessPath>
-                </Source>
-                <Source Statement="$d0 = virtualinvoke $r1.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
-                    <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
-                </Source>
-                <Source Statement="$d0 = virtualinvoke $r1.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
-                    <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
-                </Source>
-                <Source Statement="$d1 = virtualinvoke $r1.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
-                    <AccessPath Value="$d1" Type="double" TaintSubFields="true"></AccessPath>
-                </Source>
-                <Source Statement="$d0 = virtualinvoke $r1.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
-                    <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
+                <Source Statement="$r3 = virtualinvoke $r1.&lt;java.net.URL: java.io.InputStream openStream()&gt;()" Method="&lt;com.dangbei.euthenia.ui.style.d.a: byte[] a(java.lang.String)&gt;">
+                    <AccessPath Value="$r3" Type="java.io.InputStream" TaintSubFields="true"></AccessPath>
                 </Source>
             </Sources>
         </Result>
         <Result>
-            <Sink Statement="virtualinvoke $r0.&lt;android.content.Context: android.content.ComponentName startService(android.content.Intent)&gt;($r1)" Method="&lt;androidx.media.session.MediaButtonReceiver: void startForegroundService(android.content.Context,android.content.Intent)&gt;">
-                <AccessPath Value="$r1" Type="android.content.Intent" TaintSubFields="true">
+            <Sink Statement="virtualinvoke $r0.&lt;java.io.BufferedWriter: void write(java.lang.String)&gt;($r3)" Method="&lt;ˆ.un0: boolean a(java.io.File,java.lang.String,boolean)&gt;">
+                <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r5 = virtualinvoke $r4.&lt;android.net.wifi.WifiInfo: java.lang.String getMacAddress()&gt;()" Method="&lt;ˆ.rn0: java.lang.String x()&gt;">
+                    <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$d0 = virtualinvoke $r4.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;ˆ.rn0: double[] u()&gt;">
+                    <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$d0 = virtualinvoke $r4.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;ˆ.rn0: double[] u()&gt;">
+                    <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r4 = virtualinvoke $r3.&lt;android.telephony.TelephonyManager: java.lang.String getSubscriberId()&gt;()" Method="&lt;ˆ.zn0: java.lang.String e()&gt;">
+                    <AccessPath Value="$r4" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="virtualinvoke $r4.&lt;java.io.ByteArrayOutputStream: void write(byte[],int,int)&gt;($r5, 0, $i0)" Method="&lt;com.dangbei.euthenia.ui.style.d.a: byte[] a(java.lang.String)&gt;">
+                <AccessPath Value="$r5" Type="byte[]" TaintSubFields="true"></AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r3 = virtualinvoke $r1.&lt;java.net.URL: java.io.InputStream openStream()&gt;()" Method="&lt;com.dangbei.euthenia.ui.style.d.a: byte[] a(java.lang.String)&gt;">
+                    <AccessPath Value="$r3" Type="java.io.InputStream" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="virtualinvoke $r6.&lt;java.io.OutputStream: void write(byte[])&gt;($r7)" Method="&lt;ˆ.hn0$b: void run()&gt;">
+                <AccessPath Value="$r6" Type="java.io.OutputStream" TaintSubFields="true">
                     <Fields>
-                        <Field Value="&lt;android.content.Intent: android.content.ComponentName componentName&gt;" Type="android.content.ComponentName"></Field>
+                        <Field Value="&lt;java.io.OutputStream: byte[] innerArray&gt;" Type="byte[]"></Field>
                     </Fields>
                 </AccessPath>
             </Sink>
             <Sources>
-                <Source Statement="$r5 = virtualinvoke $r3.&lt;android.content.pm.PackageManager: java.util.List queryIntentServices(android.content.Intent,int)&gt;(r2, 0)" Method="&lt;androidx.media.session.MediaButtonReceiver: android.content.ComponentName getServiceComponentByAction(android.content.Context,java.lang.String)&gt;">
-                    <AccessPath Value="$r5" Type="java.util.List" TaintSubFields="true"></AccessPath>
+                <Source Statement="$r4 = virtualinvoke $r3.&lt;android.telephony.TelephonyManager: java.lang.String getDeviceId()&gt;()" Method="&lt;ˆ.zn0: java.lang.String d()&gt;">
+                    <AccessPath Value="$r4" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r5 = virtualinvoke $r4.&lt;android.net.wifi.WifiInfo: java.lang.String getMacAddress()&gt;()" Method="&lt;ˆ.rn0: java.lang.String x()&gt;">
+                    <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r4 = virtualinvoke $r3.&lt;android.telephony.TelephonyManager: java.lang.String getSubscriberId()&gt;()" Method="&lt;ˆ.zn0: java.lang.String e()&gt;">
+                    <AccessPath Value="$r4" Type="java.lang.String" TaintSubFields="true"></AccessPath>
                 </Source>
             </Sources>
         </Result>
         <Result>
-            <Sink Statement="virtualinvoke $r1.&lt;android.os.Bundle: void putParcelable(java.lang.String,android.os.Parcelable)&gt;(&quot;android:support:fragments&quot;, $r5)" Method="&lt;androidx.fragment.app.FragmentActivity: void onSaveInstanceState(android.os.Bundle)&gt;">
-                <AccessPath Value="$r1" Type="android.os.Bundle" TaintSubFields="true"></AccessPath>
-            </Sink>
-            <Sources>
-                <Source Statement="$d1 = virtualinvoke $r1.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
-                    <AccessPath Value="$d1" Type="double" TaintSubFields="true"></AccessPath>
-                </Source>
-                <Source Statement="$d0 = virtualinvoke $r1.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
-                    <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
-                </Source>
-                <Source Statement="$d0 = virtualinvoke $r1.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
-                    <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
-                </Source>
-                <Source Statement="$d1 = virtualinvoke $r1.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
-                    <AccessPath Value="$d1" Type="double" TaintSubFields="true"></AccessPath>
-                </Source>
-            </Sources>
-        </Result>
-        <Result>
-            <Sink Statement="staticinvoke &lt;android.util.Log: int d(java.lang.String,java.lang.String)&gt;(&quot;MediaButtonReceiver&quot;, $r5)" Method="&lt;androidx.media.session.MediaButtonReceiver: void onReceive(android.content.Context,android.content.Intent)&gt;">
-                <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
-            </Sink>
-            <Sources>
-                <Source Statement="$r5 = virtualinvoke $r3.&lt;android.content.pm.PackageManager: java.util.List queryIntentServices(android.content.Intent,int)&gt;(r2, 0)" Method="&lt;androidx.media.session.MediaButtonReceiver: android.content.ComponentName getServiceComponentByAction(android.content.Context,java.lang.String)&gt;">
-                    <AccessPath Value="$r5" Type="java.util.List" TaintSubFields="true"></AccessPath>
-                </Source>
-            </Sources>
-        </Result>
-        <Result>
-            <Sink Statement="virtualinvoke $r2.&lt;android.content.Intent: android.content.Intent setComponent(android.content.ComponentName)&gt;($r7)" Method="&lt;androidx.media.session.MediaButtonReceiver: void onReceive(android.content.Context,android.content.Intent)&gt;">
-                <AccessPath Value="$r2" Type="android.content.Intent" TaintSubFields="true">
+            <Sink Statement="virtualinvoke $r9.&lt;java.io.BufferedOutputStream: void write(byte[],int,int)&gt;($r10, 0, $i1)" Method="&lt;ˆ.ae0: byte[] a(java.lang.String)&gt;">
+                <AccessPath Value="$r9" Type="java.io.BufferedOutputStream" TaintSubFields="true">
                     <Fields>
-                        <Field Value="&lt;android.content.Intent: android.content.ComponentName componentName&gt;" Type="android.content.ComponentName"></Field>
+                        <Field Value="&lt;java.io.BufferedOutputStream: java.io.OutputStream innerStream&gt;" Type="java.io.OutputStream"></Field>
                     </Fields>
                 </AccessPath>
             </Sink>
             <Sources>
-                <Source Statement="$r5 = virtualinvoke $r3.&lt;android.content.pm.PackageManager: java.util.List queryIntentServices(android.content.Intent,int)&gt;(r2, 0)" Method="&lt;androidx.media.session.MediaButtonReceiver: android.content.ComponentName getServiceComponentByAction(android.content.Context,java.lang.String)&gt;">
-                    <AccessPath Value="$r5" Type="java.util.List" TaintSubFields="true"></AccessPath>
+                <Source Statement="$r6 = virtualinvoke $r3.&lt;java.net.HttpURLConnection: java.io.InputStream getInputStream()&gt;()" Method="&lt;ˆ.ae0: byte[] a(java.lang.String)&gt;">
+                    <AccessPath Value="$r6" Type="java.io.InputStream" TaintSubFields="true"></AccessPath>
                 </Source>
             </Sources>
         </Result>
         <Result>
-            <Sink Statement="virtualinvoke r2.&lt;android.os.Bundle: void putBundle(java.lang.String,android.os.Bundle)&gt;($r8, r3)" Method="&lt;androidx.savedstate.SavedStateRegistry: void performSave(android.os.Bundle)&gt;">
-                <AccessPath Value="r2" Type="android.os.Bundle" TaintSubFields="true"></AccessPath>
+            <Sink Statement="$r4 = virtualinvoke $r3.&lt;java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)&gt;(&quot; &quot;, &quot;&quot;)" Method="&lt;com.dangbei.euthenia.util.z: java.lang.String f(android.content.Context)&gt;">
+                <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
             </Sink>
             <Sources>
-                <Source Statement="$d1 = virtualinvoke $r1.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
-                    <AccessPath Value="$d1" Type="double" TaintSubFields="true"></AccessPath>
+                <Source Statement="$r3 = virtualinvoke $r2.&lt;android.telephony.TelephonyManager: java.lang.String getDeviceId()&gt;()" Method="&lt;com.dangbei.euthenia.util.z: java.lang.String f(android.content.Context)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
                 </Source>
-                <Source Statement="$d0 = virtualinvoke $r1.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="virtualinvoke $r9.&lt;java.io.OutputStream: void write(byte[])&gt;($r10)" Method="&lt;ˆ.wn0$a: void run()&gt;">
+                <AccessPath Value="$r9" Type="java.io.OutputStream" TaintSubFields="true">
+                    <Fields>
+                        <Field Value="&lt;java.io.OutputStream: byte[] innerArray&gt;" Type="byte[]"></Field>
+                    </Fields>
+                </AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r5 = virtualinvoke $r4.&lt;android.net.wifi.WifiInfo: java.lang.String getMacAddress()&gt;()" Method="&lt;ˆ.rn0: java.lang.String x()&gt;">
+                    <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$d0 = virtualinvoke $r4.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;ˆ.rn0: double[] u()&gt;">
                     <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
                 </Source>
-                <Source Statement="$d0 = virtualinvoke $r1.&lt;android.location.Location: double getLatitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
+                <Source Statement="$d0 = virtualinvoke $r4.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;ˆ.rn0: double[] u()&gt;">
                     <AccessPath Value="$d0" Type="double" TaintSubFields="true"></AccessPath>
                 </Source>
-                <Source Statement="$d1 = virtualinvoke $r1.&lt;android.location.Location: double getLongitude()&gt;()" Method="&lt;androidx.appcompat.app.TwilightManager: void updateState(android.location.Location)&gt;">
-                    <AccessPath Value="$d1" Type="double" TaintSubFields="true"></AccessPath>
+                <Source Statement="$r4 = virtualinvoke $r3.&lt;android.telephony.TelephonyManager: java.lang.String getSubscriberId()&gt;()" Method="&lt;ˆ.zn0: java.lang.String e()&gt;">
+                    <AccessPath Value="$r4" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="$r3 = virtualinvoke $r0.&lt;java.net.HttpURLConnection: java.io.InputStream getInputStream()&gt;()" Method="&lt;ˆ.sc0: byte[] a(java.net.HttpURLConnection)&gt;">
+                <AccessPath Value="$r0" Type="java.net.HttpURLConnection" TaintSubFields="true">
+                    <Fields>
+                        <Field Value="&lt;java.net.URLConnection: java.lang.String[] requestValues&gt;" Type="java.lang.String"></Field>
+                    </Fields>
+                </AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r5 = virtualinvoke $r4.&lt;android.net.wifi.WifiInfo: java.lang.String getMacAddress()&gt;()" Method="&lt;ˆ.wb0: java.lang.String c(android.content.Context)&gt;">
+                    <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="virtualinvoke $r7.&lt;java.io.BufferedOutputStream: void write(byte[],int,int)&gt;($r1, 0, $i0)" Method="&lt;ˆ.vd0: boolean a(java.lang.String,byte[])&gt;">
+                <AccessPath Value="$r7" Type="java.io.BufferedOutputStream" TaintSubFields="true">
+                    <Fields>
+                        <Field Value="&lt;java.io.BufferedOutputStream: java.io.OutputStream innerStream&gt;" Type="java.io.FileOutputStream"></Field>
+                    </Fields>
+                </AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r6 = virtualinvoke $r3.&lt;java.net.HttpURLConnection: java.io.InputStream getInputStream()&gt;()" Method="&lt;ˆ.ae0: byte[] a(java.lang.String)&gt;">
+                    <AccessPath Value="$r6" Type="java.io.InputStream" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="$r0 = virtualinvoke $r0.&lt;java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)&gt;(&quot;:&quot;, &quot;&quot;)" Method="&lt;ˆ.wb0: java.lang.String a(java.lang.String)&gt;">
+                <AccessPath Value="$r0" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r5 = virtualinvoke $r4.&lt;android.net.wifi.WifiInfo: java.lang.String getMacAddress()&gt;()" Method="&lt;ˆ.wb0: java.lang.String c(android.content.Context)&gt;">
+                    <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="virtualinvoke $r10.&lt;android.os.Handler: boolean sendMessage(android.os.Message)&gt;($r9)" Method="&lt;com.hi3w.hisdk.HiAdView$c: void onResponse(java.lang.String)&gt;">
+                <AccessPath Value="$r10" Type="android.os.Handler" TaintSubFields="true"></AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r1 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r1 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.j f(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r1 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r1.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;ˆ.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r1 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.k g(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r5 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.e c(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.g i(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.k g(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r4 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.l k(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r4" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r1.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;ˆ.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r1 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.j f(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.g i(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r4 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.l k(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r4" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.k g(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r5 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.e c(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.h e(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r1 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r1.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;ˆ.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.j f(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r1 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.g i(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r5 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.e c(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r1.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;ˆ.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = virtualinvoke $r1.&lt;java.net.URL: java.io.InputStream openStream()&gt;()" Method="&lt;com.dangbei.euthenia.ui.style.d.a: byte[] a(java.lang.String)&gt;">
+                    <AccessPath Value="$r3" Type="java.io.InputStream" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="$r4 = virtualinvoke $r0.&lt;java.net.HttpURLConnection: java.io.InputStream getInputStream()&gt;()" Method="&lt;ˆ.sc0: byte[] a(java.net.HttpURLConnection)&gt;">
+                <AccessPath Value="$r0" Type="java.net.HttpURLConnection" TaintSubFields="true">
+                    <Fields>
+                        <Field Value="&lt;java.net.URLConnection: java.lang.String[] requestValues&gt;" Type="java.lang.String"></Field>
+                    </Fields>
+                </AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r5 = virtualinvoke $r4.&lt;android.net.wifi.WifiInfo: java.lang.String getMacAddress()&gt;()" Method="&lt;ˆ.wb0: java.lang.String c(android.content.Context)&gt;">
+                    <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="virtualinvoke $r5.&lt;java.io.FileOutputStream: void write(byte[],int,int)&gt;($r6, 0, $i3)" Method="&lt;com.dangbei.euthenia.ui.style.h5.b: java.io.File a(java.lang.String,java.io.InputStream)&gt;">
+                <AccessPath Value="$r5" Type="java.io.FileOutputStream" TaintSubFields="true">
+                    <Fields>
+                        <Field Value="&lt;java.io.OutputStream: byte[] innerArray&gt;" Type="byte[]"></Field>
+                    </Fields>
+                </AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r13 = virtualinvoke $r10.&lt;java.net.HttpURLConnection: java.io.InputStream getInputStream()&gt;()" Method="&lt;com.dangbei.euthenia.ui.style.h5.b$a: java.io.File a(java.lang.String[])&gt;">
+                    <AccessPath Value="$r13" Type="java.io.InputStream" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="virtualinvoke $r4.&lt;java.io.OutputStream: void write(byte[],int,int)&gt;($r2, 0, $i1)" Method="&lt;ˆ.dn$a: ˆ.dn b()&gt;">
+                <AccessPath Value="$r4" Type="java.io.OutputStream" TaintSubFields="true">
+                    <Fields>
+                        <Field Value="&lt;java.io.OutputStream: byte[] innerArray&gt;" Type="byte[]"></Field>
+                    </Fields>
+                </AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r3 = virtualinvoke $r2.&lt;java.net.HttpURLConnection: java.io.InputStream getInputStream()&gt;()" Method="&lt;ˆ.dn: java.io.InputStream o()&gt;">
+                    <AccessPath Value="$r3" Type="java.io.InputStream" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = virtualinvoke $r2.&lt;java.net.HttpURLConnection: java.io.InputStream getInputStream()&gt;()" Method="&lt;ˆ.dn: java.io.InputStream o()&gt;">
+                    <AccessPath Value="$r3" Type="java.io.InputStream" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="$r0 = virtualinvoke $r0.&lt;java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)&gt;(&quot;:&quot;, &quot;-&quot;)" Method="&lt;ˆ.rn0: java.lang.String v()&gt;">
+                <AccessPath Value="$r0" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r5 = virtualinvoke $r4.&lt;android.net.wifi.WifiInfo: java.lang.String getMacAddress()&gt;()" Method="&lt;ˆ.rn0: java.lang.String x()&gt;">
+                    <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="staticinvoke &lt;android.util.Log: int v(java.lang.String,java.lang.String)&gt;(&quot;FragmentManager&quot;, $r7)" Method="&lt;ˆ.i7: int b(ˆ.a7)&gt;">
+                <AccessPath Value="$r7" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r1 = interfaceinvoke $r3.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;ˆ.j10: java.util.Map g()&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r1 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r1 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.j f(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r1 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r1 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.k g(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r1.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;ˆ.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r5 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.e c(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.g i(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.k g(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r4 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.l k(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r4" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r1.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;ˆ.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r1 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.c b(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.j f(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.g i(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r4 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.l k(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r4" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.k g(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r5 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.e c(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.h e(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r1 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r1.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;ˆ.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.j f(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r1 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.g i(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r1" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r5 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.e c(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r1.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;ˆ.j10: com.dianshijia.tvcore.epg.ProgramContent c(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.a d(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+                <Source Statement="$r3 = interfaceinvoke $r0.&lt;android.database.Cursor: java.lang.String getString(int)&gt;($i0)" Method="&lt;com.dangbei.euthenia.provider.a.c.e.a: com.dangbei.euthenia.provider.a.c.d.n h(android.database.Cursor)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="virtualinvoke $r0.&lt;java.io.ByteArrayOutputStream: void write(byte[],int,int)&gt;($r2, 0, $i0)" Method="&lt;ˆ.sc0: byte[] a(java.io.InputStream)&gt;">
+                <AccessPath Value="$r0" Type="java.io.ByteArrayOutputStream" TaintSubFields="true">
+                    <Fields>
+                        <Field Value="&lt;java.io.OutputStream: byte[] innerArray&gt;" Type="byte[]"></Field>
+                    </Fields>
+                </AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r3 = virtualinvoke $r0.&lt;java.net.HttpURLConnection: java.io.InputStream getInputStream()&gt;()" Method="&lt;ˆ.sc0: byte[] a(java.net.HttpURLConnection)&gt;">
+                    <AccessPath Value="$r3" Type="java.lang.Object" TaintSubFields="true"></AccessPath>
+                </Source>
+            </Sources>
+        </Result>
+        <Result>
+            <Sink Statement="$r0 = virtualinvoke $r0.&lt;java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)&gt;(&quot;:&quot;, &quot;&quot;)" Method="&lt;ˆ.rn0: java.lang.String y()&gt;">
+                <AccessPath Value="$r0" Type="java.lang.String" TaintSubFields="true"></AccessPath>
+            </Sink>
+            <Sources>
+                <Source Statement="$r5 = virtualinvoke $r4.&lt;android.net.wifi.WifiInfo: java.lang.String getMacAddress()&gt;()" Method="&lt;ˆ.rn0: java.lang.String x()&gt;">
+                    <AccessPath Value="$r5" Type="java.lang.String" TaintSubFields="true"></AccessPath>
                 </Source>
             </Sources>
         </Result>
     </Results>
     <PerformanceData>
-        <PerformanceEntry Name="CallgraphConstructionSeconds" Value="45"></PerformanceEntry>
-        <PerformanceEntry Name="TaintPropagationSeconds" Value="106"></PerformanceEntry>
-        <PerformanceEntry Name="PathReconstructionSeconds" Value="5"></PerformanceEntry>
-        <PerformanceEntry Name="TotalRuntimeSeconds" Value="213"></PerformanceEntry>
-        <PerformanceEntry Name="MaxMemoryConsumption" Value="1928"></PerformanceEntry>
-        <PerformanceEntry Name="SourceCount" Value="11"></PerformanceEntry>
-        <PerformanceEntry Name="SinkCount" Value="195"></PerformanceEntry>
+        <PerformanceEntry Name="CallgraphConstructionSeconds" Value="37"></PerformanceEntry>
+        <PerformanceEntry Name="TaintPropagationSeconds" Value="76"></PerformanceEntry>
+        <PerformanceEntry Name="PathReconstructionSeconds" Value="3"></PerformanceEntry>
+        <PerformanceEntry Name="TotalRuntimeSeconds" Value="117"></PerformanceEntry>
+        <PerformanceEntry Name="MaxMemoryConsumption" Value="2813"></PerformanceEntry>
+        <PerformanceEntry Name="SourceCount" Value="90"></PerformanceEntry>
+        <PerformanceEntry Name="SinkCount" Value="574"></PerformanceEntry>
     </PerformanceData>
 </DataFlowResults>

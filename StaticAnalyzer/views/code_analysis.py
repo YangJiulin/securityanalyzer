@@ -7,21 +7,17 @@ from pathlib import Path
 from django.conf import settings
 
 from  securityanalyzer.utils import filename_from_path
-from StaticAnalyzer.views.shared_func import (
-    url_n_email_extract,
-)
-from .sast_engine import (
-    scan,
-)
+from StaticAnalyzer.views.shared_func import url_n_email_extract
+from .sast_engine import scan
 
 logger = logging.getLogger(__name__)
 
 
 def code_analysis(app_dir, typ):
-    """Perform the code analysis."""
+    """对代码执行词法分析并提取url与email"""
     try:
         logger.info('Code Analysis Started')
-        root = Path(settings.BASE_DIR) / 'StaticAnalyzer' / 'views'
+        root = settings.BASE_DIR / 'StaticAnalyzer' / 'views'
         code_rules = root / 'rules' / 'android_rules.yaml'
         code_findings = {}
         email_n_file = []
@@ -37,6 +33,8 @@ def code_analysis(app_dir, typ):
                 src = kt
         elif typ == 'eclipse':
             src = app_dir / 'src'
+        else:
+            src = app_dir
         src = src.as_posix() + '/'
         skp = settings.SKIP_CLASS_PATH
         logger.info('Code Analysis Started on - %s',
@@ -47,9 +45,10 @@ def code_analysis(app_dir, typ):
             {'.java', '.kt'},
             [src],
             skp)
-        # Extract URLs and Emails
+        # 提取 URLs and Emails
         for pfile in Path(src).rglob('*'):
             if (
+                #后缀
                 (pfile.suffix in ('.java', '.kt')
                     and any(skip_path in pfile.as_posix()
                             for skip_path in skp) is False)

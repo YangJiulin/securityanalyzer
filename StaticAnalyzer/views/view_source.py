@@ -40,18 +40,18 @@ def run(request):
         viewsource_form = ViewSourceAndroidForm(request.GET)
         if not viewsource_form.is_valid():
             err = FormUtil.errors_message(viewsource_form)
-            return print_n_send_error_response(request, err, False,exp)
+            return print_n_send_error_response(request, err,exp)
         base = Path(settings.MEDIA_ROOT)/ 'upload' / md5
         try:
             src, syntax, _ = find_java_source_folder(base)
         except StopIteration:
             msg = 'Invalid Directory Structure'
-            return print_n_send_error_response(request, msg, False)
+            return print_n_send_error_response(request, msg)
 
         sfile = src / fil
         if not is_safe_path(src, sfile.as_posix()):
             msg = 'Path Traversal Detected!'
-            return print_n_send_error_response(request, msg, False)
+            return print_n_send_error_response(request, msg)
         context = {
             'title': escape(ntpath.basename(fil)),
             'file': escape(ntpath.basename(fil)),
@@ -65,4 +65,4 @@ def run(request):
         logger.exception('Error Viewing Source')
         msg = str(exp)
         exp = exp.__doc__
-        return print_n_send_error_response(request, msg, False, exp)
+        return print_n_send_error_response(request, msg, exp)

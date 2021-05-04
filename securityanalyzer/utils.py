@@ -1,10 +1,9 @@
 """Common Utils."""
 import ast
-import hashlib
-import io
 import logging
 import ntpath
 import os
+from pathlib import Path
 import platform
 import re
 import shutil
@@ -13,19 +12,11 @@ import subprocess
 import stat
 import sqlite3
 import unicodedata
-import threading
-from distutils.version import LooseVersion
-
-import distro
-
+import xmltodict
 import psutil
-
 import requests
-
 from django.shortcuts import render
-
 from . import settings
-
 logger = logging.getLogger(__name__)
 ADB_PATH = None
 
@@ -71,13 +62,13 @@ def find_java_binary():
         jbin = 'java.exe'
     else:
         jbin = 'java'
-    # if is_dir_exists(settings.JAVA_DIRECTORY):
-    #     if settings.JAVA_DIRECTORY.endswith('/'):
-    #         return settings.JAVA_DIRECTORY + jbin
-    #     elif settings.JAVA_DIRECTORY.endswith('\\'):
-    #         return settings.JAVA_DIRECTORY + jbin
-    #     else:
-    #         return settings.JAVA_DIRECTORY + '/' + jbin
+    if is_dir_exists(settings.JAVA_DIRECTORY) and len(settings.JAVA_DIRECTORY) > 0:
+        if settings.JAVA_DIRECTORY.endswith('/'):
+            return settings.JAVA_DIRECTORY + jbin
+        elif settings.JAVA_DIRECTORY.endswith('\\'):
+            return settings.JAVA_DIRECTORY + jbin
+        else:
+            return settings.JAVA_DIRECTORY + '/' + jbin
     if os.getenv('JAVA_HOME'):
         java = os.path.join(
             os.getenv('JAVA_HOME'),
@@ -88,26 +79,34 @@ def find_java_binary():
     return 'java'
 
 
-def run_process(args):
-    try:
-        proc = subprocess.Popen(
-            args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        dat = ''
-        while True:
-            line = proc.stdout.readline()
-            if not line:
-                break
-            dat += str(line)
-        return dat
-    except Exception:
-        logger.error('Finding Java path - Cannot Run Process')
-        return ''
+def find_scala_binary():
+    """Find scala."""
+    # Respect user settings
+    if platform.system() == 'Windows':
+        sbin = 'scala.exe'
+    else:
+        sbin = 'scala'
+    if is_dir_exists(settings.SCALA_DIRECTORY) and len(settings.SCALA_DIRECTORY) > 0:
+        if settings.SCALA_DIRECTORY.endswith('/'):
+            return settings.SCALA_DIRECTORY + sbin
+        elif settings.SCALA_DIRECTORY.endswith('\\'):
+            return settings.SCALA_DIRECTORY + sbin
+        else:
+            return settings.SCALA_DIRECTORY + '/' + sbin
+    if os.getenv('SCALA_HOME'):
+        scala = os.path.join(
+            os.getenv('SCALA_HOME'),
+            'bin',
+            sbin)
+        if is_file_exists(scala):
+            return scala
+    return 'scala'
 
 
 def print_n_send_error_response(request,
                                 msg,
                                 exp='描述'):
-    """Print and log errors."""
+    """打印错误日志"""
     logger.error(msg)
     context = {
             'title': 'Error',
@@ -121,19 +120,6 @@ def print_n_send_error_response(request,
 def filename_from_path(path):
     head, tail = ntpath.split(path)
     return tail or ntpath.basename(head)
-
-
-def get_md5(data):
-    return hashlib.md5(data).hexdigest()
-
-
-def find_between(s, first, last):
-    try:
-        start = s.index(first) + len(first)
-        end = s.index(last, start)
-        return s[start:end]
-    except ValueError:
-        return ''
 
 
 def is_number(s):
@@ -151,6 +137,7 @@ def is_number(s):
 
 
 def python_list(value):
+    """字符类型转换"""
     if not value:
         value = []
     if isinstance(value, list):
@@ -159,15 +146,12 @@ def python_list(value):
 
 
 def python_dict(value):
+    """字符类型转换"""
     if not value:
         value = {}
     if isinstance(value, dict):
         return value
     return ast.literal_eval(value)
-
-
-def is_base64(b_str):
-    return re.match('^[A-Za-z0-9+/]+[=]{0,2}$', b_str)
 
 
 def is_internet_available():
@@ -211,7 +195,7 @@ def is_dir_exists(dir_path):
 
 
 def find_process_by(name):
-    """Return a set of process path matching name."""
+    """通过名字返回可执行文件路径"""
     proc = set()
     for p in psutil.process_iter(attrs=['name']):
         if (name == p.info['name']):
@@ -233,14 +217,11 @@ def get_adb():
     """Get ADB binary path."""
     try:
         adb_loc = None
-        adb_msg = ('Set adb path, '
-                   ' with same adb binary used'
-                   ' by Genymotion VM/Emulator AVD.')
         global ADB_PATH
-        # if (len(settings.ADB_BINARY) > 0
-        #         and is_file_exists(settings.ADB_BINARY)):
-        #     ADB_PATH = settings.ADB_BINARY
-        #     return ADB_PATH
+        if (len(settings.ADB_BINARY) > 0
+                and is_file_exists(settings.ADB_BINARY)):
+            ADB_PATH = settings.ADB_BINARY
+            return ADB_PATH
         if ADB_PATH:
             return ADB_PATH
         if platform.system() == 'Windows':
@@ -248,34 +229,29 @@ def get_adb():
         else:
             adb_loc = find_process_by('adb')
         if len(adb_loc) > 1:
-            logger.warning('Multiple ADB locations found. %s', adb_msg)
+            logger.warning('发现多个adb文件')
             logger.warning(adb_loc)
         if adb_loc:
             ADB_PATH = adb_loc.pop()
             return ADB_PATH
     except Exception:
         if not adb_loc:
-            logger.warning('Cannot find adb! %s', adb_msg)
+            logger.warning('Cannot find adb!')
         logger.exception('Getting ADB Location')
     finally:
         if ADB_PATH:
             os.environ['ADB'] = ADB_PATH
         else:
             os.environ['ADB'] = 'adb'
-            logger.warning('Dynamic Analysis related '
-                           'functions will not work. '
-                           '\nMake sure a Genymotion Android VM/'
-                           'Android Studio Emulator'
-                           ' is running before performing'
-                           ' Dynamic Analysis.')
+            logger.warning('动态分析相关功能不起作用')
     return 'adb'
 
 
 def check_basic_env():
     """Check if we have basic env to run.""" 
-    logger.info('Basic Environment Check')
+    logger.info('环境检查')
     try:
-        import http_tools  # noqa F401
+        import http_tools
     except ImportError:
         logger.exception('httptools not installed!')
         os.kill(os.getpid(), signal.SIGTERM)
@@ -286,16 +262,27 @@ def check_basic_env():
         os.kill(os.getpid(), signal.SIGTERM)
     if not is_file_exists(find_java_binary()):
         logger.error(
-            'JDK 8+ is not available. '
-            'Set JAVA_HOME environment variable'
-            ' or JAVA_DIRECTORY in '
-            '%s', get_config_loc())
-        logger.info('Current Configuration: '
+            'JDK 不可用。 '
+            '设置环境变量JAVA_HOME或者JAVA_DIRECTORY'
+            '%s')
+        logger.info('当前配置: '
                     'JAVA_DIRECTORY=%s', 'settings.JAVA_DIRECTORY')
-        logger.info('Example Configuration:'
+        logger.info('配置示例:'
                     '\nJAVA_DIRECTORY = "C:/Program Files/'
                     'Java/jdk1.7.0_17/bin/"'
                     '\nJAVA_DIRECTORY = "/usr/bin/"')
+        os.kill(os.getpid(), signal.SIGTERM)
+    if not is_file_exists(find_scala_binary()):
+        logger.error(
+            'SCALA 不可用。 '
+            '设置环境变量SCALA_HOME或者SCALA_DIRECTORY'
+            '%s')
+        logger.info('当前配置: '
+                    'SCALA_DIRECTORY=%s', 'settings.SCALA_DIRECTORY')
+        logger.info('配置示例:'
+                    '\nSCALA_DIRECTORY = "C:/Program Files/'
+                    'Scala/scala/bin/"'
+                    '\nSCALA_DIRECTORY = "/usr/bin/"')
         os.kill(os.getpid(), signal.SIGTERM)
     get_adb()
 
@@ -385,21 +372,28 @@ def is_md5(user_input):
         logger.error('Invalid scan hash')
     return stat
 
-
-def get_config_loc():
-    """Get config location."""
-    # if settings.USE_HOME:
-    #     return os.path.join(
-    #         os.path.expanduser('~'),
-    #         '.MobSF',
-    #         'config.py',
-    #     )
-    # else:
-    return 'securityanalyzer/settings.py'
-
-
 def get_http_tools_url(req):
     """从request中获取httptools URL."""
     scheme = req.scheme
     ip = req.get_host().split(':')[0]
     return f'{scheme}://{ip}:{str(settings.PROXY_PORT)}'
+
+
+def can_run_flow():
+    available = psutil.virtual_memory().available // 2 ** 20 #MB
+    if available <= 2000:
+        return False
+    return True
+
+def xml_to_dict(file)->dict:
+    if not isinstance(file,Path):
+        mfile = Path(file)
+    if mfile.exists() and mfile.suffix == '.xml':
+        manifest = mfile.read_text('utf-8', 'ignore')
+    else:
+        return {}
+    try:
+        doc =  xmltodict.parse(manifest)
+        return doc
+    except:
+        return {}

@@ -17,17 +17,13 @@
    </head>
    <body>
    <div class="topnav">
-
         <!-- Centered link -->
         <div class="topnav-centered">
-         <a>
-            <!-- <img src="{% static "img/mobsf_logo.png" %}" width="20%" height="20%"/> -->
-        </a>
         </div>
         <!-- Left-aligned links (default) -->
-        <a href="{% url 'home' %}">最近扫描</a>
+        <a href="{% url 'recent' %}">最近扫描</a>
         <a href="{% url 'dynamic' %}">动态分析</a>
-        </div>
+    </div>
       <div class="site-wrapper">
          <div class="site-wrapper-inner">
             <div class="cover-container">
@@ -35,6 +31,7 @@
                   <div align="center" class="inner">
                   </div>
                </div>
+                <textarea id="stat" class='bg-black' style="width: 770px; height: 350px;"></textarea>
                <div class="inner cover">
                   <div style="visibility:hidden; opacity:0" id="drop">
                      <div id="textnode">Drop anywhere!</div>
@@ -58,7 +55,7 @@
                      <input name="md5" type="text" class="form-control" placeholder="Search MD5">
                   </form>
                   <div class="inner">
-                     <h6> <a href="{% url 'recent' %}">最近扫描</a>  |  <a href="{% url 'home' %}">动态分析</a>  |  <a href="{% url 'home' %}">关于</a></h6>
+                     <h6> <a href="{% url 'recent' %}">最近扫描</a>  |  <a href="{% url 'dynamic' %}">动态分析</a>
                      </br>
                   </div>
                </div>
@@ -67,6 +64,11 @@
       </div>
       <script src="{% static "adminlte/plugins/jquery.min.js" %}"></script>
       <script>
+            //Print Status
+            function print_status(message){
+                $('#stat').text(message + '\n');
+                $('#stat').scrollTop($('#stat')[0].scrollHeight);
+            }
             function _(el){
                 return document.getElementById(el);
             }
@@ -220,6 +222,24 @@
                     var files = _("uploadFile").files;
                     handleFiles(files);
                 });
+                function get_logs(){
+                    $.ajax({
+                        url : '/logs', 
+                        type : "GET",
+                        dataType: "json", 
+                    success : function(json){ 
+                        console.log(json.data);
+                        print_status(json.data);
+                    },
+                    error : function(xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.responseText);
+                    }
+                 });
+             }
+        get_logs();
+        setInterval( function () {
+                get_logs();
+                }, 30000 );
             });
       </script>
    </body>

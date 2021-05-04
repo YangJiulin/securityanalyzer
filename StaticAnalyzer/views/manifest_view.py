@@ -10,9 +10,7 @@ from django.conf import settings
 from django.shortcuts import render
 
 from securityanalyzer.utils import print_n_send_error_response
-from StaticAnalyzer.views.manifest_analysis import (
-    get_manifest_file,
-)
+from StaticAnalyzer.views.manifest_analysis import get_manifest_file
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +18,6 @@ logger = logging.getLogger(__name__)
 def run(request):
     """View the manifest."""
     try:
-        directory = settings.BASE_DIR  # BASE DIR
         md5 = request.GET['md5']  # MD5
         typ = request.GET['type']  # APK or SOURCE
         binary = request.GET['bin']
@@ -28,15 +25,13 @@ def run(request):
         if (match
             and (typ in ['eclipse', 'studio', 'apk'])
                 and (binary in ['1', '0'])):
+                # binary = 1表示为apk
             app_dir = os.path.join(
                 settings.MEDIA_ROOT / 'upload', md5 + '/')  # APP DIRECTORY
-            tools_dir = os.path.join(
-                directory, 'StaticAnalyzer/tools/')  # TOOLS DIR
             if binary == '1':
                 is_binary = True
             elif binary == '0':
                 is_binary = False
-            app_path = os.path.join(app_dir, md5 + '.apk')
             manifest_file = get_manifest_file(
                 app_dir,
                 typ,

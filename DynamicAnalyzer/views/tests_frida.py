@@ -31,7 +31,6 @@ logger = logging.getLogger(__name__)
 
 # AJAX
 
-
 @require_http_methods(['GET'])
 def list_frida_scripts(request):
     """Get frida scripts from others."""

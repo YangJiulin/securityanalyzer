@@ -1,65 +1,29 @@
 # -*- coding: utf_8 -*-
 """
 Shared Functions.
-
-Module providing the shared functions for static analysis of iOS and Android
 """
-import hashlib
-import io
-import json
 import logging
 import os
 import platform
 import re
+
+from django.conf import settings
+from django.shortcuts import redirect
+from securityanalyzer.utils import print_n_send_error_response
 import shutil
 import subprocess
 import zipfile
 from urllib.parse import urlparse
 from pathlib import Path
-
-import requests
-
-from django.http import HttpResponse
-from django.template.loader import get_template
 from django.utils import timezone
 from django.utils.html import escape
 
-from django.conf import settings
-from securityanalyzer.utils import (
-    is_md5,
-    print_n_send_error_response,
-    upstream_proxy,
-)
-from StaticAnalyzer.models import (
-    RecentScansDB,
-    StaticAnalyzerAndroid,
-)
+from StaticAnalyzer.models import RecentScansDB
 from StaticAnalyzer.views.db_operation import (
     get_info_from_db_entry as adb)
 
 logger = logging.getLogger(__name__)
-logger = logging.getLogger(__name__)
 ctype = 'application/json; charset=utf-8'
-
-
-def hash_gen(app_path) -> tuple:
-    """Generate and return sha1 and sha256 as a tuple."""
-    try:
-        logger.info('Generating Hashes')
-        sha1 = hashlib.sha1()
-        sha256 = hashlib.sha256()
-        block_size = 65536
-        with io.open(app_path, mode='rb') as afile:
-            buf = afile.read(block_size)
-            while buf:
-                sha1.update(buf)
-                sha256.update(buf)
-                buf = afile.read(block_size)
-        sha1val = sha1.hexdigest()
-        sha256val = sha256.hexdigest()
-        return sha1val, sha256val
-    except Exception:
-        logger.exception('Generating Hashes')
 
 
 def unzip(app_path, ext_path):
@@ -136,41 +100,9 @@ def update_scan_timestamp(scan_hash):
     RecentScansDB.objects.filter(MD5=scan_hash).update(TIMESTAMP=tms)
 
 
-def open_firebase(url):
-    # Detect Open Firebase Database
-    try:
-        purl = urlparse(url)
-        base_url = '{}://{}/.json'.format(purl.scheme, purl.netloc)
-        proxies, verify = upstream_proxy('https')
-        headers = {
-            'User-Agent': ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1)'
-                           ' AppleWebKit/537.36 (KHTML, like Gecko) '
-                           'Chrome/39.0.2171.95 Safari/537.36')}
-        resp = requests.get(base_url, headers=headers,
-                            proxies=proxies, verify=verify)
-        if resp.status_code == 200:
-            return base_url, True
-    except Exception:
-        logger.warning('Open Firebase DB detection failed.')
-    return url, False
-
-
-def firebase_analysis(urls):
-    # Detect Firebase URL
-    firebase_db = []
-    logger.info('Detecting Firebase URL(s)')
-    for url in urls:
-        if 'firebaseio.com' in url:
-            returl, is_open = open_firebase(url)
-            fbdic = {'url': returl, 'open': is_open}
-            if fbdic not in firebase_db:
-                firebase_db.append(fbdic)
-    return firebase_db
-
-
 def find_java_source_folder(base_folder: Path):
-    # Find the correct java/kotlin source folder for APK/source zip
-    # Returns a Tuple of - (SRC_PATH, SRC_TYPE, SRC_SYNTAX)
+    # 找到APK或者源代码zip的java/kotlin文件
+    # 返回一个元组(SRC_PATH, SRC_TYPE, SRC_SYNTAX)
     return next(p for p in [(base_folder / 'java_source',
                              'java', '*.java'),
                             (base_folder / 'app' / 'src' / 'main' / 'java',
@@ -180,3 +112,35 @@ def find_java_source_folder(base_folder: Path):
                             (base_folder / 'src',
                              'java', '*.java')]
                 if p[0].exists())
+
+
+def run(request):
+    """下载apk或者Java源代码"""
+    try:
+        logger.info('Generating Downloads')
+        md5 = request.GET['hash']
+        file_type = request.GET['file_type']
+        match = re.match('^[0-9a-f]{32}$', md5)
+        if not match and file_type not in ['apk','java']:
+            logger.exception('Invalid options')
+            return print_n_send_error_response(request,
+                                               'Invalid options')
+        app_dir = os.path.join(settings.MEDIA_ROOT / 'upload', md5)
+        file_name = ''
+        if file_type == 'java':
+            # For Java
+            file_name = md5 + '-java'
+            directory = os.path.join(app_dir, 'java_source/')
+            dwd_dir = os.path.join(settings.DWD_DIR / md5, file_name)
+            shutil.make_archive(dwd_dir, 'zip', directory)
+            file_name = file_name + '.zip'
+        elif file_type == 'apk':
+            file_name = md5 + '.apk'
+            src = os.path.join(app_dir, file_name)
+            dst = os.path.join(settings.DWD_DIR / md5, file_name)
+            shutil.copy2(src, dst)
+        return redirect('/download/' + md5+'/' + file_name)
+    except Exception:
+        logger.exception('Generating Downloads')
+        return print_n_send_error_response(request,
+                                           'Generating Downloads')
