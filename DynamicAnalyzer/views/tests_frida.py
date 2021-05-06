@@ -73,7 +73,7 @@ def get_script(request):
 # AJAX
 @require_http_methods(['POST'])
 def instrument(request):
-    """Instrument app with frida."""
+    """使用frida检测app"""
     data = {}
     try:
         logger.info('开始检测')
@@ -236,6 +236,7 @@ def apimon_analysis(app_dir):
                   errors='ignore') as flip:
             apis = json.loads('[{}]'.format(
                 flip.read()[:-1]))
+                #不要最后一个','
         for api in apis:
             to_decode = None
             if (api['class'] == 'android.util.Base64'

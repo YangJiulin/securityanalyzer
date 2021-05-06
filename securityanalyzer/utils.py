@@ -12,11 +12,11 @@ import subprocess
 import stat
 import sqlite3
 import unicodedata
-import xmltodict
 import psutil
 import requests
 from django.shortcuts import render
 from . import settings
+
 logger = logging.getLogger(__name__)
 ADB_PATH = None
 
@@ -376,7 +376,7 @@ def get_http_tools_url(req):
     """从request中获取httptools URL."""
     scheme = req.scheme
     ip = req.get_host().split(':')[0]
-    return f'{scheme}://{ip}:{str(settings.PROXY_PORT)}'
+    return f'{scheme}://{ip}:9090'
 
 
 def can_run_flow():
@@ -384,16 +384,3 @@ def can_run_flow():
     if available <= 2000:
         return False
     return True
-
-def xml_to_dict(file)->dict:
-    if not isinstance(file,Path):
-        mfile = Path(file)
-    if mfile.exists() and mfile.suffix == '.xml':
-        manifest = mfile.read_text('utf-8', 'ignore')
-    else:
-        return {}
-    try:
-        doc =  xmltodict.parse(manifest)
-        return doc
-    except:
-        return {}

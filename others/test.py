@@ -19,6 +19,7 @@
 
 # if __name__ == '__main__':
 #     import os
+from os import read
 import frida, sys
 
 def on_message(message, data):
@@ -50,6 +51,7 @@ script.load()
 # Resume App
 devices.resume(pid)
 # Wait For User Input To End The Script
-input('Press enter to continue...')
-script.unload()
-session.detach()
+# input('Press enter to continue...')
+sys.stdin.read()
+# script.unload()
+# session.detach()

@@ -29,11 +29,6 @@ def string_catch():
     return get_content('string_catch.js')
 
 
-def string_compare():
-    """Capture all runtime string comparisons."""
-    return get_content('string_compare.js')
-
-
 def get_methods(klazz):
     """Get Class methods and implementations."""
     if not strict_package_check(klazz):

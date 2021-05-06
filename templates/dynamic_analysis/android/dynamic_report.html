@@ -79,17 +79,11 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-plus"></i>
               <p>
-                  
+                  链接检测
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#clipboard" class="nav-link">
-                  <i class="fas fa-paste nav-icon"></i>
-                  <p>Clipboard Dump</p>
-                </a>
-              </li>
               <li class="nav-item">
                 <a href="#urls" class="nav-link">
                   <i class="fas fa-globe nav-icon"></i>
@@ -108,7 +102,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon far fa-copy"></i>
               <p>
-                文件Analysis
+                文件分析
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -122,13 +116,13 @@
               <li class="nav-item">
                 <a href="#xmlfiles" class="nav-link">
                   <i class="fas fa-file-code nav-icon"></i>
-                  <p>XML Files</p>
+                  <p>XML文件</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#other_files" class="nav-link">
                   <i class="fas fa-file-contract nav-icon"></i>
-                  <p>Other Files</p>
+                  <p>其它文件</p>
                 </a>
               </li>
             </ul>
@@ -170,26 +164,22 @@
                    <div align="center">
                       <p>
                       {% if apimon %}
-                      <a target="_blank" class="btn btn-primary" role="button" href="../live_api/?hash={{ hash }}&amp;package={{ package }}">API Monitor View</a>
+                      <a target="_blank" class="btn btn-primary" role="button" href="../live_api/?hash={{ hash }}&amp;package={{ package }}">查看 API Monitor</a>
                       {% endif %}
                       {% if frida_logs %}
-                          <a target="_blank" class="btn btn-primary" role="button" href="../frida_logs/?hash={{ hash }}&amp;package={{ package }}">Frida Logs View</a>
+                          <a target="_blank" class="btn btn-primary" role="button" href="../frida_logs/?hash={{ hash }}&amp;package={{ package }}">查看 Frida Logs</a>
                       {% endif %}
-                          <a class="btn btn-success" target="_blank" role="button" href="../httptools?project={{package}}">Start HTTPTools</a>
                       </p>
                       <p>
-                      {% if droidmon %}
-                         <a target="_blank" class="btn btn-primary btn-sm" role="button" href="../download/{{ hash }}-x_logcat.txt">Droidmon API Monitor Logs</a>
-                      {% endif %}
                       {% if apimon %}
-                         <a target="_blank" class="btn btn-primary btn-sm" role="button" href="../download/{{ hash }}-api_monitor.txt">Frida API Monitor Logs</a>
+                         <a target="_blank" class="btn btn-primary btn-sm" role="button" href="../download/{{ hash }}-api_monitor.txt">下载 Frida API Monitor Logs</a>
                       {% endif %}
                       {% if frida_logs %}
-                         <a target="_blank" class="btn btn-primary btn-sm" role="button" href="../download/{{ hash }}-frida_out.txt">Frida Logs</a>
+                         <a target="_blank" class="btn btn-primary btn-sm" role="button" href="../download/{{ hash }}-frida_out.txt">下载Frida Logs</a>
                       {% endif %}
-                      <a target="_blank" class="btn btn-primary btn-sm" role="button" href="../download/{{ hash }}-web_traffic.txt">HTTP(S) Traffic</a>
-                      <a target="_blank" class="btn btn-primary btn-sm" role="button" href="../download/{{ hash }}-logcat.txt">Logcat Logs</a>
-                      <a target="_blank" class="btn btn-primary btn-sm" role="button" href="../download/{{ hash }}-dump.txt">Dumpsys Logs</a> 
+                      <a target="_blank" class="btn btn-primary btn-sm" role="button" href="../download/{{ hash }}-web_traffic.txt">下载 HTTP(S) Traffic</a>
+                      <a target="_blank" class="btn btn-primary btn-sm" role="button" href="../download/{{ hash }}-logcat.txt">下载 Logcat Logs</a>
+                      <a target="_blank" class="btn btn-primary btn-sm" role="button" href="../download/{{ hash }}-dump.txt">下载 Dumpsys Logs</a> 
                       <a class="btn btn-primary btn-sm" role="button" href="../download/{{ hash }}-app_data.tar">Application Data</a>
                       </p>
                    </div>
@@ -319,7 +309,7 @@
       
                     {% for img, desc in exported_activity_tester.items %}
                         <tr>
-                          <td><img alt="{{desc}}" src="../download/{{ hash }}-screenshots-apk/{{ img }}" class="img-thumbnail" height="300" width="175"></td>
+                          <td><img alt="{{desc}}" src="../download/{{ hash }}/screenshots-apk/{{ img }}" class="img-thumbnail" height="300" width="175"></td>
                         <td>{{ desc }}</td>
                         </tr>
                     {% endfor %}
@@ -346,7 +336,7 @@
              </p>
                <div class="list-group">
                       {% for i in screenshots %}
-                        <img alt="Screenshot" src="../download/{{ hash }}-screenshots-apk/{{ i}}" class="img-thumbnail" height="600" width="350">
+                        <img alt="Screenshot" src="../download/{{ hash }}/screenshots-apk/{{ i}}" class="img-thumbnail" height="600" width="350">
                       {% endfor %}
               </div>
               
@@ -358,57 +348,6 @@
     </div>
 </section>
  <!-- ===========================end screenshots ================================== -->
- <style>
-  #chartdiv {
-  width: 100%;
-  height: 500px;
-  overflow: hidden;
-}
-</style>
- <a id="serverlocations" class="anchor"></a>
-<section class="content">
-  <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12">
-        <div class="card">
-          <div class="card-body">
-            <p>
-             <strong><i class="fas fa-globe-asia"></i> SERVER LOCATIONS</strong>
-             </p>
-              <div class="table-responsive">
-                <div id="chartdiv"></div>
-            </div>
-          </div>
-        </div><!-- /.card -->
-        </div>
-        <!-- end row -->
-        </div>
-    </div>
-</section>
-<a id="clipboard" class="anchor"></a>
- <section class="content">
-  <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12">
-        <div class="card">
-          <div class="card-body">
-              <p>
-             <strong><i class="fas fa-paste"></i> CLIPBOARD DUMP</strong>
-             </p>
-              <div class="list-group">
-                {% for f in clipboard %}
-                    {{ f }} <br>
-                {% endfor %}
-
-              </div>
-          </div>
-        </div><!-- /.card -->
-        </div>
-        <!-- end row -->
-        </div>
-    </div>
-</section>
- <!-- ===========================end clip dump ================================== -->
  <a id="urls" class="anchor"></a>
 <section class="content">
   <div class="container-fluid">

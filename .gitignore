@@ -8,3 +8,5 @@ __pycache__
 /media/downloads/*
 !/media/downloads/frida*
 !/media/downloads/screen
+# Ignore dynaconf secret files
+.secrets.*

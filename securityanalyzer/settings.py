@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
-import logging.handlers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -165,8 +164,8 @@ ANALYZER_IDENTIFIER = ''
 FRIDA_TIMEOUT = 4
 
 # ================HTTPS PROXY ===============
-PROXY_IP = '127.0.0.1'
-PROXY_PORT = 1337  # Proxy Port
+PROXY_IP = '192.168.31.14'
+PROXY_PORT = 4272  # Proxy Port
 
 # ========UPSTREAM PROXY SETTINGS ==============
 # If you are behind a Proxy
@@ -249,7 +248,7 @@ LOGGING = {
         #     'level': 'INFO',
         #     'propagate': False,   # Don't propagate to other handlers
         # },
-        'staticanalyzer': {
+        'securityanalyzer': {
             'handlers': ['console', 'logfile'],
             'level': 'DEBUG',
             'propagate': False,

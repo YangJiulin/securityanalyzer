@@ -22,18 +22,8 @@ def run_analysis(apk_dir, md5_hash, package):
     """动态分析日志分析"""
     analysis_result = {}
     logger.info('动态文件分析')
-    clipboard = []
     # Collect Log data
     datas = get_log_data(apk_dir, package)
-    clip_tag = 'I/CLIPDUMP-INFO-LOG'
-    clip_tag2 = 'I CLIPDUMP-INFO-LOG'
-    # Collect Clipboard
-    for log_line in datas['logcat']:
-        if clip_tag in log_line:
-            clipboard.append(log_line.replace(clip_tag, 'Process ID '))
-        if clip_tag2 in log_line:
-            log_line = log_line.split(clip_tag2)[1]
-            clipboard.append(log_line)
     # URLs My Custom regex
     url_pattern = re.compile(
         r'((?:https?://|s?ftps?://|file://|'
@@ -46,7 +36,6 @@ def run_analysis(apk_dir, md5_hash, package):
         urls = []
     # Domain提取和恶意检查
     logger.info('对提取出的链接进行检查')
-
     # Email Etraction Regex
     emails = []
     regex = re.compile(r'[\w.-]{1,20}@[\w-]{1,20}\.[\w]{2,10}')
@@ -57,7 +46,6 @@ def run_analysis(apk_dir, md5_hash, package):
     all_files = get_app_files(apk_dir, md5_hash, package)
     analysis_result['urls'] = urls
     analysis_result['emails'] = emails
-    analysis_result['clipboard'] = clipboard
     analysis_result['xml'] = all_files['xml']
     analysis_result['sqlite'] = all_files['sqlite']
     analysis_result['other_files'] = all_files['others']
@@ -65,39 +53,29 @@ def run_analysis(apk_dir, md5_hash, package):
 
 
 def get_screenshots(md5_hash, download_dir):
-    """屏幕截图"""
+    """获取屏幕截图"""
     # Only After Download Process is Done
     result = {}
     imgs = []
-    act_imgs = []
     expact_imgs = []
-    act = {}
     exp_act = {}
     try:
-        screen_dir = os.path.join(download_dir,
-                                  md5_hash + '-screenshots-apk/')
+        screen_dir = os.path.join(download_dir,md5_hash ,'screenshots-apk/')
         sadb = StaticAnalyzerAndroid.objects.get(MD5=md5_hash)
         if os.path.exists(screen_dir):
             for img in os.listdir(screen_dir):
                 if img.endswith('.png'):
-                    if img.startswith('act'):
-                        act_imgs.append(img)
-                    elif img.startswith('expact'):
+                    if img.startswith('expact'):
                         expact_imgs.append(img)
                     else:
                         imgs.append(img)
             exported_act = python_list(sadb.EXPORTED_ACTIVITIES)
-            act_desc = python_list(sadb.ACTIVITIES)
-            if act_imgs:
-                if len(act_imgs) == len(act_desc):
-                    act = dict(list(zip(act_imgs, act_desc)))
             if expact_imgs:
                 if len(expact_imgs) == len(exported_act):
                     exp_act = dict(list(zip(expact_imgs, exported_act)))
     except Exception:
-        logger.exception('Organising screenshots')
+        logger.exception('获取截图')
     result['screenshots'] = imgs
-    result['activities'] = act
     result['exported_activities'] = exp_act
     return result
 
@@ -113,7 +91,6 @@ def get_log_data(apk_dir, package):
     httptools = os.path.join(str(Path.home()), '.httptools')
     web = os.path.join(httptools, 'flows', package + '.flow.txt')
     logcat = os.path.join(apk_dir, 'logcat.txt')
-    xlogcat = os.path.join(apk_dir, 'x_logcat.txt')
     apimon = os.path.join(apk_dir, 'api_monitor.txt')
     fd_logs = os.path.join(apk_dir, 'frida_out.txt')
     if is_file_exists(web):
@@ -129,12 +106,6 @@ def get_log_data(apk_dir, package):
                      errors='ignore') as flip:
             logcat_data = flip.readlines()
             traffic = ''.join(logcat_data)
-    if is_file_exists(xlogcat):
-        with io.open(xlogcat,
-                     mode='r',
-                     encoding='utf8',
-                     errors='ignore') as flip:
-            droidmon_data = flip.read()
     if is_file_exists(apimon):
         with io.open(apimon,
                      mode='r',
@@ -154,7 +125,7 @@ def get_log_data(apk_dir, package):
 
 
 def get_app_files(apk_dir, md5_hash, package):
-    """Get files from device."""
+    """在打包APP文件后，解压并获取文件基础信息（没有具体内容）"""
     logger.info('Getting app files')
     all_files = {'xml': [], 'sqlite': [], 'others': []}
     # Extract Device Data
@@ -210,7 +181,6 @@ def generate_download(apk_dir, md5_hash, download_dir, package):
     try:
         httptools = os.path.join(str(Path.home()), '.httptools')
         logcat = os.path.join(apk_dir, 'logcat.txt')
-        xlogcat = os.path.join(apk_dir, 'x_logcat.txt')
         apimon = os.path.join(apk_dir, 'api_monitor.txt')
         fd_logs = os.path.join(apk_dir, 'frida_out.txt')
         dumpsys = os.path.join(apk_dir, 'dump.txt')
@@ -219,7 +189,6 @@ def generate_download(apk_dir, md5_hash, download_dir, package):
         star = os.path.join(apk_dir, package + '.tar')
 
         dlogcat = os.path.join(download_dir,md5_hash, md5_hash + '-logcat.txt')
-        dxlogcat = os.path.join(download_dir,md5_hash, md5_hash + '-x_logcat.txt')
         dapimon = os.path.join(download_dir,md5_hash, md5_hash + '-api_monitor.txt')
         dfd_logs = os.path.join(download_dir,md5_hash, md5_hash + '-frida_out.txt')
         ddumpsys = os.path.join(download_dir, md5_hash,md5_hash + '-dump.txt')
@@ -228,7 +197,7 @@ def generate_download(apk_dir, md5_hash, download_dir, package):
         dstar = os.path.join(download_dir, md5_hash,md5_hash + '-app_data.tar')
 
         # Delete existing data
-        dellist = [dlogcat, dxlogcat, dapimon,
+        dellist = [dlogcat,dapimon,
                    dfd_logs, ddumpsys, dsshot,
                    dweb, dstar]
         for item in dellist:
@@ -239,8 +208,6 @@ def generate_download(apk_dir, md5_hash, download_dir, package):
         # Copy new data
         shutil.copyfile(logcat, dlogcat)
         shutil.copyfile(dumpsys, ddumpsys)
-        if is_file_exists(xlogcat):
-            shutil.copyfile(xlogcat, dxlogcat)
         if is_file_exists(apimon):
             shutil.copyfile(apimon, dapimon)
         if is_file_exists(fd_logs):

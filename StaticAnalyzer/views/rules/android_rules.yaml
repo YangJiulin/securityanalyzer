@@ -7,6 +7,7 @@
   cvss: 4.3
   cwe: cwe-200
   owasp-mobile: ''
+  category: SSL
   masvs: code-2
 - id: android_hiddenui
   description: >-
@@ -18,6 +19,7 @@
   cvss: 4.3
   cwe: cwe-919
   owasp-mobile: m1
+  category: DATA
   masvs: storage-7
 - id: android_insecure_ssl
   description: >-
@@ -33,6 +35,7 @@
   cwe: cwe-295
   owasp-mobile: m3
   masvs: network-3
+  category: SSL
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05g-Testing-Network-Communication.md#android-network-apis
 - id: android_webview_external
   description: >-
@@ -46,6 +49,7 @@
   cvss: 5
   cwe: cwe-919
   owasp-mobile: m1
+  category: WebView
   masvs: platform-6
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#static-analysis-7
 - id: android_insecure_random
@@ -57,6 +61,7 @@
   cvss: 7.5
   cwe: cwe-330
   owasp-mobile: m5
+  category: DATA
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x04g-Testing-Cryptography.md#weak-random-number-generators
   masvs: crypto-6
 - id: android_sql_cipher
@@ -68,6 +73,7 @@
   cvss: 0
   cwe: ''
   owasp-mobile: ''
+  category: DATA
   masvs: crypto-1
 - id: android_read_write_external
   description: >-
@@ -82,6 +88,7 @@
   cwe: cwe-276
   owasp-mobile: m2
   masvs: storage-2
+  category: DATA
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#external-storage
 - id: android_temp_file
   description: >-
@@ -93,6 +100,7 @@
   cvss: 5.5
   cwe: cwe-276
   owasp-mobile: m2
+  category: DATA
   masvs: storage-2
 - id: android_webview
   description: >-
@@ -107,6 +115,7 @@
   cwe: cwe-749
   owasp-mobile: m1
   masvs: platform-7
+  category: WebView
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_download_manager
   description: 此应用程序使用Android下载管理器下载文件。
@@ -119,6 +128,7 @@
   cvss: 0
   cwe: ''
   owasp-mobile: ''
+  category: DATA
   masvs: ''
 - id: android_webview_debug
   description: 已启用远程WebView调试。
@@ -132,6 +142,7 @@
   cwe: cwe-919
   owasp-mobile: m1
   masvs: resilience-2
+  category: WebView
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x04c-Tampering-and-Reverse-Engineering.md#debugging-and-tracing
 - id: android_clipboard_listen
   description: >-
@@ -145,6 +156,7 @@
   cvss: 0
   cwe: ''
   owasp-mobile: ''
+  category: DATA
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x04b-Mobile-App-Security-Testing.md#clipboard
   masvs: platform-4
 - id: android_webview_ignore_ssl
@@ -160,6 +172,7 @@
   cwe: cwe-295
   owasp-mobile: m3
   masvs: network-3
+  category: SSL
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05g-Testing-Network-Communication.md#webview-server-certificate-verification
 - id: android_sql_raw_query
   description: >-
@@ -174,7 +187,8 @@
   input_case: exact
   cvss: 5.9
   cwe: cwe-89
-  owasp-mobile: m7
+  owasp-mobile: 
+  category: DATA
   masvs: ''
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x04h-Testing-Code-Quality.md#injection-flaws-mstg-arch-2-and-mstg-platform-2
 - id: android_su_detect
@@ -191,6 +205,7 @@
   cvss: 0
   cwe: cwe-250
   owasp-mobile: ''
+  category: DATA
   masvs: resilience-1
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05j-Testing-Resiliency-Against-Reverse-Engineering.md#testing-root-detection-mstg-resilience-1
 - id: android_jackson_deserialize
@@ -205,6 +220,7 @@
   cvss: 7.5
   cwe: cwe-502
   owasp-mobile: m7
+  category: SSL
   masvs: platform-8
 - id: android_aes_ecb
   description: >-
@@ -217,6 +233,7 @@
   cwe: cwe-327
   owasp-mobile: m5
   masvs: crypto-2
+  category: DATA
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x04g-Testing-Cryptography.md#weak-block-cipher-mode
 - id: android_rsa_no_oaep
   description: >-
@@ -230,6 +247,7 @@
   cwe: cwe-780
   owasp-mobile: m5
   masvs: crypto-3
+  category: DATA
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x04g-Testing-Cryptography.md#mobile-app-cryptography
 - id: android_world_writable
   description: 文件是可写的。任何应用程序都可以写入该文件
@@ -243,6 +261,7 @@
   cwe: cwe-276
   owasp-mobile: m2
   masvs: storage-2
+  category: DATA
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#testing-local-storage-for-sensitive-data-mstg-storage-1-and-mstg-storage-2
 - id: android_world_readable
   description: 该文件是全局可读的。任何应用程序都可以读取该文件
@@ -256,6 +275,7 @@
   cwe: cwe-276
   owasp-mobile: m2
   masvs: storage-2
+  category: DATA
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#testing-local-storage-for-sensitive-data-mstg-storage-1-and-mstg-storage-2
 - id: android_world_read_write
   description: 该文件是全局可读写的。任何应用程序都可以读/写文件
@@ -267,6 +287,7 @@
   cwe: cwe-276
   owasp-mobile: m2
   masvs: storage-2
+  category: DATA
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#testing-local-storage-for-sensitive-data-mstg-storage-1-and-mstg-storage-2
 - id: android_weak_hash
   cvss: 7.4
@@ -284,6 +305,7 @@
     - \.getInstance\(.*MD4
   severity: high
   type: RegexOr
+  category: DATA
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x04g-Testing-Cryptography.md#identifying-insecure-andor-deprecated-cryptographic-algorithms-mstg-crypto-4
 - id: android_md5
   cvss: 7.4
@@ -298,6 +320,7 @@
     - DigestUtils\.md5\(
   severity: high
   type: RegexOr
+  category: DATA
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x04g-Testing-Cryptography.md#identifying-insecure-andor-deprecated-cryptographic-algorithms-mstg-crypto-4
 - id: android_sha1
   cvss: 5.9
@@ -314,6 +337,7 @@
     - DigestUtils\.sha\(
   severity: high
   type: RegexOr
+  category: DATA
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x04g-Testing-Cryptography.md#identifying-insecure-andor-deprecated-cryptographic-algorithms-mstg-crypto-4
 - id: android_weak_iv
   cvss: 9.8
@@ -330,6 +354,7 @@
     - '0x01,0x02,0x03,0x04,0x05,0x06,0x07'
   severity: high
   type: RegexOr
+  category: DATA
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x04g-Testing-Cryptography.md#mobile-app-cryptography
 - id: android_hardcoded
   cvss: 7.4
@@ -343,4 +368,5 @@
     (password\s*=\s*[\'|\"].+[\'|\"]\s{0,5})|(pass\s*=\s*[\'|\"].+[\'|\"]\s{0,5})|(username\s*=\s*[\'|\"].+[\'|\"]\s{0,5})|(secret\s*=\s*[\'|\"].+[\'|\"]\s{0,5})|(key\s*=\s*[\'|\"].+[\'|\"]\s{0,5})
   severity: high
   type: Regex
+  category: DATA
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#checking-memory-for-sensitive-data-mstg-storage-10

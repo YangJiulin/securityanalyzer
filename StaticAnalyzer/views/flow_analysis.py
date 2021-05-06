@@ -5,7 +5,6 @@ import os
 from pathlib import Path
 import platform
 
-from django.utils.timezone import now
 from securityanalyzer.utils import find_java_binary, find_process_by, is_dir_exists
 import subprocess
 
@@ -35,7 +34,7 @@ def flow_analysis(app_dir,app_path,tool_dir,target_sdk):
                 subprocess.check_output(['mklink','/d',need_plat.as_posix(),now_platforms.as_posix()])
             else:
                 subprocess.check_output(['ln','-s',now_platforms.as_posix(),need_plat.as_posix()])
-        logging.warning('找到%s,开始执行污点分析',need_plat)
+        logger.warning('找到%s,开始执行污点分析',need_plat)
         args = [find_java_binary(),
                 '-jar',
                 jaads,

@@ -1,4 +1,3 @@
-
 {% extends "base/base_layout.html" %}
 {% load static %}
 {% block sidebar_option %}
@@ -73,7 +72,7 @@
                   <a href="#" id="rootca" class="btn btn-primary" role="button">移除mitm证书</a>
                   <a href="#" id="expactt" class="btn btn-primary" role="button">开始Exported Activity测试</a>
                   <a href="#" id="ss" class="btn btn-primary" role="button">截图</a>
-                  <a href="#" id="logstream" class="btn btn-primary">日志</a>
+                  <a href="#" id="http" class="btn btn-primary">打开HTTP代理UI界面</a>
                   <a href="../../live_api/?hash={{ hash }}&amp;package={{ package }}" id="apimon" target="_blank" class="btn btn-primary" style='display: none'>实时api监控</a>
                   <a href="#" id="stop" class="btn btn-info" role="button" >生成报告</a>
                 </div>
@@ -157,7 +156,7 @@
                               Debugger检测
                             </label>
                         </div>
-                                           <hr/>
+                            <hr/>
                         <div class="form-group">
                         <h4> 辅助 </h4>
                             <label>
@@ -167,10 +166,6 @@
                              <label>
                             <input name="auxiliary" type="checkbox" value="string_catch" id="string_catch">
                               捕获Strings
-                            </label>
-                             <label>
-                            <input name="auxiliary" type="checkbox" value="string_compare" id="string_compare">
-                              比较捕获String
                             </label>
                             <br />
                              <label>
@@ -671,9 +666,9 @@ $("#expactt").click(function()  {
 });
 
 // Logcat Stream
-$("#logstream").click(function() {
-    print_status("Logcat Steaming started");
-    setTimeout(function(){ window.open(document.location.origin + '/logcat/?package={{ package }}', '_blank');}, 500);   
+$("#http").click(function() {
+    print_status("Http Ui started");
+    setTimeout(function(){ window.open(document.location.origin + '/httptools', '_blank');}, 500);   
     return false;  
 }); 
 // Frida logs
@@ -735,8 +730,8 @@ $("#frida_spawn").click(function() {
 function dump(){
   action(document.location.origin + '/download_data/', { hash: '{{ hash }}'}, function(json) {
     if (json.status==="ok"){
-      print_status("Application data dumped!");
-      print_status("Generating Report...Please Wait!");
+      print_status("获取应用数据成功!");
+      print_status("正在生成报告，请稍等......");
       //Call reporting
       window.location = document.location.origin+"/dynamic_report/{{ hash }}";
     } else {
@@ -752,12 +747,12 @@ $("#stop").one( "click", function() {
   var stext = $("#screen").text();
   if (stext === "Stop Screen")
     $("#screen").click();
-  action(document.location.origin + '/collect_logs/', { hash: '{{ hash }}'}, function(json) {
+  action(document.location.origin + '/collect_logs/', { hash: '{{ hash }}',pid:'{{ pid }}'}, function(json) {
     if (json.status==="ok"){
       $('#stop').addClass("btn btn-success");
       $('#stop').text("Please Wait...");
-      print_status("Downloading logs");
-      print_status("Stopping Application");
+      print_status("正在下载logs");
+      print_status("停止应用");
     } else{
       print_status('Failed to collect all data')
       print_status(json.message)

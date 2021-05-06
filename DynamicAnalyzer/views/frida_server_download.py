@@ -58,7 +58,7 @@ def update_frida_server(arch, version):
         return False
     try:
         response = requests.get(f'{settings.FRIDA_SERVER}{version}',
-                                timeout=3)
+                                timeout=6)
         for item in response.json()['assets']:
             if item['name'] == f'{fserver}.xz':
                 url = item['browser_download_url']

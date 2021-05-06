@@ -36,12 +36,15 @@ urlpatterns = [
     re_path(r'^error/$', home.error, name='error'),
     re_path(r'^not_found/$', home.not_found),
     re_path(r'^logs', home.live_log),
+
     # Static Analysis
     # Android
     re_path(r'^static_analyzer/$',static_analyzer.static_analyzer),
     re_path(r'^manifest_view/$', manifest_view.run),
     re_path(r'^view_file/$', view_source.run, name='view_source'),
     re_path(r'^generate_downloads/$', shared_func.run),
+
+
     # Dynamic Analysis
     re_path(r'^dynamic_analysis/$',
             dz.dynamic_analysis,
@@ -61,10 +64,12 @@ urlpatterns = [
     re_path(r'^touch_events/$', operations.touch),
     re_path(r'^get_component/$', operations.get_component),
     re_path(r'^mobsf_ca/$', operations.mobsf_ca),
+
      # Dynamic Tests
     re_path(r'^activity_tester/$', tests_common.activity_tester),
     re_path(r'^download_data/$', tests_common.download_data),
     re_path(r'^collect_logs/$', tests_common.collect_logs),
+    
     # Frida
     re_path(r'^frida_instrument/$', tests_frida.instrument),
     re_path(r'^live_api/$', tests_frida.live_api),

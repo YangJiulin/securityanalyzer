@@ -16,7 +16,6 @@ from DynamicAnalyzer.views.frida_scripts import (
     get_loaded_classes,
     get_methods,
     string_catch,
-    string_compare,
 )
 from securityanalyzer.utils import (
     get_device,
@@ -63,8 +62,6 @@ class Frida:
                 scripts.append(get_loaded_classes())
             elif itm == 'string_catch':
                 scripts.append(string_catch())
-            elif itm == 'string_compare':
-                scripts.append(string_compare())
             elif itm == 'enum_methods' and 'class_name' in self.extras:
                 scripts.append(get_methods(self.extras['class_name']))
             elif itm == 'search_class' and 'class_search' in self.extras:
@@ -115,7 +112,7 @@ class Frida:
             session = device.attach(pid)
             time.sleep(2)
         except frida.ServerNotRunningError:
-            logger.warning('Frida server is not running')
+            logger.warning('Frida server没有运行')
             self.connect()
         except frida.TimedOutError:
             logger.error('Timed out while waiting for device to appear')

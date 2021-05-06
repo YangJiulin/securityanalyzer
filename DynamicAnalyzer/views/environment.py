@@ -17,14 +17,11 @@ from OpenSSL import crypto
 from DynamicAnalyzer.tools.webproxy import (
     get_ca_file,
     start_proxy,
-    stop_httptools,
 )
 from DynamicAnalyzer.views import frida_server_download as fserver
 from securityanalyzer.utils import (
     get_adb,
     get_device,
-    get_http_tools_url,
-    get_proxy_ip,
     is_file_exists,
     python_list,
 )
@@ -169,14 +166,13 @@ class Environment:
         else:
             os.makedirs(screen_dir)
 
-    def configure_proxy(self, project, request):
+    def configure_proxy(self, request):
         """HTTPS Proxy."""
         self.install_mitm_ca('install')
         proxy_port = settings.PROXY_PORT
         logger.info('Starting HTTPs Proxy on %s', proxy_port)
-        httptools_url = get_http_tools_url(request)
-        stop_httptools(httptools_url)
-        start_proxy(proxy_port, project)
+        pid = start_proxy(proxy_port)
+        return pid
 
     def install_mitm_ca(self, action):
         """安装或移除mitm证书"""
@@ -204,7 +200,7 @@ class Environment:
                               '644',
                               ca_file], True)
         elif action == 'remove':
-            logger.info('Removing mitm RootCA')
+            logger.info('移除 mitm RootCA')
             self.adb_command(['rm',
                               ca_file], True)
         # with a high timeout afterwards
@@ -277,12 +273,6 @@ class Environment:
         except Exception:
             logger.exception('Enabling ADB Reverse TCP')
 
-    def start_clipmon(self):
-        """开启剪贴板监控"""
-        logger.info('Starting Clipboard Monitor')
-        args = ['am', 'startservice',
-                'opensecurity.clipdump/.ClipDumper']
-        self.adb_command(args, True)
 
     def get_screen_res(self):
         """获取Android设备的屏幕分辨率。"""
@@ -434,13 +424,6 @@ class Environment:
         """安装设置代理"""
         # Install MITM RootCA
         self.install_mitm_ca('install')
-        # Install MobSF Agents
-        mobsf_agents = 'onDevice/mobsf_agents/'
-        clip_dump = os.path.join(self.tools_dir,
-                                 mobsf_agents,
-                                 'ClipDump.apk')
-        logger.info('Installing MobSF Clipboard Dumper')
-        self.adb_command(['install', '-r', clip_dump])
         agent_file = '.security-f'
         agent_str = self.frida_str
         f = tempfile.NamedTemporaryFile(delete=False)

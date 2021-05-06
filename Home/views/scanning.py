@@ -7,7 +7,8 @@ from django.conf import settings
 from django.utils import timezone
 
 from StaticAnalyzer.models import StaticAnalyzerAndroid,RecentScansDB
-from androguard.core.bytecodes import apk    
+from androguard.core.bytecodes import apk   
+from config import settings 
 
 logger = logging.getLogger(__name__)
 

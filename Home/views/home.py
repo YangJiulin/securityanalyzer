@@ -37,7 +37,6 @@ def index(request):
     context = {
         'mimes': mimes,
     }
-    logger.info('进入主页')
     template = 'general/home.html'
     return render(request, template, context)
 
@@ -57,7 +56,7 @@ def live_log(request):
         return HttpResponse(json.dumps(data),
                             content_type='application/json; charset=utf-8')
     except Exception:
-        logger.exception('log实时监控')
+        logger.exception('log 实时监控')
         err = 'Error in log streaming'
         return print_n_send_error_response(request, err)
 

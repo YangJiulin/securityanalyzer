@@ -31,7 +31,7 @@
                   <div align="center" class="inner">
                   </div>
                </div>
-                <textarea id="stat" class='bg-black' style="width: 770px; height: 350px;"></textarea>
+                <textarea id="stat" class='bg-black' style="width: 770px; height: 350px;" disabled=""></textarea>
                <div class="inner cover">
                   <div style="visibility:hidden; opacity:0" id="drop">
                      <div id="textnode">Drop anywhere!</div>
@@ -228,7 +228,6 @@
                         type : "GET",
                         dataType: "json", 
                     success : function(json){ 
-                        console.log(json.data);
                         print_status(json.data);
                     },
                     error : function(xhr, ajaxOptions, thrownError) {
@@ -239,7 +238,7 @@
         get_logs();
         setInterval( function () {
                 get_logs();
-                }, 30000 );
+                }, 2000 );
             });
       </script>
    </body>

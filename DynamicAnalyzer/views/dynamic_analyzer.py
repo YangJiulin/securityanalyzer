@@ -13,14 +13,7 @@ from django.conf import settings
 from django.shortcuts import render
 
 from DynamicAnalyzer.views.environment import Environment
-from DynamicAnalyzer.views.operations import (
-    get_package_name,
-    strict_package_check,
-)
-from DynamicAnalyzer.tools.webproxy import (
-    start_httptools_ui,
-    stop_httptools,
-)
+from DynamicAnalyzer.views.operations import get_package_name
 from securityanalyzer.utils import (
     get_device,
     get_http_tools_url,
@@ -109,13 +102,11 @@ def dynamic_analyzer(request, checksum):
         # 分析之前清除旧数据
         env.dz_cleanup(checksum)
         # 配置代理
-        env.configure_proxy(package, request)
+        pid = env.configure_proxy(request)
         # Supported in Android 5+
         env.enable_adb_reverse_tcp(version)
         # 设置代理
         env.set_global_proxy()
-        # 开启剪贴板监听
-        env.start_clipmon()
         # 获取屏幕分辨率
         screen_width, screen_height = env.get_screen_res()
         apk_path = Path(settings.MEDIA_ROOT) / 'upload' / checksum / f'{checksum}.apk'
@@ -135,6 +126,7 @@ def dynamic_analyzer(request, checksum):
                    'package': package,
                    'hash': checksum,
                    'android_version': version,
+                   'pid':pid,
                    'title': '动态分析'}
         template = 'dynamic_analysis/android/dynamic_analyzer.html'
         return render(request, template, context)
@@ -146,22 +138,16 @@ def dynamic_analyzer(request, checksum):
 
 
 def httptools_start(request):
-    """Start httprools UI."""
-    logger.info('Starting httptools Web UI')
+    """Start lyrebird UI."""
+    logger.info('Starting lyrebird Web UI')
     try:
         httptools_url = get_http_tools_url(request)
         #url example:https:127.0.0.1:8080
-        stop_httptools(httptools_url)
-        start_httptools_ui(settings.PROXY_PORT)
         time.sleep(3)
-        logger.info('httptools UI started')
-        if request.GET['project']:
-            project = request.GET['project']
-        else:
-            project = ''
-        url = f'{httptools_url}/dashboard/{project}'
+        logger.info('lyrebird UI started')
+        url = f'{httptools_url}/ui'
         return HttpResponseRedirect(url)
     except Exception:
-        logger.exception('Starting httptools Web UI')
-        err = '启动httptools UI时出错'
+        logger.exception('Starting lyrebird Web UI')
+        err = '启动lyrebird UI时出错'
         return print_n_send_error_response(request, err)

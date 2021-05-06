@@ -1,5 +1,6 @@
 # -*- coding: utf_8 -*-
 """Available Actions."""
+from DynamicAnalyzer.tools.webproxy import stop_httptools
 import logging
 import os
 from time import time
@@ -15,10 +16,9 @@ from DynamicAnalyzer.views.operations import (
 from DynamicAnalyzer.views.environment import (
     Environment,
 )
-from DynamicAnalyzer.tools.webproxy import stop_httptools
 from securityanalyzer.utils import (
-    get_http_tools_url,
     is_md5,
+    is_number,
     python_list,
 )
 from StaticAnalyzer.models import StaticAnalyzerAndroid
@@ -86,7 +86,7 @@ def activity_tester(request):
 
 @require_http_methods(['POST'])
 def download_data(request):
-    """Download Application Data from Device."""
+    """从设备下载应用文件."""
     logger.info('Downloading app data')
     data = {}
     try:
@@ -100,13 +100,11 @@ def download_data(request):
                     'message': 'App details not found in database'}
             return send_response(data)
         apk_dir = os.path.join(settings.MEDIA_ROOT / 'upload', md5_hash + '/')
-        httptools_url = get_http_tools_url(request)
-        stop_httptools(httptools_url)
         files_loc = '/data/local/'
-        logger.info('Archiving files created by app')
+        logger.info('获取并压缩APP应用数据')
         env.adb_command(['tar', '-cvf', files_loc + package + '.tar',
                          '/data/data/' + package + '/'], True)
-        logger.info('Downloading Archive')
+        logger.info('下载存档')
         env.adb_command(['pull', files_loc + package + '.tar',
                          apk_dir + package + '.tar'])
         logger.info('Stopping ADB server')
@@ -153,6 +151,9 @@ def collect_logs(request):
         logger.info('Stopping app')
         # Unset Global Proxy
         env.unset_global_proxy()
+        pid = request.POST['pid']
+        if is_number(pid):
+            stop_httptools(pid)
         data = {'status': 'ok'}
     except Exception as exp:
         logger.exception('Data Collection & Clean Up failed')

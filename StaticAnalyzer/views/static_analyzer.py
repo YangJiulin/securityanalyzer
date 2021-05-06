@@ -140,6 +140,7 @@ def static_analyzer(request):
                     )
             context['dynamic_analysis_done'] = is_file_exists(
                     os.path.join(app_info['app_dir'], 'logcat.txt'))
+            calculate_category(context)
             template = 'static_analysis/android_binary_analysis.html'
             return render(request, template, context)
         elif typ == 'zip':
@@ -232,6 +233,7 @@ def static_analyzer(request):
                             code_an_dic,
                             flow_an_dic
                         )
+                        calculate_category(context)
                     else:
                         msg = '不支持此ZIP格式'
                         print_n_send_error_response(request, msg, False)
@@ -246,6 +248,33 @@ def static_analyzer(request):
     else:
         msg = '哈希匹配失败或无效的文件扩展名或文件类型'
         return print_n_send_error_response(request, msg, True)
+
+def calculate_category(context):
+    code_anal = context['code_analysis']
+    mani_anal = context['manifest_analysis']
+    flow_anal = context['flow_analysis']
+    permiss = context['permissions']
+    category = {}
+    category['mani_count'] = len(mani_anal)
+    category['flow_count'] = len(flow_anal)
+    category['SSL_count'] = 0
+    category['WebView_count'] = 0
+    category['data_count'] = 0
+    category['highPermiss_count']=0
+    for _,value in code_anal.items():
+        if value['metadata']['category'] == 'DATA':
+            category['data_count'] += 1
+        elif value['metadata']['category'] == 'SSL':
+            category['SSL_count'] += 1
+        elif value['metadata']['category'] == 'WebView':
+            category['WebView_count'] += 1
+    for _,v in permiss.items():
+        if v[0] == 'dangerous':
+            category['highPermiss_count']+=1
+    context['category'] = category
+
+
+
 
 def move_to_parent(inside, app_dir):
     """Move contents of inside to app dir."""

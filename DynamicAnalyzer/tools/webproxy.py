@@ -4,50 +4,30 @@ import os
 from pathlib import Path
 import subprocess
 import time
-import requests
-from securityanalyzer.utils import is_file_exists, upstream_proxy
+import signal
+from securityanalyzer.utils import is_file_exists
 
 logger = logging.getLogger(__name__)
 
 
-def stop_httptools(url):
-    """Kill httptools."""
-    # HTTPtools UI Kill Request
+def stop_httptools(pid):
+    """Kill lyrebird"""
+    # HTTP Proxy Kill Request
     try:
-        requests.get(f'{url}/kill', timeout=5)
-        logger.info('中止 httptools UI')
-    except Exception:
-        pass
-
-    # HTTPtools Proxy Kill Request
-    try:
-        http_proxy = url.replace('https://', 'http://')
-        headers = {'httptools': 'kill'}
-        url = 'http://127.0.0.1'
-        requests.get(url, headers=headers, proxies={
-                     'http': http_proxy})
-        logger.info('中止 httptools Proxy')
+        os.kill(pid,signal.SIGKILL)
     except Exception:
         pass
 
 
-def start_proxy(port, project):
+def start_proxy(port):
     """Start HTTPtools in Proxy Mode."""
-    argz = ['httptools',
-            '-m', 'capture',
-            '-p', str(port), '-n', project]
-    proxies, _ = upstream_proxy('http')
-    if proxies['http']:
-        argz.extend(['-u', proxies['http']])
+    argz = ['lyrebird','-b',
+            '--mock', '9090',
+            '--proxy', str(port)]
     fnull = open(os.devnull, 'w')
-    subprocess.Popen(argz, stdout=fnull, stderr=subprocess.STDOUT)
+    process = subprocess.Popen(argz, stdout=fnull, stderr=subprocess.STDOUT)
+    return process.pid
 
-
-def start_httptools_ui(port):
-    """Start Server UI."""
-    subprocess.Popen(['httptools',
-                      '-m', 'server', '-p', str(port)])
-    time.sleep(3)
 
 
 def create_ca():

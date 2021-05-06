@@ -18,5 +18,9 @@ Android APP漏洞分析平台
 > 使用此选项在模拟会话期间创建可写系统映像。为此，请执行以下操作：
     使用 -writable-system 选项启动虚拟设备。
     从命令终端输入 adb remount 命令，让模拟器以读/写方式重新装载 system/（默认情况下，它以只读方式装载）。
-    
+### Frida
+  adb shell "/system/fd_server &"
+### M1 Mac
+  https://cffi.readthedocs.io/en/latest/using.html#callbacks-old-style
+  https://github.com/pyca/pyopenssl/issues/873
 **请注意，使用此标记将创建系统映像的临时副本，该副本可能非常大（数百 MB），但在模拟器退出时将被销毁。***
