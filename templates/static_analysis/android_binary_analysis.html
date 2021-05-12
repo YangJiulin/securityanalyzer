@@ -179,6 +179,7 @@ sidebar-mini
           </li>
         </ul>
       </li>
+      {% if app_type == 'apk' %}
       {% if dynamic_analysis_done %}
       <li class="nav-item">
         <a href="../dynamic_report/{{ md5 }}" class="nav-link">
@@ -197,6 +198,7 @@ sidebar-mini
           </p>
         </a>
       </li>
+      {% endif %}
       {% endif %}
     </ul>
   </nav>
@@ -420,8 +422,10 @@ sidebar-mini
               </p>
               <p> <a href="../static_analyzer/?checksum={{ md5 }}&amp;name={{ file_name }}&amp;type=apk&amp;rescan=1"
                   class="btn btn-info" role="button"><i class="fa fa-sync"></i> 重新扫描</a>
+                {% if app_type == 'apk' %}
                 <a href="../android_dynamic/{{md5}}" class="btn btn-success" role="button"><i
                     class="fa fa-play-circle"></i> 开始动态分析</a>
+                {% endif %}
               </p>
             </div>
           </div><!-- /.card -->
@@ -433,12 +437,19 @@ sidebar-mini
                 <strong><i class="fas fa-file-code"></i>反编译代码</strong>
               </p>
               <p>
+                {% if app_type == 'apk' %}
                 <a target="_blank" href="../manifest_view/?md5={{ md5 }}&amp;type={{ app_type }}&amp;bin=1"
                   role="button" class="btn btn-primary"><i class="fa fa-eye"></i> 查看AndroidManifest.xml</a>
+                {% else %}
+                <a target="_blank" href="../manifest_view/?md5={{ md5 }}&amp;type={{ app_type }}&amp;bin=0"
+                  role="button" class="btn btn-primary"><i class="fa fa-eye"></i> 查看AndroidManifest.xml</a>
+                {% endif %}
                 <a href="../generate_downloads/?hash={{ md5 }}&amp;file_type=java" class="btn btn-warning"
                   role="button"> <i class="fa fa-download"></i>下载Java源代码</a>
+                  {% if app_type == 'apk' %}
                 <a href="../generate_downloads/?hash={{ md5 }}&amp;file_type=apk" class="btn btn-warning"> <i
                     class="fa fa-download"></i> 下载 APK</a>
+                  {% endif %}
               </p>
             </div>
           </div>

@@ -15,6 +15,8 @@ Android APP漏洞分析平台
 ### 启动avd命令选项
     -writable-system
     emulator -avd <non_production_avd_name> -writable-system -no-snapshot
+    emulator -avd Pixel_XL_API_30 -writable-system -no-snapshot
+    
 > 使用此选项在模拟会话期间创建可写系统映像。为此，请执行以下操作：
     使用 -writable-system 选项启动虚拟设备。
     从命令终端输入 adb remount 命令，让模拟器以读/写方式重新装载 system/（默认情况下，它以只读方式装载）。

@@ -5,7 +5,7 @@ from StaticAnalyzer.views.flow_analysis import flow_analysis
 import shutil
 from StaticAnalyzer.views.shared_func import unzip, update_scan_timestamp
 from StaticAnalyzer.views.code_analysis import code_analysis
-from StaticAnalyzer.views.manifest_analysis import get_manifest, get_manifest_data, manifest_analysis
+from StaticAnalyzer.views.manifest_analysis import get_manifest, get_manifest_data, manifest_analysis, manifest_data
 import logging
 import os
 import re
@@ -186,7 +186,7 @@ def static_analyzer(request):
                             + pro_type + '&bin=0'
                         )
 
-                        manifest_data_dict = get_manifest_data(app_info['app_path'])
+                        manifest_data_dict = manifest_data(app_info['parsed_xml'])
                         man_an_dic = manifest_analysis(
                             app_info['parsed_xml'],
                             manifest_data_dict,
@@ -195,8 +195,7 @@ def static_analyzer(request):
                         )
                         code_an_dic = code_analysis(
                             app_info['app_dir'],
-                            pro_type,
-                            app_info['manifest_file'])
+                            pro_type,)
 
                         flow_an_dic = {'results':[]}
 

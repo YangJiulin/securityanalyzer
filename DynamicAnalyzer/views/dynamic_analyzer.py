@@ -5,8 +5,6 @@ import os
 import time
 from pathlib import Path
 
-from shelljob import proc
-
 from django.http import (HttpResponseRedirect,
                          StreamingHttpResponse)
 from django.conf import settings

@@ -58,7 +58,6 @@ def get_info_from_analysis(app_info,
                               flow_an_dic) -> dict:
     """从分析结果中获取APK/ZIP信息"""
     try:
-        # 原来是permissons man_an_dic
         context = {
             'title': 'Static Analysis',
             'file_name': app_info['app_name'],

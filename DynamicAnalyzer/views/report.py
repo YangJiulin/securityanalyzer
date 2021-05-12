@@ -1,5 +1,6 @@
 # -*- coding: utf_8 -*-
 """Dynamic Analyzer Reporting."""
+from StaticAnalyzer.models import StaticAnalyzerAndroid
 import logging
 import ntpath
 import os
@@ -59,9 +60,7 @@ def view_report(request, checksum):
         app_dir = os.path.join(settings.MEDIA_ROOT / 'upload', checksum + '/')
         download_dir = settings.DWD_DIR
         if not is_file_exists(os.path.join(app_dir, 'logcat.txt')):
-            msg = ('Dynamic Analysis report is not available '
-                   'for this app. Perform Dynamic Analysis '
-                   'and generate the report.')
+            msg = ('没有找到该app的动态分析报告，请执行动态分析以生成报告')
             return print_n_send_error_response(request, msg)
         fd_log = os.path.join(app_dir, 'frida_out.txt')
         droidmon = []
@@ -83,6 +82,8 @@ def view_report(request, checksum):
                    'frida_logs': is_file_exists(fd_log),
                    'package': package,
                    'title': 'Dynamic Analysis'}
+        StaticAnalyzerAndroid.objects.filter(
+                MD5=checksum).update(DYNAMIC_REPORT=context)
         template = 'dynamic_analysis/android/dynamic_report.html'
         return render(request, template, context)
     except Exception as exp:

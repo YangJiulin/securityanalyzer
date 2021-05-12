@@ -1,6 +1,7 @@
 # -*- coding: utf_8 -*-
 # flake8: noqa
 """Module for android manifest analysis."""
+from StaticAnalyzer.views.dvm_permissions import DVM_PERMISSIONS
 import logging
 import os
 from pathlib import Path
@@ -85,6 +86,133 @@ def get_manifest_data(app_path):
         return man_data_dic
     except Exception:
         logger.exception('正在提取 Manifest 数据')
+
+
+def manifest_data(mfxml):
+    """提取 manifest 数据."""
+    try:
+        logger.info('提取 Manifest 数据')
+        svc = []
+        act = []
+        brd = []
+        cnp = []
+        lib = []
+        perm = []
+        cat = []
+        icons = []
+        dvm_perm = {}
+        package = ''
+        minsdk = ''
+        maxsdk = ''
+        targetsdk = ''
+        mainact = ''
+        androidversioncode = ''
+        androidversionname = ''
+        applications = mfxml.getElementsByTagName('application')
+        permissions = mfxml.getElementsByTagName('uses-permission')
+        manifest = mfxml.getElementsByTagName('manifest')
+        activities = mfxml.getElementsByTagName('activity')
+        services = mfxml.getElementsByTagName('service')
+        providers = mfxml.getElementsByTagName('provider')
+        receivers = mfxml.getElementsByTagName('receiver')
+        libs = mfxml.getElementsByTagName('uses-library')
+        sdk = mfxml.getElementsByTagName('uses-sdk')
+        categories = mfxml.getElementsByTagName('category')
+        for node in sdk:
+            minsdk = node.getAttribute('android:minSdkVersion')
+            maxsdk = node.getAttribute('android:maxSdkVersion')
+            # Esteve 08.08.2016 - begin - If android:targetSdkVersion
+            # is not set, the default value is the one of the
+            # android:minSdkVersiontargetsdk
+            # =node.getAttribute('android:targetSdkVersion')
+            if node.getAttribute('android:targetSdkVersion'):
+                targetsdk = node.getAttribute('android:targetSdkVersion')
+            else:
+                targetsdk = node.getAttribute('android:minSdkVersion')
+            # End
+        for node in manifest:
+            package = node.getAttribute('package')
+            androidversioncode = node.getAttribute('android:versionCode')
+            androidversionname = node.getAttribute('android:versionName')
+        alt_main = ''
+        for activity in activities:
+            act_2 = activity.getAttribute('android:name')
+            act.append(act_2)
+            if not mainact:
+                # ^ Some manifest has more than one MAIN, take only
+                # the first occurrence.
+                for sitem in activity.getElementsByTagName('action'):
+                    val = sitem.getAttribute('android:name')
+                    if val == 'android.intent.action.MAIN':
+                        mainact = activity.getAttribute('android:name')
+                # Manifest has no MAIN, look for launch activity.
+                for sitem in activity.getElementsByTagName('category'):
+                    val = sitem.getAttribute('android:name')
+                    if val == 'android.intent.category.LAUNCHER':
+                        alt_main = activity.getAttribute('android:name')
+        if not mainact and alt_main:
+            mainact = alt_main
+
+        for service in services:
+            service_name = service.getAttribute('android:name')
+            svc.append(service_name)
+
+        for provider in providers:
+            provider_name = provider.getAttribute('android:name')
+            cnp.append(provider_name)
+
+        for receiver in receivers:
+            rec = receiver.getAttribute('android:name')
+            brd.append(rec)
+
+        for _lib in libs:
+            libary = _lib.getAttribute('android:name')
+            lib.append(libary)
+
+        for category in categories:
+            cat.append(category.getAttribute('android:name'))
+
+        for permission in permissions:
+            perm.append(permission.getAttribute('android:name'))
+        android_permission_tags = ('com.google.', 'android.', 'com.google.')
+        for full_perm in perm:
+            prm = full_perm
+            pos = full_perm.rfind('.')
+            if pos != -1:
+                prm = full_perm[pos + 1:]
+            if not full_perm.startswith(android_permission_tags):
+                prm = full_perm
+            try:
+                dvm_perm[full_perm] = DVM_PERMISSIONS[
+                    'MANIFEST_PERMISSION'][prm]
+            except KeyError:
+                dvm_perm[full_perm] = [
+                    'unknown',
+                    'Unknown permission',
+                    'Unknown permission from android reference',
+                ]
+
+        man_data_dic = {
+            'services': svc,
+            'activities': act,
+            'receivers': brd,
+            'providers': cnp,
+            'libraries': lib,
+            'categories': cat,
+            'permissions': dvm_perm,
+            'packagename': package,
+            'mainactivity': mainact,
+            'min_sdk': minsdk,
+            'max_sdk': maxsdk,
+            'target_sdk': targetsdk,
+            'androver': androidversioncode,
+            'androvername': androidversionname,
+        }
+
+        return man_data_dic
+    except Exception:
+        logger.exception('Extracting Manifest Data')
+
 
 
 def get_browsable_activities(node):

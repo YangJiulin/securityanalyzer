@@ -65,7 +65,7 @@
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x04g-Testing-Cryptography.md#weak-random-number-generators
   masvs: crypto-6
 - id: android_sql_cipher
-  description: 此应用程序使用SQL密码。但秘密可能是硬编码的。
+  description: 此应用程序使用SQL代码。但代码可能是硬编码的。
   type: Regex
   pattern: SQLiteOpenHelper\.getWritableDatabase\(
   severity: warning
@@ -172,7 +172,7 @@
   cwe: cwe-295
   owasp-mobile: m3
   masvs: network-3
-  category: SSL
+  category: WebView
   ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05g-Testing-Network-Communication.md#webview-server-certificate-verification
 - id: android_sql_raw_query
   description: >-
@@ -220,7 +220,7 @@
   cvss: 7.5
   cwe: cwe-502
   owasp-mobile: m7
-  category: SSL
+  category: DATA
   masvs: platform-8
 - id: android_aes_ecb
   description: >-

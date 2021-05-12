@@ -11,7 +11,7 @@ MANIFEST_DESC = {
                  '[android:usesCleartextTraffic=true]'),
     },
     'a_debuggable': {
-        'title': '为App启用调试<br>[android:debuggable=true]',
+        'title': '为App启用调试<br>',
         'level': 'high',
         'description': ("""
         调试是在应用程序上打开的,这使得
@@ -36,7 +36,7 @@ MANIFEST_DESC = {
         'level': 'medium',
         'description': ("""
         flag [android:allowBackup]应该设置为false。默认情况下，它被设置为true并允许任何人这样做
-        通过adb备份您的应用程序数据。它允许用户谁已启用USB调试复制应用程序数据从设备中删除。
+        通过adb备份您的应用程序数据。它允许用户启用USB调试复制应用程序数据从设备中删除。
         """),
         'name': ('应用数据可以备份 [android:allowBackup] flag'
                  ' is missing.'),
@@ -181,7 +181,7 @@ MANIFEST_DESC = {
         'title': '优先级高的Intent (%s)<br>[android:priority]',
         'level': 'medium',
         'description': ("""
-        通过设置一个高于另一个的意图优先级Intent，应用程序有效地覆盖其他请求。
+        通过设置一个高于另一个意图优先级的Intent，应用程序有效地覆盖其他请求。
         """),
         'name': '优先级高的Intent [android:priority]',
     },
