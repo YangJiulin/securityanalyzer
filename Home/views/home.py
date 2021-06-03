@@ -200,7 +200,6 @@ def download(request):
 
 
 def delete_scan(request):
-    """Delete Scan from DB and remove the scan related files."""
     try:
         if request.method == 'POST':
             md5_hash = request.POST['md5']

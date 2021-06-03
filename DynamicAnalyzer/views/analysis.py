@@ -83,22 +83,13 @@ def get_screenshots(md5_hash, download_dir):
 def get_log_data(apk_dir, package):
     """Get Data for analysis."""
     logcat_data = []
-    droidmon_data = ''
     apimon_data = ''
     frida_logs = ''
     web_data = ''
     traffic = ''
-    httptools = os.path.join(str(Path.home()), '.httptools')
-    web = os.path.join(httptools, 'flows', package + '.flow.txt')
     logcat = os.path.join(apk_dir, 'logcat.txt')
     apimon = os.path.join(apk_dir, 'api_monitor.txt')
     fd_logs = os.path.join(apk_dir, 'frida_out.txt')
-    if is_file_exists(web):
-        with io.open(web,
-                     mode='r',
-                     encoding='utf8',
-                     errors='ignore') as flip:
-            web_data = flip.read()
     if is_file_exists(logcat):
         with io.open(logcat,
                      mode='r',
@@ -118,7 +109,7 @@ def get_log_data(apk_dir, package):
                      encoding='utf8',
                      errors='ignore') as flip:
             frida_logs = flip.read()
-    traffic = (web_data + traffic + droidmon_data
+    traffic = (web_data + traffic
                + apimon_data + frida_logs)
     return {'logcat': logcat_data,
             'traffic': traffic}

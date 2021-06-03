@@ -91,7 +91,7 @@ def dynamic_analyzer(request, checksum):
         version = env.get_android_version()
         logger.info('Android Version identified as %s', version)
         if not env.is_init():
-            msg = ('设备动态分析环境未被初始化或已经过时，正重新设置环境')
+            msg = ('设备动态分析环境未被初始化或已经失效，正重新设置环境')
             logger.info(msg)
             if not env.env_init():
                 return print_n_send_error_response(

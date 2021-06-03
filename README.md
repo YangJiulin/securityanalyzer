@@ -25,4 +25,7 @@ Android APP漏洞分析平台
 ### M1 Mac
   https://cffi.readthedocs.io/en/latest/using.html#callbacks-old-style
   https://github.com/pyca/pyopenssl/issues/873
-**请注意，使用此标记将创建系统映像的临时副本，该副本可能非常大（数百 MB），但在模拟器退出时将被销毁。***
+**请注意，使用此标记将创建系统映像的临时副本，该副本可能非常大（数百 MB），但在模拟器退出时将被销毁。**
+</div>
+                    <a href="#activities" class="small-box-footer">View <i class="fas fa-arrow-circle-down"></i></a>
+                  </div>

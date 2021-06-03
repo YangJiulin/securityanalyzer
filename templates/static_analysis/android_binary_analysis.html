@@ -272,8 +272,6 @@ sidebar-mini
         <!-- row and container-->
       </div>
     </div>
-
-    <!-- Boxes -->
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
@@ -281,130 +279,36 @@ sidebar-mini
           <div class="card">
             <div class="card-body">
               <h5 class="card-title"></h5>
-              <div class="row">
-                <!-- Boxes columns -->
-                <div class="col-12 col-sm-6 col-md-3">
-                  <!-- small box -->
-                  <div class="small-box bg-info">
-                    <div class="inner">
-                      <h3>{{ activities | length }}</h3>
-
-                      <p>ACTIVITIES</p>
-                    </div>
-                    <div class="icon">
-                      <i class="fa fa-language"></i>
-                    </div>
-                    <a href="#activities" class="small-box-footer">View <i class="fas fa-arrow-circle-down"></i></a>
-                  </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-12 col-sm-6 col-md-3">
-                  <!-- small box -->
-                  <div class="small-box bg-success">
-                    <div class="inner">
-                      <h3>{{ services | length }}</h3>
-
-                      <p>SERVICES</p>
-                    </div>
-                    <div class="icon">
-                      <i class="fa fa-cogs"></i>
-                    </div>
-                    <a href="#services" class="small-box-footer">View <i class="fas fa-arrow-circle-down"></i></a>
-                  </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-12 col-sm-6 col-md-3">
-                  <!-- small box -->
-                  <div class="small-box bg-warning">
-                    <div class="inner">
-                      <h3>{{ receivers | length }}</h3>
-
-                      <p>RECEIVERS</p>
-                    </div>
-                    <div class="icon">
-                      <i class="fa fa-assistive-listening-systems"></i>
-                    </div>
-                    <a href="#receivers" class="small-box-footer">View <i class="fas fa-arrow-circle-down"></i></a>
-                  </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-12 col-sm-6 col-md-3">
-                  <!-- small box -->
-                  <div class="small-box bg-danger">
-                    <div class="inner">
-                      <h3>{{ providers | length }}</h3>
-
-                      <p>PROVIDERS</p>
-                    </div>
-                    <div class="icon">
-                      <i class="fa fa-database"></i>
-                    </div>
-                    <a href="#providers" class="small-box-footer">View <i class="fas fa-arrow-circle-down"></i></a>
-                  </div>
-                  <!-- /.row -->
-                </div><!-- /.container-fluid -->
-                <div class="col-12 col-sm-6 col-md-3">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-language"></i></span>
-
-                    <div class="info-box-content">
-                      <span class="info-box-text">Exported <br />Activities</span>
-                      <span class="info-box-number">
-                        {{ exported_count.exported_activities }}
-                      </span>
-                    </div>
-                    <!-- /.info-box-content -->
-                  </div>
-                  <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
-                <div class="col-12 col-sm-6 col-md-3">
-                  <div class="info-box mb-3">
-                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-cogs"></i></span>
-
-                    <div class="info-box-content">
-                      <span class="info-box-text">Exported <br />Services</span>
-                      <span class="info-box-number">{{ exported_count.exported_services }}</span>
-                    </div>
-                    <!-- /.info-box-content -->
-                  </div>
-                  <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
-
-                <!-- fix for small devices only -->
-                <div class="clearfix hidden-md-up"></div>
-
-                <div class="col-12 col-sm-6 col-md-3">
-                  <div class="info-box mb-3">
-                    <span class="info-box-icon bg-warning elevation-1"><i
-                        class="fas fa-assistive-listening-systems"></i></span>
-
-                    <div class="info-box-content">
-                      <span class="info-box-text">Exported <br />Receivers</span>
-                      <span class="info-box-number">{{ exported_count.exported_receivers }}</span>
-                    </div>
-                    <!-- /.info-box-content -->
-                  </div>
-                  <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
-                <div class="col-12 col-sm-6 col-md-3">
-                  <div class="info-box mb-3">
-                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-database"></i></span>
-
-                    <div class="info-box-content">
-                      <span class="info-box-text">Exported <br />Providers</span>
-                      <span class="info-box-number">{{exported_count.exported_providers}}</span>
-                    </div>
-                    <!-- /.info-box-content -->
-                  </div>
-                  <!-- /.info-box -->
-                </div>
+              <div id='comp' class="row" style="height: 300px;">
+              </div>
+            </div>
+          <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="small-box bg-info">
+                <a href="#activities" class="small-box-footer">View <i class="fas fa-arrow-circle-down"></i></a>
+              </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="small-box bg-success">
+                <a href="#services" class="small-box-footer">View <i class="fas fa-arrow-circle-down"></i></a>
+              </div>
+            </div>
+            <!-- fix for small devices only -->
+            <div class="clearfix hidden-md-up"></div>
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="small-box bg-danger">
+                <a href="#receivers" class="small-box-footer">View <i class="fas fa-arrow-circle-down"></i></a>
+              </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="small-box bg-warning">
+                <a href="#providers" class="small-box-footer">View <i class="fas fa-arrow-circle-down"></i></a>
               </div>
             </div>
           </div>
-
+        </div>
         </div>
       </div>
     </div>
@@ -1079,6 +983,7 @@ sidebar-mini
   });
   // 基于准备好的dom，初始化echarts实例
   var myChart = echarts.init(document.getElementById('main'));
+  var comp = echarts.init(document.getElementById('comp'));
 
 // 指定图表的配置项和数据
   var option = {
@@ -1119,7 +1024,150 @@ sidebar-mini
         }
     ]
 };
+
+var option_comp = {
+    title: [
+      {
+        text: 'Activities:'+{{ activities | length}},
+        left: '10%',
+        textStyle: {
+        fontSize: 12
+      },
+    },
+    {
+        text: 'Services:'+{{ services | length}},
+        left: '35%',
+        textStyle: {
+        fontSize: 12
+      },
+    },
+    {
+        text: 'Receivers:'+{{ receivers | length}},
+        left: '60%',
+        textStyle: {
+        fontSize: 12
+      },
+    },
+    {
+        text: 'Providers:'+{{ providers | length}},
+        right:'10%',
+        textStyle: {
+        fontSize: 12
+      },
+    },
+  
+  
+  ],
+    tooltip: {
+        trigger: 'item'
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'left',
+    },
+    series: [
+        {
+            name: 'Activity',
+            type: 'pie',
+            radius: '80%',
+            labelLine: {
+                show: true
+            },
+            label: {
+                show: true,
+                position: 'inner',
+                formatter:'{b}:{c}'
+            },
+            data: [
+                {value: {{ activities | length}} - {{ exported_count.exported_activities }}, name: 'No Exported',
+                itemStyle: {
+        color: "#4BC0C0"
+      }},
+                {value: {{ exported_count.exported_activities }}, name: 'Exported',itemStyle: {
+        color: "orange"
+      }},
+            ],
+            right:'75%',
+        },
+        {
+            name: 'Service',
+            type: 'pie',
+            radius: '80%',
+            labelLine: {
+                show: true
+            },
+            label: {
+                show: true,
+                position: 'inner',
+                formatter:'{b}:{c}'
+            },
+            data: [
+                {value: {{ services | length}} - {{ exported_count.exported_services }}, name: 'No Exported',
+                itemStyle: {
+        color: "#4BC0C0"
+      }},
+                {value: {{ exported_count.exported_services }}, name: 'Exported',
+                itemStyle: {
+        color: "orange"
+      }},
+            ],
+            right:'50%',
+            left:'25%',
+        },
+        {
+            name: 'Receiver',
+            type: 'pie',
+            radius: '80%',
+            labelLine: {
+                show: true
+            },
+            label: {
+                show: true,
+                position: 'inner',
+                formatter:'{b}:{c}'
+            },
+            data: [
+                {value: {{ receivers | length}} - {{ exported_count.exported_receivers }}, name: 'No Exported',
+                itemStyle: {
+        color: "#4BC0C0"
+      }},
+                {value: {{ exported_count.exported_receivers }}, name: 'Exported',
+                itemStyle: {
+        color: "orange"
+      }},
+            ],
+            right:'25%',
+            left:'50%'
+        },
+        {
+            name: 'Provider',
+            type: 'pie',
+            radius: '80%',
+            labelLine: {
+                show: true
+            },
+            label: {
+                show: true,
+                position: 'inner',
+                formatter:'{b}:{c}'
+            },
+            data: [
+                {value: {{ providers | length}} - {{ exported_count.exported_providers }}, name: 'No Exported',
+                itemStyle: {
+        color: "#4BC0C0"
+      }},
+                {value: {{ exported_count.exported_providers }}, name: 'Exported',
+                itemStyle: {
+        color: "orange"
+      }},
+            ],
+            left:'75%'
+        }
+
+    ]
+};
 // 使用刚指定的配置项和数据显示图表。
 myChart.setOption(option);
+comp.setOption(option_comp);
 </script>
 {% endblock %}

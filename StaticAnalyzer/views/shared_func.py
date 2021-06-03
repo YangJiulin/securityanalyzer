@@ -26,37 +26,6 @@ logger = logging.getLogger(__name__)
 ctype = 'application/json; charset=utf-8'
 
 
-def unzip(app_path, ext_path):
-    logger.info('Unzipping')
-    try:
-        files = []
-        with zipfile.ZipFile(app_path, 'r') as zipptr:
-            for fileinfo in zipptr.infolist():
-                filename = fileinfo.filename
-                if not isinstance(filename, str):
-                    filename = str(
-                        filename, encoding='utf-8', errors='replace')
-                files.append(filename)
-                zipptr.extract(filename, ext_path)
-        return files
-    except Exception:
-        logger.exception('Unzipping Error')
-        if platform.system() == 'Windows':
-            logger.info('Not yet Implemented.')
-        else:
-            logger.info('Using the Default OS Unzip Utility.')
-            try:
-                unzip_b = shutil.which('unzip')
-                subprocess.call(
-                    [unzip_b, '-o', '-q', app_path, '-d', ext_path])
-                dat = subprocess.check_output([unzip_b, '-qq', '-l', app_path])
-                dat = dat.decode('utf-8').split('\n')
-                files_det = ['Length   Date   Time   Name']
-                files_det = files_det + dat
-                return files_det
-            except Exception:
-                logger.exception('Unzipping Error')
-
 def url_n_email_extract(dat, relative_path):
     """Extract URLs and Emails from Source Code."""
     urls = []

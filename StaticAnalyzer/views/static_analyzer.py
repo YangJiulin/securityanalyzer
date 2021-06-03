@@ -3,7 +3,8 @@
 
 from StaticAnalyzer.views.flow_analysis import flow_analysis
 import shutil
-from StaticAnalyzer.views.shared_func import unzip, update_scan_timestamp
+from StaticAnalyzer.views.shared_func import update_scan_timestamp
+from securityanalyzer.utils import unzip
 from StaticAnalyzer.views.code_analysis import code_analysis
 from StaticAnalyzer.views.manifest_analysis import get_manifest, get_manifest_data, manifest_analysis, manifest_data
 import logging
@@ -62,7 +63,6 @@ def static_analyzer(request):
                 apk_2_java(app_info['app_path'], app_info['app_dir'],
                                app_info['tools_dir'])
                 app_info['size'] = str(file_size(app_info['app_path'])) + 'MB'  # FILE SIZE
-                logger.info('解压APK')
                 # Manifest XML
                 mani_file, mani_xml = get_manifest(
                         app_info['app_dir'],
@@ -262,11 +262,11 @@ def calculate_category(context):
     category['highPermiss_count']=0
     for _,value in code_anal.items():
         if value['metadata']['category'] == 'DATA':
-            category['data_count'] += 1
+            category['data_count'] += len(value['files'])
         elif value['metadata']['category'] == 'SSL':
-            category['SSL_count'] += 1
+            category['SSL_count'] += len(value['files'])
         elif value['metadata']['category'] == 'WebView':
-            category['WebView_count'] += 1
+            category['WebView_count'] += len(value['files'])
     for _,v in permiss.items():
         if v[0] == 'dangerous':
             category['highPermiss_count']+=1

@@ -1,14 +1,12 @@
 # -*- coding: utf_8 -*-
 """Module holding the functions for converting."""
 
-import glob
 import logging
 import os
 import platform
 import shutil
 import subprocess
 import tempfile
-import threading
 import stat
 
 from django.conf import settings
